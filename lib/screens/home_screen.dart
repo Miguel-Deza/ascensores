@@ -14,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const TrafficStudiesPage(),
     const DuctCalculationPage(),
     const CalculationHistoryPage(),
+    const CotizationPricesPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -25,10 +26,51 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inicio'),
+      drawer: Container(
+        width: 250,
+        child: Drawer(
+            child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text('Actualizar datos'),
+              onTap: () {
+                // Implementar la acción de actualizar datos
+              },
+            ),
+            ListTile(
+              title: Text('Actualizar correo'),
+              onTap: () {
+                // Implementar la acción de actualizar correo
+              },
+            ),
+            ListTile(
+              title: Text('Validar correo electrónico'),
+              onTap: () {
+                // Implementar la acción de validar correo electrónico
+              },
+            ),
+          ],
+        )),
       ),
-      body: _pages[_selectedIndex],
+      body: SafeArea(
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            _pages[_selectedIndex],
+            Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  iconSize: 40.0,
+                  icon: Icon(Icons.account_circle),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -41,7 +83,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
-            label: 'Historial de cálculos',
+            label: 'Historial',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book_outlined),
+            label: 'Cotizaciones',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -58,7 +104,7 @@ class TrafficStudiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Página de Estudios de Tráfico'),
+      child: Text('Página de Cálculo de Ductos'),
     );
   }
 }
@@ -76,6 +122,17 @@ class DuctCalculationPage extends StatelessWidget {
 
 class CalculationHistoryPage extends StatelessWidget {
   const CalculationHistoryPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Página de Historial de Cálculos'),
+    );
+  }
+}
+
+class CotizationPricesPage extends StatelessWidget {
+  const CotizationPricesPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,11 +8,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inicio de sesión'),
-      ),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: LoginForm(),
       ),
     );
@@ -29,146 +26,235 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
   bool showPasswordInput = false;
   bool rememberPassword = false;
+  bool showPassword = false;
+  bool showErrorMessage = false;
+  bool newUser = false;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Hero(
-            tag: "logo",
-            child: Image(
-              image: AssetImage('images/logo_texto.png'),
-            ),
-          ),
-          TextField(
-            controller: emailController,
-            decoration: const InputDecoration(
-              labelText: 'Correo electrónico',
-            ),
-          ),
-          const SizedBox(height: 20),
-          showPasswordInput
-              ? TextField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Contraseña',
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(60.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Hero(
+              tag: "logo",
+              child: Card(
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.all(4.0),
+                  child: Image(
+                    width: 150.0,
+                    image: AssetImage('images/isotipo.jpg'),
                   ),
-                )
-              : Container(),
-          const SizedBox(height: 20),
-          Visibility(
-            visible: !showPasswordInput,
-            child: ElevatedButton(
-              onPressed: () {
-                String email = emailController.text.trim();
-
-                // Verificar si el usuario existe o no
-                bool usuarioExiste = verifyUser(email);
-
-                if (usuarioExiste) {
-                  // Usuario existe, mostrar campo de contraseña
-                  setState(() {
-                    showPasswordInput = true;
-                  });
-                } else {
-                  // Usuario no existe, redirigir a la pantalla de registro
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()),
-                  );
-                }
-              },
-              child: const Text('Continuar'),
+                ),
+              ),
             ),
-          ),
-          Visibility(
-            visible: showPasswordInput,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      height: 24.0,
-                      width: 20.0,
-                      child: Checkbox(
-                        value: rememberPassword,
-                        onChanged: (newValue) {
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(
+                labelText: 'Ingresa tu correo electrónico',
+              ),
+            ),
+            const SizedBox(height: 20),
+            Visibility(
+              visible: newUser,
+              child: TextField(
+                controller: newPasswordController,
+                decoration: const InputDecoration(
+                  labelText: 'Crea una contraseña',
+                ),
+                obscureText: true,
+              ),
+            ),
+            showPasswordInput
+                ? TextField(
+                    controller: passwordController,
+                    obscureText: !showPassword,
+                    decoration: InputDecoration(
+                      labelText: 'Contraseña',
+                      suffixIcon: IconButton(
+                        color: Colors.white,
+                        icon: Icon(
+                          showPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
                           setState(() {
-                            rememberPassword = newValue!;
+                            showPassword = !showPassword;
                           });
                         },
                       ),
                     ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    const Text("Recuérdame la contraseña"),
-                  ],
+                  )
+                : Container(),
+
+            const SizedBox(height: 20),
+
+            Visibility(
+              visible: !showPasswordInput && !newUser,
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    String email = emailController.text.trim();
+
+                    // Verificar si el usuario existe o no
+                    bool usuarioExiste = verifyUser(email);
+
+                    if (usuarioExiste) {
+                      // Usuario existe, mostrar campo de contraseña
+                      setState(() {
+                        showPasswordInput = true;
+                      });
+                    } else {
+                      //Usuario crea su contraseña
+                      setState(() {
+                        newUser = true;
+                      });
+                      // Usuario no existe, redirigir a la pantalla de registro
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => RegisterPassword()),
+                      // );
+                    }
+                  },
+                  child: const Text('Continuar'),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        // Lógica para manejar el evento de "¿Olvidaste tu contraseña?"
-                      },
-                      child: Text(
-                        '¿Olvidaste tu contraseña?',
+              ),
+            ),
+
+            Visibility(
+              visible: newUser,
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterPage(),
+                      ),
+                    );
+                  },
+                  child: const Text('Registrarme'),
+                ),
+              ),
+            ),
+            //Si
+            //Si no existe, entonces registro
+
+            Visibility(
+              visible: showPasswordInput,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Visibility(
+                    visible: showErrorMessage,
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 15.0),
+                      child: const Text(
+                        'Contraseña incorrecta. Inténtalo de nuevo.',
                         style: TextStyle(
-                          decoration: TextDecoration.underline,
+                          color: Colors.red,
+                          fontSize: 14.0,
                         ),
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Redireccionar a la pantalla de verificación
-                        String password = passwordController.text.trim();
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        height: 18.0,
+                        width: 18.0,
+                        child: Checkbox(
+                          side: const BorderSide(color: Colors.white),
+                          value: rememberPassword,
+                          onChanged: (newValue) {
+                            setState(() {
+                              rememberPassword = newValue!;
+                            });
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      const Text("Recuérdame la contraseña"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Redireccionar a la pantalla de verificación
+                      String password = passwordController.text.trim();
 
-                        // Verificar si la contrasena es correcta o no
-                        bool passwordCorrect = verifyLogin("@", password);
+                      // Verificar si la contrasena es correcta o no
+                      bool passwordCorrect = verifyLogin("@", password);
 
-                        if (passwordCorrect) {
-                          // Password Correct
-                          print("Contraseña correcta");
+                      if (passwordCorrect) {
+                        // Password Correct
+                        print("Contraseña correcta");
+                        setState(() {
+                          showErrorMessage = false;
+                        });
 
-                          if (verifyEmail()) {
-                            // Email Verified
-                            print("Email verificado");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomeScreen(),
-                              ),
-                            );
-                          } else {
-                            // Email Not Verified
-                            print("Email no verificado");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const VerifyPage(),
-                              ),
-                            );
-                          }
+                        if (verifyEmail()) {
+                          // Email Verified
+                          print("Email verificado");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
+                            ),
+                          );
                         } else {
-                          // Password Incorrect
-                          print("Contraseña incorrecta");
+                          // Email Not Verified
+                          print("Email no verificado");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const VerifyPage(),
+                            ),
+                          );
                         }
-                      },
-                      child: const Text('Iniciar Sesión'),
+                      } else {
+                        // Password Incorrect
+                        print("Contraseña incorrecta");
+                        setState(() {
+                          showErrorMessage = true;
+                        });
+                      }
+                    },
+                    child: const Text('Ingresar'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // Lógica para manejar el evento de "¿Olvidaste tu contraseña?"
+                    },
+                    child: const Text(
+                      '¿Olvidaste tu contraseña?',
+                      style: TextStyle(
+                        color: Colors.white,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
