@@ -1,7 +1,8 @@
+import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -17,6 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
     const CotizationPricesPage(),
   ];
 
+  // Datos del usuario
+  String _userName = 'John Doe';
+  String _userPhone = '123-456-7890';
+  String _userEmail = 'johndoe@example.com';
+  bool _isEmailValidated =
+      false; // Cambia a false si el correo no está validado
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -26,31 +34,41 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Container(
-        width: 250,
-        child: Drawer(
-            child: ListView(
+      drawer: Drawer(
+        child: ListView(
           children: <Widget>[
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color(0xFF155a96),
+              ),
+              accountName: Text(_userName),
+              accountEmail: Text(_userEmail),
+              currentAccountPicture: CircleAvatar(
+                child: Text(
+                  _userName[0],
+                ), // Mostrar la inicial del nombre como imagen de perfil
+              ),
+            ),
             ListTile(
-              title: Text('Actualizar datos'),
+              title: Text('Mis Datos'),
               onTap: () {
-                // Implementar la acción de actualizar datos
+                _showUserDataDialog(context);
               },
             ),
             ListTile(
-              title: Text('Actualizar correo'),
+              title: Text('Salir'),
               onTap: () {
-                // Implementar la acción de actualizar correo
-              },
-            ),
-            ListTile(
-              title: Text('Validar correo electrónico'),
-              onTap: () {
-                // Implementar la acción de validar correo electrónico
+                // Implementar la acción de salir
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
+                );
               },
             ),
           ],
-        )),
+        ),
       ),
       body: SafeArea(
         child: Stack(
@@ -76,11 +94,11 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.traffic),
-            label: 'Estudios de tráfico',
+            label: ' Estudios\nde tráfico',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.straighten),
-            label: 'Cálculo de ductos',
+            label: '  Cálculo\nde ductos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
@@ -96,22 +114,57 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  void _showUserDataDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Mis Datos'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Nombre: $_userName'),
+              Text('Teléfono: $_userPhone'),
+              Text('Correo electrónico: $_userEmail'),
+              Text('Correo validado: ${_isEmailValidated ? 'Sí' : 'No'}'),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                // Implementar la acción de editar datos
+              },
+              child: const Text('Validar correo'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cerrar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 // Reemplaza estas páginas con el contenido específico de cada sección
 class TrafficStudiesPage extends StatelessWidget {
-  const TrafficStudiesPage({super.key});
+  const TrafficStudiesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Página de Cálculo de Ductos'),
+      child: Text('Página de Estudios de Tráfico'),
     );
   }
 }
 
 class DuctCalculationPage extends StatelessWidget {
-  const DuctCalculationPage({super.key});
+  const DuctCalculationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +175,7 @@ class DuctCalculationPage extends StatelessWidget {
 }
 
 class CalculationHistoryPage extends StatelessWidget {
-  const CalculationHistoryPage({super.key});
+  const CalculationHistoryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,12 +186,12 @@ class CalculationHistoryPage extends StatelessWidget {
 }
 
 class CotizationPricesPage extends StatelessWidget {
-  const CotizationPricesPage({super.key});
+  const CotizationPricesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Página de Historial de Cálculos'),
+      child: Text('Página de Cotizaciones'),
     );
   }
 }

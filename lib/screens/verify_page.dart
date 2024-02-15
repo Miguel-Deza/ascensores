@@ -40,6 +40,7 @@ class _VerifyPageState extends State<VerifyPage> {
               TextButton(
                 onPressed: () {
                   // Acción para reenviar correo de verificación
+                  
                 },
                 child: const Text(
                   'Reenviar correo de verificación',

@@ -50,7 +50,7 @@ class _LoginFormState extends State<LoginForm> {
                 padding: EdgeInsets.all(4.0),
                 child: Image(
                   width: 150.0,
-                  image: AssetImage('images/isotipo-white.png'),
+                  image: AssetImage('images/isotipo-negro.png'),
                 ),
               ),
             ),
@@ -67,12 +67,13 @@ class _LoginFormState extends State<LoginForm> {
                 child: const Text(
                   'Ingresa un correo válido.',
                   style: TextStyle(
-                    color: Colors.red,
+                    color: Color(0xFF782732),
                     fontSize: 14.0,
                   ),
                 ),
               ),
             ),
+
             const SizedBox(height: 20),
             Visibility(
               visible: newUser,
@@ -114,7 +115,7 @@ class _LoginFormState extends State<LoginForm> {
                           child: Text(
                             'Contraseña incorrecta. Inténtalo de nuevo.',
                             style: TextStyle(
-                              color: Colors.red,
+                              color: Color(0xFF782732),
                               fontSize: 14.0,
                             ),
                           ),
@@ -215,7 +216,7 @@ class _LoginFormState extends State<LoginForm> {
                       const SizedBox(
                         width: 10.0,
                       ),
-                      const Text("Recuérdame la contraseña"),
+                      const Text("Recordar contraseña"),
                     ],
                   ),
                   SizedBox(
@@ -289,12 +290,12 @@ class _LoginFormState extends State<LoginForm> {
 // Método para verificar si un usuario existe o no (simulado)
   bool verifyUser(String email) {
     // Lógica para verificar si el usuario existe o no
-    return email.contains("admin@");
+    return email.contains("admin@admin");
   }
 
   bool verifyLogin(String email, String password) {
     // Lógica para verificar si la contraseña es correcta o no
-    return password == "123" && email.contains("@");
+    return password == "admin" && email.contains("@");
   }
 
   bool verifyEmail() {
