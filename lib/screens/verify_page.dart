@@ -37,11 +37,17 @@ class _VerifyPageState extends State<VerifyPage> {
                 },
                 child: const Text('Continuar'),
               ),
-              ElevatedButton(
+              TextButton(
                 onPressed: () {
                   // Acción para reenviar correo de verificación
                 },
-                child: const Text('Reenviar correo de verificación'),
+                child: const Text(
+                  'Reenviar correo de verificación',
+                  style: TextStyle(
+                    color: Colors.white,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
               ),
             ],
           ),

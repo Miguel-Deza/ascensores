@@ -2,6 +2,7 @@ import 'package:ascensores/screens/home_screen.dart';
 import 'package:ascensores/screens/verify_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/register_page.dart';
+import 'package:email_validator/email_validator.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -32,6 +33,7 @@ class _LoginFormState extends State<LoginForm> {
   bool showPassword = false;
   bool showErrorMessage = false;
   bool newUser = false;
+  bool showErrorMessageEmail = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,21 +46,31 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             const Hero(
               tag: "logo",
-              child: Card(
-                color: Colors.white,
-                child: Padding(
-                  padding: EdgeInsets.all(4.0),
-                  child: Image(
-                    width: 150.0,
-                    image: AssetImage('images/isotipo.jpg'),
-                  ),
+              child: Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Image(
+                  width: 150.0,
+                  image: AssetImage('images/isotipo-white.png'),
                 ),
               ),
             ),
-            TextField(
+            TextFormField(
               controller: emailController,
               decoration: const InputDecoration(
                 labelText: 'Ingresa tu correo electrónico',
+              ),
+            ),
+            Visibility(
+              visible: showErrorMessageEmail,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  'Ingresa un correo válido.',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 14.0,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -73,25 +85,42 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             showPasswordInput
-                ? TextField(
-                    controller: passwordController,
-                    obscureText: !showPassword,
-                    decoration: InputDecoration(
-                      labelText: 'Contraseña',
-                      suffixIcon: IconButton(
-                        color: Colors.white,
-                        icon: Icon(
-                          showPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                ? Column(
+                    children: [
+                      TextField(
+                        controller: passwordController,
+                        obscureText: !showPassword,
+                        decoration: InputDecoration(
+                          labelText: 'Contraseña',
+                          suffixIcon: IconButton(
+                            color: Colors.white,
+                            icon: Icon(
+                              showPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                showPassword = !showPassword;
+                              });
+                            },
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            showPassword = !showPassword;
-                          });
-                        },
                       ),
-                    ),
+                      Visibility(
+                        visible: showErrorMessage,
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Contraseña incorrecta. Inténtalo de nuevo.',
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 14.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 : Container(),
 
@@ -108,23 +137,34 @@ class _LoginFormState extends State<LoginForm> {
                     // Verificar si el usuario existe o no
                     bool usuarioExiste = verifyUser(email);
 
-                    if (usuarioExiste) {
-                      // Usuario existe, mostrar campo de contraseña
-                      setState(() {
-                        showPasswordInput = true;
-                      });
-                    } else {
-                      //Usuario crea su contraseña
-                      setState(() {
-                        newUser = true;
-                      });
-                      // Usuario no existe, redirigir a la pantalla de registro
+                    if (EmailValidator.validate(emailController.text)) {
+                      print("El email es valido");
 
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => RegisterPassword()),
-                      // );
+                      if (usuarioExiste) {
+                        // Usuario existe, mostrar campo de contraseña
+                        setState(() {
+                          showPasswordInput = true;
+                          showErrorMessageEmail = false;
+                        });
+                      } else {
+                        //Usuario crea su contraseña
+                        setState(() {
+                          newUser = true;
+                          showErrorMessageEmail = false;
+                        });
+                        // Usuario no existe, redirigir a la pantalla de registro
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => RegisterPassword()),
+                        // );
+                      }
+                    } else {
+                      print("El email no es valido");
+                      setState(() {
+                        showErrorMessageEmail = true;
+                      });
                     }
                   },
                   child: const Text('Continuar'),
@@ -157,19 +197,6 @@ class _LoginFormState extends State<LoginForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Visibility(
-                    visible: showErrorMessage,
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 15.0),
-                      child: const Text(
-                        'Contraseña incorrecta. Inténtalo de nuevo.',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 14.0,
-                        ),
-                      ),
-                    ),
-                  ),
                   Row(
                     children: [
                       SizedBox(
@@ -262,7 +289,7 @@ class _LoginFormState extends State<LoginForm> {
 // Método para verificar si un usuario existe o no (simulado)
   bool verifyUser(String email) {
     // Lógica para verificar si el usuario existe o no
-    return email.contains("@");
+    return email.contains("admin@");
   }
 
   bool verifyLogin(String email, String password) {

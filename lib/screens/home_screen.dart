@@ -72,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.traffic),
@@ -86,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Historial',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.book_outlined),
+            icon: Icon(Icons.attach_money),
             label: 'Cotizaciones',
           ),
         ],
