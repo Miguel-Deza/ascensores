@@ -179,10 +179,13 @@ class _LoginFormState extends State<LoginForm> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    String email = emailController.text;
+                    String password = newPasswordController.text;
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RegisterPage(),
+                        builder: (context) =>
+                            RegisterPage(email: email, newPassword: password),
                       ),
                     );
                   },
@@ -243,7 +246,12 @@ class _LoginFormState extends State<LoginForm> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
+                              builder: (context) => HomeScreen(
+                                email: "admin@admin.com",
+                                newPassword: "admin",
+                                phone: "123456789",
+                                fullName: "Admin",
+                              ),
                             ),
                           );
                         } else {
@@ -252,7 +260,12 @@ class _LoginFormState extends State<LoginForm> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const VerifyPage(),
+                              builder: (context) => VerifyPage(
+                                email: emailController.text,
+                                newPassword: passwordController.text,
+                                phone: "123456789",
+                                fullName: "Admin",
+                              ),
                             ),
                           );
                         }

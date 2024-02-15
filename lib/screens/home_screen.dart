@@ -2,7 +2,18 @@ import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  String email;
+  String newPassword;
+  String phone;
+  String fullName;
+
+  HomeScreen({
+    super.key,
+    required this.email,
+    required this.newPassword,
+    required this.phone,
+    required this.fullName,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,10 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   // Datos del usuario
-  String _userName = 'John Doe';
-  String _userPhone = '123-456-7890';
-  String _userEmail = 'johndoe@example.com';
-  bool _isEmailValidated =
+
+  final bool _isEmailValidated =
       false; // Cambia a false si el correo no está validado
 
   void _onItemTapped(int index) {
@@ -41,11 +50,11 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: const BoxDecoration(
                 color: Color(0xFF155a96),
               ),
-              accountName: Text(_userName),
-              accountEmail: Text(_userEmail),
+              accountName: Text(widget.fullName),
+              accountEmail: Text(widget.email),
               currentAccountPicture: CircleAvatar(
                 child: Text(
-                  _userName[0],
+                  widget.fullName[0],
                 ), // Mostrar la inicial del nombre como imagen de perfil
               ),
             ),
@@ -59,12 +68,12 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text('Salir'),
               onTap: () {
                 // Implementar la acción de salir
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginPage(),
-                  ),
-                );
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                    (Route<dynamic> route) => false);
               },
             ),
           ],
@@ -116,33 +125,57 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showUserDataDialog(BuildContext context) {
+    TextEditingController nameController =
+        TextEditingController(text: widget.fullName);
+    TextEditingController phoneController =
+        TextEditingController(text: widget.phone);
+    TextEditingController emailController =
+        TextEditingController(text: widget.email);
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Mis Datos'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Nombre: $_userName'),
-              Text('Teléfono: $_userPhone'),
-              Text('Correo electrónico: $_userEmail'),
-              Text('Correo validado: ${_isEmailValidated ? 'Sí' : 'No'}'),
-            ],
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(labelText: 'Nombre'),
+                ),
+                TextFormField(
+                  controller: phoneController,
+                  decoration: InputDecoration(labelText: 'Teléfono'),
+                ),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(labelText: 'Correo electrónico'),
+                ),
+                SizedBox(height: 20),
+                Text('Correo validado: ${_isEmailValidated ? 'Sí' : 'No'}'),
+              ],
+            ),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                // Implementar la acción de editar datos
+                // Implementar la acción de validar correo
               },
               child: const Text('Validar correo'),
             ),
             TextButton(
               onPressed: () {
+                setState(() {
+                  widget.fullName = nameController.text;
+                  widget.phone = phoneController.text;
+                  widget.email = emailController.text;
+                });
                 Navigator.of(context).pop();
               },
-              child: Text('Cerrar'),
+              child: const Text('Guardar'),
             ),
           ],
         );

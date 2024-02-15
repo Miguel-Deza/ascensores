@@ -1,14 +1,21 @@
+
+
 import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
-class VerifyPage extends StatefulWidget {
-  const VerifyPage({super.key});
+class VerifyPage extends StatelessWidget {
+  final String email;
+  final String newPassword;
+  final String phone;
+  final String fullName;
 
-  @override
-  State<VerifyPage> createState() => _VerifyPageState();
-}
+  const VerifyPage(
+      {super.key,
+      required this.email,
+      required this.newPassword,
+      required this.phone,
+      required this.fullName});
 
-class _VerifyPageState extends State<VerifyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +34,21 @@ class _VerifyPageState extends State<VerifyPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
+                  print('Correo: $email');
+                  print('Contraseña: $newPassword');
+                  print('Teléfono: $phone');
+                  print('Nombre: $fullName');
+
                   // Acción para reenviar correo de verificación
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
+                      builder: (context) => HomeScreen(
+                        email: email,
+                        newPassword: newPassword,
+                        phone: phone,
+                        fullName: fullName,
+                      ),
                     ),
                   );
                 },
@@ -40,7 +57,6 @@ class _VerifyPageState extends State<VerifyPage> {
               TextButton(
                 onPressed: () {
                   // Acción para reenviar correo de verificación
-                  
                 },
                 child: const Text(
                   'Reenviar correo de verificación',

@@ -3,25 +3,42 @@ import 'package:ascensores/screens/verify_page.dart';
 import 'package:flutter/services.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final String email;
+  final String newPassword;
+
+  const RegisterPage({
+    super.key,
+    required this.email,
+    required this.newPassword,
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController emailController = TextEditingController();
-
   final TextEditingController nameController = TextEditingController();
-
   final TextEditingController phoneController = TextEditingController();
 
-  final TextEditingController passwordController = TextEditingController();
-
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-
+  bool showMessageIsNameEmpty = false;
+  bool showMessageIsPhoneEmpty = false;
   bool showPassword = false;
+
+  bool isPhoneEmpty() {
+    if (phoneController.text.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isNameEmpty() {
+    if (nameController.text.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +53,19 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: nameController,
               decoration: const InputDecoration(
                 labelText: 'Nombres completos',
+              ),
+            ),
+            Visibility(
+              visible: showMessageIsNameEmpty,
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Ingresa un nombre',
+                  style: TextStyle(
+                    color: Color(0xFF782732),
+                    fontSize: 14.0,
+                  ),
+                ),
               ),
             ),
             TextField(
@@ -57,15 +87,51 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
+            Visibility(
+              visible: showMessageIsPhoneEmpty,
+              child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Ingresa un celular',
+                  style: TextStyle(
+                    color: Color(0xFF782732),
+                    fontSize: 14.0,
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Aquí deberías procesar los datos del formulario de registro.
-                // Por simplicidad, solo navegaremos a la siguiente pantalla.
+                if (nameController.text.isEmpty) {
+                  setState(() {
+                    showMessageIsNameEmpty = true;
+                  });
+                  return;
+                }
+
+                if (phoneController.text.isEmpty) {
+                  setState(() {
+                    showMessageIsPhoneEmpty = true;
+                    showMessageIsNameEmpty = false;
+                  });
+                  return;
+                }
+
+                setState(() {
+                  showMessageIsNameEmpty = false;
+                  showMessageIsPhoneEmpty = false;
+                });
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const VerifyPage(),
+                    builder: (context) => VerifyPage(
+                      email: widget.email,
+                      newPassword: widget.newPassword,
+                      phone: phoneController.text,
+                      fullName: nameController.text,
+                    ),
                   ),
                 );
               },
