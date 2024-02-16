@@ -62,9 +62,9 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Visibility(
               visible: showErrorMessageEmail,
-              child: Align(
+              child: const Align(
                 alignment: Alignment.centerLeft,
-                child: const Text(
+                child: Text(
                   'Ingresa un correo válido.',
                   style: TextStyle(
                     color: Color(0xFF782732),
@@ -222,7 +222,7 @@ class _LoginFormState extends State<LoginForm> {
                       const Text("Recordar contraseña"),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   ElevatedButton(

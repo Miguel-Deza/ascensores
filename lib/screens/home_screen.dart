@@ -8,18 +8,25 @@ class HomeScreen extends StatefulWidget {
   String fullName;
 
   HomeScreen({
-    super.key,
+    Key? key,
     required this.email,
     required this.newPassword,
     required this.phone,
     required this.fullName,
-  });
+  }) : super(key: key);w
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  String fullName = '';
+  String phone = '';
+  String email = '';
+
   int _selectedIndex = 0;
 
   final List<Widget> _pages = <Widget>[
@@ -29,10 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const CotizationPricesPage(),
   ];
 
-  // Datos del usuario
-
-  final bool _isEmailValidated =
-      false; // Cambia a false si el correo no está validado
+  final bool _isEmailValidated = false;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -55,25 +59,25 @@ class _HomeScreenState extends State<HomeScreen> {
               currentAccountPicture: CircleAvatar(
                 child: Text(
                   widget.fullName[0],
-                ), // Mostrar la inicial del nombre como imagen de perfil
+                ),
               ),
             ),
             ListTile(
-              title: Text('Mis Datos'),
+              title: const Text('Mis Datos'),
               onTap: () {
                 _showUserDataDialog(context);
               },
             ),
             ListTile(
-              title: Text('Salir'),
+              title: const Text('Salir'),
               onTap: () {
-                // Implementar la acción de salir
                 Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
-                    (Route<dynamic> route) => false);
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
               },
             ),
           ],
@@ -88,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (BuildContext context) {
                 return IconButton(
                   iconSize: 40.0,
-                  icon: Icon(Icons.account_circle),
+                  icon: const Icon(Icons.account_circle),
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
@@ -136,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Mis Datos'),
+          title: const Text('Mis Datos'),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -144,17 +148,18 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 TextFormField(
                   controller: nameController,
-                  decoration: InputDecoration(labelText: 'Nombre'),
+                  decoration: const InputDecoration(labelText: 'Nombre'),
                 ),
                 TextFormField(
                   controller: phoneController,
-                  decoration: InputDecoration(labelText: 'Teléfono'),
+                  decoration: const InputDecoration(labelText: 'Teléfono'),
                 ),
                 TextFormField(
                   controller: emailController,
-                  decoration: InputDecoration(labelText: 'Correo electrónico'),
+                  decoration:
+                      const InputDecoration(labelText: 'Correo electrónico'),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text('Correo validado: ${_isEmailValidated ? 'Sí' : 'No'}'),
               ],
             ),
@@ -184,7 +189,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// Reemplaza estas páginas con el contenido específico de cada sección
 class TrafficStudiesPage extends StatelessWidget {
   const TrafficStudiesPage({Key? key}) : super(key: key);
 
