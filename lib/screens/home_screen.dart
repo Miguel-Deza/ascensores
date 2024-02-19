@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
     required this.newPassword,
     required this.phone,
     required this.fullName,
-  }) : super(key: key);w
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

@@ -1,3 +1,4 @@
+import 'package:ascensores/screens/get_data_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/login_page.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
               Colors.white, // Set text color for buttons with primary color
         ),
       ), // Usar solo el tema oscuro
-      home: const LoginPage(),
+      home: const GetDataScreen(),
     );
   }
 }
