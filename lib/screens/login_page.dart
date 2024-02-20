@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:ascensores/screens/home_screen.dart';
-import 'package:ascensores/screens/verify_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/register_page.dart';
 import 'package:email_validator/email_validator.dart';
@@ -20,9 +21,9 @@ class _LoginPageState extends State<LoginPage> {
   bool rememberPassword = false;
   bool showPassword = false;
   bool showNewCreatedPassword = false;
-
   bool isNewUser = false;
   bool showErrorMessageEmail = false;
+  String token = "";
 
 // Método para verificar si un usuario existe o no (simulado)
   Future<bool> verifyUser(String email) async {
@@ -66,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
         body: data,
       );
       if (response.statusCode == 200) {
+        token = json.decode(response.body)['token'] as String;
         return true;
       } else {
         return false;
@@ -226,10 +228,11 @@ class _LoginPageState extends State<LoginPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => HomeScreen(
-                                    email: "admin@admin.com",
-                                    newPassword: "admin",
+                                    email: emailController.text,
+                                    newPassword: passwordController.text,
                                     phone: "123456789",
                                     fullName: "Admin",
+                                    token: token,
                                   ),
                                 ),
                               );
@@ -303,7 +306,7 @@ class _LoginPageState extends State<LoginPage> {
                         String email = emailController.text;
                         String password = newPasswordController.text;
 
-                        if (password.length > 5) {
+                        if (password.length > 7) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -315,7 +318,7 @@ class _LoginPageState extends State<LoginPage> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text(
-                                    'La contraseña debe tener al menos 6 caracteres')),
+                                    'La contraseña debe tener al menos 8 caracteres')),
                           );
                         }
                       },

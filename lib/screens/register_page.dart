@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/verify_page.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool showMessageIsNameEmpty = false;
   bool showMessageIsPhoneEmpty = false;
+  String token = "";
 
   bool isPhoneEmpty() {
     if (phoneController.text.isEmpty) {
@@ -62,10 +65,9 @@ class _RegisterPageState extends State<RegisterPage> {
         body: data,
       );
       if (response.statusCode == 201) {
-        print("Usuario registrado con éxito");
+        token = json.decode(response.body)['token'] as String;
         return true;
       } else {
-        print("Fallo en el registro ${response.statusCode} ");
         return false;
       }
     } catch (e) {
@@ -168,6 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         newPassword: widget.password,
                         phone: phoneController.text,
                         fullName: nameController.text,
+                        token: token,
                       ),
                     ),
                   );

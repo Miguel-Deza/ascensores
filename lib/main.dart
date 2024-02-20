@@ -1,6 +1,4 @@
-import 'package:ascensores/screens/calculation/get_data_screen.dart';
-import 'package:ascensores/screens/calculation/technical_characteristics_screen.dart';
-import 'package:ascensores/screens/home_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/login_page.dart';
 

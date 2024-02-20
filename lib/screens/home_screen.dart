@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/calculation/get_data_screen.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   String email;
   String newPassword;
   String phone;
   String fullName;
+  String token;
 
   HomeScreen({
     Key? key,
@@ -14,6 +18,7 @@ class HomeScreen extends StatefulWidget {
     required this.newPassword,
     required this.phone,
     required this.fullName,
+    required this.token,
   }) : super(key: key);
 
   @override
@@ -27,6 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
   String fullName = '';
   String phone = '';
   String email = '';
+  bool emailVerified = false;
+  bool twoFactorEnabled = false;
+  String currentTeamId = '';
+  String profilePhotoUrl = "";
 
   int _selectedIndex = 0;
 
@@ -45,6 +54,55 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future<bool> isLogOutUser() async {
+    const String apiUrl = 'https://dev.ktel.pe/api/logout';
+    try {
+      http.Request request = http.Request('POST', Uri.parse(apiUrl));
+      request.headers['Authorization'] = 'Bearer ${widget.token}';
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> getInfoUser() async {
+    const String apiUrl = 'https://dev.ktel.pe/api/user-info';
+    try {
+      http.Request request = http.Request('POST', Uri.parse(apiUrl));
+      request.headers['Authorization'] = 'Bearer ${widget.token}';
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        String responseBody = await response.stream.bytesToString();
+        Map<String, dynamic> userInfo = jsonDecode(responseBody);
+
+        print(userInfo);
+        print(userInfo['email']);
+        fullName = userInfo['name'];
+        phone = userInfo['phone'];
+        email = userInfo['email'];
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getInfoUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: const BoxDecoration(
                 color: Color(0xFF155a96),
               ),
-              accountName: Text(widget.fullName),
+              accountName: Text(fullName),
               accountEmail: Text(widget.email),
               currentAccountPicture: CircleAvatar(
                 child: Text(
@@ -70,15 +128,32 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             ListTile(
-              title: const Text('Salir'),
+              title: const Text('Get data'),
               onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginPage(),
-                  ),
-                  (Route<dynamic> route) => false,
-                );
+                getInfoUser();
+              },
+            ),
+            ListTile(
+              title: const Text('Salir'),
+              onTap: () async {
+                bool isLogOut = await isLogOutUser();
+                print(isLogOut);
+                print(widget.token);
+                if (isLogOut) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                    (Route<dynamic> route) => false,
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('No se pudo cerrar sesión'),
+                    ),
+                  );
+                }
               },
             ),
           ],
@@ -206,7 +281,7 @@ class DuctCalculationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetDataScreen();
+    return const GetDataScreen();
   }
 }
 

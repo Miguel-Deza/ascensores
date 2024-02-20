@@ -1,5 +1,3 @@
-
-
 import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,13 +6,15 @@ class VerifyPage extends StatelessWidget {
   final String newPassword;
   final String phone;
   final String fullName;
+  final String token;
 
   const VerifyPage(
       {super.key,
       required this.email,
       required this.newPassword,
       required this.phone,
-      required this.fullName});
+      required this.fullName,
+      required this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +48,7 @@ class VerifyPage extends StatelessWidget {
                         newPassword: newPassword,
                         phone: phone,
                         fullName: fullName,
+                        token: token,
                       ),
                     ),
                   );
