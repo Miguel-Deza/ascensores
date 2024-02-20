@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/verify_page.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
   final String email;
@@ -22,7 +23,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool showMessageIsNameEmpty = false;
   bool showMessageIsPhoneEmpty = false;
-  bool showPassword = false;
 
   bool isPhoneEmpty() {
     if (phoneController.text.isEmpty) {
@@ -36,6 +36,40 @@ class _RegisterPageState extends State<RegisterPage> {
     if (nameController.text.isEmpty) {
       return true;
     } else {
+      return false;
+    }
+  }
+
+  Future<bool> registerUser() async {
+    // URL del endpoint
+    const String apiUrl = 'https://dev.ktel.pe/api/register';
+
+    // Cuerpo de la solicitud HTTP
+    final Map<String, String> data = {
+      "name": nameController.text,
+      "email": widget.email,
+      "password": widget.password,
+      "password_confirmation": widget.password,
+      "phone": phoneController.text
+    };
+
+    print(data);
+
+    // Realizar la solicitud HTTP
+    try {
+      final http.Response response = await http.post(
+        Uri.parse(apiUrl),
+        body: data,
+      );
+      if (response.statusCode == 201) {
+        print("Usuario registrado con éxito");
+        return true;
+      } else {
+        print("Fallo en el registro ${response.statusCode} ");
+        return false;
+      }
+    } catch (e) {
+      print("error ${e}");
       return false;
     }
   }
@@ -102,7 +136,8 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
+              child: const Text('Registrarse'),
+              onPressed: () async {
                 if (nameController.text.isEmpty) {
                   setState(() {
                     showMessageIsNameEmpty = true;
@@ -123,19 +158,25 @@ class _RegisterPageState extends State<RegisterPage> {
                   showMessageIsPhoneEmpty = false;
                 });
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VerifyPage(
-                      email: widget.email,
-                      newPassword: widget.password,
-                      phone: phoneController.text,
-                      fullName: nameController.text,
+                if (await registerUser()) {
+                  print("Usuario registrado con éxito");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VerifyPage(
+                        email: widget.email,
+                        newPassword: widget.password,
+                        phone: phoneController.text,
+                        fullName: nameController.text,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Fallo en el registro')),
+                  );
+                }
               },
-              child: const Text('Registrarse'),
             ),
           ],
         ),
