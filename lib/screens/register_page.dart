@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 
 class RegisterPage extends StatefulWidget {
   final String email;
-  final String newPassword;
+  final String password;
 
   const RegisterPage({
     super.key,
     required this.email,
-    required this.newPassword,
+    required this.password,
   });
 
   @override
@@ -128,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   MaterialPageRoute(
                     builder: (context) => VerifyPage(
                       email: widget.email,
-                      newPassword: widget.newPassword,
+                      newPassword: widget.password,
                       phone: phoneController.text,
                       fullName: nameController.text,
                     ),

@@ -1,4 +1,6 @@
-import 'package:ascensores/screens/get_data_screen.dart';
+import 'package:ascensores/screens/calculation/get_data_screen.dart';
+import 'package:ascensores/screens/calculation/technical_characteristics_screen.dart';
+import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/login_page.dart';
 
@@ -24,13 +26,19 @@ class MyApp extends StatelessWidget {
             borderSide: BorderSide(color: Colors.white),
           ),
         ),
+        unselectedWidgetColor: Colors.white,
         scaffoldBackgroundColor: const Color(0xFF175B96),
         colorScheme: ColorScheme.fromSwatch().copyWith(
           onPrimary:
               Colors.white, // Set text color for buttons with primary color
         ),
-      ), // Usar solo el tema oscuro
-      home: const GetDataScreen(),
+      ),
+      home: LoginPage(), // Usar solo el tema oscuro
+      // home: HomeScreen(
+      //     email: "dmikec101@gmail.com",
+      //     newPassword: "12345",
+      //     phone: "977605431",
+      //     fullName: "Miguel"),
     );
   }
 }

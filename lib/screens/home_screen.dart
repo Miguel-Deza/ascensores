@@ -1,5 +1,6 @@
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:ascensores/screens/calculation/get_data_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   String email;
@@ -107,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.traffic),
-            label: ' Estudios\nde tráfico',
+            label: '  Estudio\nde tráfico',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.straighten),
@@ -205,9 +206,7 @@ class DuctCalculationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Página de Cálculo de Ductos'),
-    );
+    return GetDataScreen();
   }
 }
 

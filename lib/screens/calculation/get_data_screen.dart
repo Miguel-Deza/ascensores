@@ -219,7 +219,7 @@ class _GetDataScreenState extends State<GetDataScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content:
-                                    Text('Parámetros ingresado con éxito!')),
+                                    Text('Parametros ingresado con éxito!')),
                           );
                         }
                       },
