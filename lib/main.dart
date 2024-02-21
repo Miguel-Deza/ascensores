@@ -1,3 +1,5 @@
+import 'package:ascensores/screens/bottom/duct_calculation_page.dart';
+import 'package:ascensores/screens/bottom/two_screens_test.dart';
 import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:ascensores/screens/login_page.dart';
@@ -31,14 +33,10 @@ class MyApp extends StatelessWidget {
               Colors.white, // Set text color for buttons with primary color
         ),
       ),
+
       home: const HomeScreen(
         token: "Bearer 121|yMUrgpuTXP7JIsXcbSRbnYOqOVM7x3pMAftUHjAxa3bd9977",
       ), // Usar solo el tema oscuro
-      // home: HomeScreen(
-      //     email: "dmikec101@gmail.com",
-      //     newPassword: "12345",
-      //     phone: "977605431",
-      //     fullName: "Miguel"),
     );
   }
 }

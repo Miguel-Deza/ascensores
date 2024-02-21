@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class GetDataScreen extends StatefulWidget {
-  const GetDataScreen({super.key});
+class FirstForm extends StatefulWidget {
+  const FirstForm({super.key});
 
   @override
-  State<GetDataScreen> createState() => _GetDataScreenState();
+  State<FirstForm> createState() => _FirstFormState();
 }
 
 enum ColorLabel {
@@ -25,7 +25,7 @@ class BuildingUse {
   const BuildingUse({required this.label, required this.value});
 }
 
-class _GetDataScreenState extends State<GetDataScreen> {
+class _FirstFormState extends State<FirstForm> {
   List<BuildingUse> buildingUses = [
     const BuildingUse(
       label:
@@ -207,24 +207,6 @@ class _GetDataScreenState extends State<GetDataScreen> {
                       }
                       return null;
                     },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate()) {
-                          // If the form is valid, display a snackbar. In the real world,
-                          // you'd often call a server or save the information in a database.
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text('Parametros ingresado con éxito!')),
-                          );
-                        }
-                      },
-                      child: const Text('Operar'),
-                    ),
                   ),
                 ],
               ),

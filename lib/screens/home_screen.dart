@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:ascensores/screens/bottom/duct_calculation_page.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
@@ -22,8 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String? email;
 
   final List<Widget> _pages = <Widget>[
-    const TrafficStudiesPage(),
     const DuctCalculationPage(),
+    const TraficStudyPage(),
     const CalculationHistoryPage(),
     const CotizationPricesPage(),
   ];
@@ -239,12 +240,12 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.traffic),
-            label: '  Estudio\nde tráfico',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.straighten),
             label: '  Cálculo\nde ductos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.traffic),
+            label: '  Estudio\nde tráfico',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
@@ -262,31 +263,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class TrafficStudiesPage extends StatelessWidget {
-  const TrafficStudiesPage({Key? key}) : super(key: key);
+class TraficStudyPage extends StatelessWidget {
+  const TraficStudyPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Página de Estudios de Tráfico'),
-    );
-  }
-}
-
-class DuctCalculationPage extends StatelessWidget {
-  const DuctCalculationPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Página de Historial de Cálculos'),
+      child: Text('Página de Estudio de Tráfico a'),
     );
   }
 }
 
 class CalculationHistoryPage extends StatelessWidget {
   const CalculationHistoryPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -301,7 +290,7 @@ class CotizationPricesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Página de Cotizaciones'),
+      child: Text('Página de Cotizaciones b'),
     );
   }
 }
