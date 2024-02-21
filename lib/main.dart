@@ -1,6 +1,6 @@
-
+import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:ascensores/screens/login_page.dart';
+// import 'package:ascensores/screens/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +31,9 @@ class MyApp extends StatelessWidget {
               Colors.white, // Set text color for buttons with primary color
         ),
       ),
-      home: const LoginPage(), // Usar solo el tema oscuro
+      home: const HomeScreen(
+        token: "Bearer 121|yMUrgpuTXP7JIsXcbSRbnYOqOVM7x3pMAftUHjAxa3bd9977",
+      ), // Usar solo el tema oscuro
       // home: HomeScreen(
       //     email: "dmikec101@gmail.com",
       //     newPassword: "12345",

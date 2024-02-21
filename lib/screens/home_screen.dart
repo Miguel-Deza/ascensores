@@ -21,11 +21,25 @@ class _HomeScreenState extends State<HomeScreen> {
   String? phone;
   String? email;
 
+  final List<Widget> _pages = <Widget>[
+    const TrafficStudiesPage(),
+    const DuctCalculationPage(),
+    const CalculationHistoryPage(),
+    const CotizationPricesPage(),
+  ];
   @override
   void initState() {
     super.initState();
     // Llamar a la función getInfoUser() al inicializar el widget
     getInfoUser();
+  }
+
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   void _showUserDataDialog(BuildContext context) {
@@ -111,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> updateInfoUser(name, phone, email) async {
     const String apiUrl = 'https://dev.ktel.pe/api/update-user-info';
     Map<String, dynamic> requestBody = {
-      'fullName': name,
+      'name': name,
       'phone': phone,
       'email': email,
     };
@@ -167,9 +181,24 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: const Center(
-        child: Text('Bienvenido'),
+      body: SafeArea(
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            _pages[_selectedIndex],
+            Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  iconSize: 40.0,
+                  icon: const Icon(Icons.account_circle),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -206,6 +235,73 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.traffic),
+            label: '  Estudio\nde tráfico',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.straighten),
+            label: '  Cálculo\nde ductos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'Historial',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.attach_money),
+            label: 'Cotizaciones',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class TrafficStudiesPage extends StatelessWidget {
+  const TrafficStudiesPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Página de Estudios de Tráfico'),
+    );
+  }
+}
+
+class DuctCalculationPage extends StatelessWidget {
+  const DuctCalculationPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Página de Historial de Cálculos'),
+    );
+  }
+}
+
+class CalculationHistoryPage extends StatelessWidget {
+  const CalculationHistoryPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Página de Historial de Cálculos'),
+    );
+  }
+}
+
+class CotizationPricesPage extends StatelessWidget {
+  const CotizationPricesPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Página de Cotizaciones'),
     );
   }
 }
