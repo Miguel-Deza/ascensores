@@ -4,12 +4,10 @@ class SecondForm extends StatefulWidget {
   const SecondForm({super.key});
 
   @override
-  State<SecondForm> createState() =>
-      _SecondFormState();
+  State<SecondForm> createState() => _SecondFormState();
 }
 
-class _SecondFormState
-    extends State<SecondForm> {
+class _SecondFormState extends State<SecondForm> {
   final _formKey = GlobalKey<FormState>();
   int? selectedPassengerCount;
   double? selectedWeight;

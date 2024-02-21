@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FirstForm extends StatefulWidget {
-  const FirstForm({super.key});
+  final VoidCallback onNextPagePressed;
+  const FirstForm({super.key, required this.onNextPagePressed});
 
   @override
   State<FirstForm> createState() => _FirstFormState();
@@ -207,6 +208,20 @@ class _FirstFormState extends State<FirstForm> {
                       }
                       return null;
                     },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false otherwise.
+                        // if (_formKey.currentState!.validate()) {
+                        // If the form is valid, display a snackbar. In the real world,
+                        // you'd often call a server or save the information in a database.
+                        widget.onNextPagePressed();
+                        // }
+                      },
+                      child: const Text('Continuar'),
+                    ),
                   ),
                 ],
               ),

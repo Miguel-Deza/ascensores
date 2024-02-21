@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:ascensores/screens/bottom/trafic_study_page.dart';
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:ascensores/screens/bottom/duct_calculation_page.dart';
+import 'package:ascensores/screens/bottom/duct_calculation/duct_calculation_page.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
@@ -263,16 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class TraficStudyPage extends StatelessWidget {
-  const TraficStudyPage({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Página de Estudio de Tráfico a'),
-    );
-  }
-}
 
 class CalculationHistoryPage extends StatelessWidget {
   const CalculationHistoryPage({Key? key}) : super(key: key);

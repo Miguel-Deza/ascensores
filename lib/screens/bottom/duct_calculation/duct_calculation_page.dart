@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ascensores/screens/bottom/second_form.dart';
-import 'package:ascensores/screens/bottom/first_form.dart';
+import 'package:ascensores/screens/bottom/duct_calculation/second_form.dart';
+import 'package:ascensores/screens/bottom/duct_calculation/first_form.dart';
 
 class DuctCalculationPage extends StatefulWidget {
   const DuctCalculationPage({Key? key}) : super(key: key);
@@ -23,6 +23,14 @@ class _DuctCalculationPageState extends State<DuctCalculationPage> {
     });
   }
 
+  void moveNextPage() {
+    _pageController.animateToPage(
+      1,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -41,8 +49,10 @@ class _DuctCalculationPageState extends State<DuctCalculationPage> {
                 _currentPage = page;
               });
             },
-            children: const <Widget>[
-              FirstForm(),
+            children: <Widget>[
+              FirstForm(
+                onNextPagePressed: moveNextPage,
+              ),
               SecondForm(),
             ],
           ),
@@ -78,17 +88,6 @@ class _DuctCalculationPageState extends State<DuctCalculationPage> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Cambiar a la segunda página
-          _pageController.animateToPage(
-            1,
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOut,
-          );
-        },
-        child: const Icon(Icons.navigate_next),
       ),
     );
   }
