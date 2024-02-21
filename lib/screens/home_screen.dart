@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -90,6 +91,23 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Future<void> LogOutUser() async {
+    const String apiUrl = 'https://dev.ktel.pe/api/logout';
+    try {
+      http.Request request = http.Request('POST', Uri.parse(apiUrl));
+      request.headers['Authorization'] = 'Bearer ${widget.token}';
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print('Logout exitoso');
+      } else {
+        print('Error en el logout: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en el logout: $e');
+    }
+  }
+
   Future<void> updateInfoUser(name, phone, email) async {
     const String apiUrl = 'https://dev.ktel.pe/api/update-user-info';
     Map<String, dynamic> requestBody = {
@@ -174,7 +192,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               title: const Text('Salir'),
-              onTap: () {},
+              onTap: () async {
+                await LogOutUser();
+                if (mounted) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    (Route<dynamic> route) => false,
+                  );
+                }
+              },
             ),
           ],
         ),

@@ -128,34 +128,37 @@ class _LoginPageState extends State<LoginPage> {
                 //=============================
                 Visibility(
                   visible: !showPasswordInput && !isNewUser,
-                  child: ElevatedButton(
-                    child: const Text('Continuar'),
-                    onPressed: () async {
-                      String email = emailController.text.trim();
-                      // Verificar si el usuario existe o no
-                      bool usuarioExiste = await verifyUser(email);
+                  child: Container(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      child: const Text('Continuar'),
+                      onPressed: () async {
+                        String email = emailController.text.trim();
+                        // Verificar si el usuario existe o no
+                        bool usuarioExiste = await verifyUser(email);
 
-                      if (EmailValidator.validate(emailController.text)) {
-                        if (usuarioExiste) {
-                          // Usuario existe, mostrar campo de contraseña
-                          setState(() {
-                            showPasswordInput = true;
-                            showErrorMessageEmail = false;
-                          });
+                        if (EmailValidator.validate(emailController.text)) {
+                          if (usuarioExiste) {
+                            // Usuario existe, mostrar campo de contraseña
+                            setState(() {
+                              showPasswordInput = true;
+                              showErrorMessageEmail = false;
+                            });
+                          } else {
+                            //Usuario crea su contraseña
+                            setState(() {
+                              isNewUser = true;
+                              showErrorMessageEmail = false;
+                            });
+                          }
                         } else {
-                          //Usuario crea su contraseña
+                          print("El email no es valido");
                           setState(() {
-                            isNewUser = true;
-                            showErrorMessageEmail = false;
+                            showErrorMessageEmail = true;
                           });
                         }
-                      } else {
-                        print("El email no es valido");
-                        setState(() {
-                          showErrorMessageEmail = true;
-                        });
-                      }
-                    },
+                      },
+                    ),
                   ),
                 ),
 
@@ -184,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20.0,
                       ),
                       Row(
@@ -227,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomeScreen(                                    
+                                  builder: (context) => HomeScreen(
                                     token: token,
                                   ),
                                 ),

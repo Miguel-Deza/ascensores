@@ -33,7 +33,7 @@ class _TechnicalCharacteristicsScreenState
                   'Características técnicas',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 DropdownButtonFormField<int>(
@@ -44,7 +44,7 @@ class _TechnicalCharacteristicsScreenState
                       selectedPassengerCount = newValue!;
                     });
                   },
-                  items: [
+                  items: const [
                     DropdownMenuItem<int>(
                       value: 6,
                       child: Text('6 pasajeros'),
@@ -78,12 +78,12 @@ class _TechnicalCharacteristicsScreenState
                       child: Text('23 pasajeros'),
                     ),
                   ],
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Cantidad de pasajeros',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 DropdownButtonFormField<double>(
@@ -94,7 +94,7 @@ class _TechnicalCharacteristicsScreenState
                       selectedWeight = newValue!;
                     });
                   },
-                  items: [
+                  items: const [
                     DropdownMenuItem<double>(
                       value: 0.4,
                       child: Text('0.4 m/s'),
@@ -124,12 +124,12 @@ class _TechnicalCharacteristicsScreenState
                       child: Text('3.0 m/s'),
                     ),
                   ],
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Velocidad del ascensor',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 DropdownButtonFormField<int>(
@@ -140,7 +140,7 @@ class _TechnicalCharacteristicsScreenState
                       selectedDoorWidth = newValue!;
                     });
                   },
-                  items: [
+                  items: const [
                     DropdownMenuItem<int>(
                       value: 700,
                       child: Text('700 mm'),
@@ -186,15 +186,15 @@ class _TechnicalCharacteristicsScreenState
                       child: Text('1500 mm'),
                     ),
                   ],
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Velocidad del ascensor',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'Escoge las puertas del ascensor',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
@@ -213,7 +213,7 @@ class _TechnicalCharacteristicsScreenState
                             });
                           },
                         ),
-                        Text('Lateral'),
+                        const Text('Lateral'),
                       ],
                     ),
                     Row(
@@ -228,7 +228,7 @@ class _TechnicalCharacteristicsScreenState
                             });
                           },
                         ),
-                        Text('Central'),
+                        const Text('Central'),
                       ],
                     ),
                   ],

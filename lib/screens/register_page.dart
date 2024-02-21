@@ -71,7 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
         return false;
       }
     } catch (e) {
-      print("error ${e}");
+      print("error $e");
       return false;
     }
   }

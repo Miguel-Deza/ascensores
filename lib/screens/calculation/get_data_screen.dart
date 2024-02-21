@@ -27,63 +27,63 @@ class BuildingUse {
 
 class _GetDataScreenState extends State<GetDataScreen> {
   List<BuildingUse> buildingUses = [
-    BuildingUse(
+    const BuildingUse(
       label:
           '1. Edificio de oficinas diversas, tipo despachos, consultorios, etc., en área céntrica de alta rentabilidad',
       value:
           'Edificio de oficinas diversas, tipo despachos, consultorios, etc., en área céntrica de alta rentabilidad',
     ),
-    BuildingUse(
+    const BuildingUse(
       label:
           '2. Edificio similar al anterior, ubicado en un suburbio, o de tipo económico',
       value:
           'Edificio similar al anterior, ubicado en un suburbio, o de tipo económico',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '3. Edificio para oficinas perteneciente a una sola compañía',
       value: 'Edificio para oficinas perteneciente a una sola compañía',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '4. Edificio de una dependencia gubernamental',
       value: 'Edificio de una dependencia gubernamental',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '5. Edificios de departamentos con alta rentabilidad',
       value: 'Edificios de departamentos con alta rentabilidad',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '6. Edificios de departamentos con rentabilidad media',
       value: 'Edificios de departamentos con rentabilidad media',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '7. Hospital de tipo privado',
       value: 'Hospital de tipo privado',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '8. Hospital de tipo estatal',
       value: 'Hospital de tipo estatal',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '9. Hotel con alta rentabilidad en área cosmopolita',
       value: 'Hotel con alta rentabilidad en área cosmopolita',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '10. Hotel con alta rentabilidad en área en lugar de veraneo',
       value: 'Hotel con alta rentabilidad en área en lugar de veraneo',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '11. Hotel con baja rentabilidad en área cosmopolita',
       value: 'Hotel con baja rentabilidad en área cosmopolita',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '12. Hotel con baja rentabilidad en área en lugar de veraneo',
       value: 'Hotel con baja rentabilidad en área en lugar de veraneo',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '13. Estacionamientos de autoservicio',
       value: 'Estacionamientos de autoservicio',
     ),
-    BuildingUse(
+    const BuildingUse(
       label: '14. Estacionamiento de autoservicio de una tienda departamental',
       value: 'Estacionamiento de autoservicio de una tienda departamental',
     ),
@@ -133,7 +133,7 @@ class _GetDataScreenState extends State<GetDataScreen> {
                         selectedOption = newValue;
                       });
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Selecciona el uso del edificio',
                       border: OutlineInputBorder(),
                     ),

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
               Colors.white, // Set text color for buttons with primary color
         ),
       ),
-      home: LoginPage(), // Usar solo el tema oscuro
+      home: const LoginPage(), // Usar solo el tema oscuro
       // home: HomeScreen(
       //     email: "dmikec101@gmail.com",
       //     newPassword: "12345",
