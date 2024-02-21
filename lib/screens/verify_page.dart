@@ -43,11 +43,7 @@ class VerifyPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomeScreen(
-                        email: email,
-                        newPassword: newPassword,
-                        phone: phone,
-                        fullName: fullName,
+                      builder: (context) => HomeScreen(                        
                         token: token,
                       ),
                     ),

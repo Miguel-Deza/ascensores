@@ -227,11 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomeScreen(
-                                    email: emailController.text,
-                                    newPassword: passwordController.text,
-                                    phone: "123456789",
-                                    fullName: "Admin",
+                                  builder: (context) => HomeScreen(                                    
                                     token: token,
                                   ),
                                 ),
