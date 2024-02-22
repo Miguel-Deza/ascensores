@@ -1,51 +1,18 @@
+import 'package:ascensores/screens/bottom/trafic_study/study_data.dart';
+import 'package:ascensores/screens/bottom/trafic_study/time_data.dart';
 import 'package:flutter/material.dart';
-import 'package:ascensores/screens/bottom/duct_calculation/second_form.dart';
-import 'package:ascensores/screens/bottom/duct_calculation/first_form.dart';
 
-class DuctCalculationPage extends StatefulWidget {
-  const DuctCalculationPage({Key? key}) : super(key: key);
+class TraficStudyPage extends StatefulWidget {
+  TraficStudyPage({Key? key}) : super(key: key);
 
   @override
-  State<DuctCalculationPage> createState() => _DuctCalculationPageState();
+  State<TraficStudyPage> createState() => _TraficStudyPageState();
 }
 
-class _DuctCalculationPageState extends State<DuctCalculationPage> {
+class _TraficStudyPageState extends State<TraficStudyPage> {
   final PageController _pageController = PageController();
+
   int _currentPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController.addListener(() {
-      setState(() {
-        _currentPage = _pageController.page!.round();
-      });
-    });
-  }
-
-  void moveNextPage() {
-    _pageController.animateToPage(
-      1,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  Map<String, dynamic> data = {};
-
-  void onDataChange(Map<String, dynamic> newData) {
-    setState(() {
-      data = newData;
-      print("Data llamada desde el windet duct calculation");
-      print(data);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +27,8 @@ class _DuctCalculationPageState extends State<DuctCalculationPage> {
               });
             },
             children: <Widget>[
-              FirstForm(
-                onNextPagePressed: moveNextPage,
-                data: data,
-                onDataChange: onDataChange,
-              ),
-              const SecondForm(),
+              StudyData(),
+              TimeData(),
             ],
           ),
           Positioned(

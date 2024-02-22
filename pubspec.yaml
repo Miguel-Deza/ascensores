@@ -29,11 +29,15 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  data_table_2: ^2.5.10
   email_validator: ^2.1.17
   flutter:
     sdk: flutter
+  flutter_form_builder: ^9.2.1
+  form_builder_validators: ^9.1.0
   http: ^1.2.0
   outlined_text: ^1.0.1
+  syncfusion_flutter_datagrid: ^24.2.7
 
 dev_dependencies:
 

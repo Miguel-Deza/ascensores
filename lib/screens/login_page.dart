@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                 //=============================
                 Visibility(
                   visible: !showPasswordInput && !isNewUser,
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       child: const Text('Continuar'),

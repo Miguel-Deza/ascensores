@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'package:ascensores/screens/bottom/trafic_study_page.dart';
+import 'package:ascensores/screens/bottom/calculation_history_page.dart';
+import 'package:ascensores/screens/bottom/cotization_prices_page.dart';
+import 'package:ascensores/screens/bottom/trafic_study/trafic_study_page.dart';
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/bottom/duct_calculation/duct_calculation_page.dart';
@@ -25,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _pages = <Widget>[
     const DuctCalculationPage(),
-    const TraficStudyPage(),
+    TraficStudyPage(),
     const CalculationHistoryPage(),
     const CotizationPricesPage(),
   ];
@@ -264,25 +266,3 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
-
-class CalculationHistoryPage extends StatelessWidget {
-  const CalculationHistoryPage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Página de Historial de Cálculos'),
-    );
-  }
-}
-
-class CotizationPricesPage extends StatelessWidget {
-  const CotizationPricesPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Página de Cotizaciones b'),
-    );
-  }
-}

@@ -1,4 +1,3 @@
-import 'package:ascensores/screens/bottom/duct_calculation/duct_calculation_page.dart';
 import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:ascensores/screens/login_page.dart';

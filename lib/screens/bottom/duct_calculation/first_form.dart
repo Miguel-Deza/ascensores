@@ -2,22 +2,17 @@ import 'package:flutter/material.dart';
 
 class FirstForm extends StatefulWidget {
   final VoidCallback onNextPagePressed;
-  const FirstForm({super.key, required this.onNextPagePressed});
+  final Map<String, dynamic> data;
+  final Function(Map<String, dynamic>)? onDataChange;
+  const FirstForm(
+      {super.key,
+      required this.onNextPagePressed,
+      required this.data,
+      required,
+      this.onDataChange});
 
   @override
   State<FirstForm> createState() => _FirstFormState();
-}
-
-enum ColorLabel {
-  blue('Blue', Colors.blue),
-  pink('Pink', Colors.pink),
-  green('Green', Colors.green),
-  yellow('Orange', Colors.orange),
-  grey('Grey', Colors.grey);
-
-  const ColorLabel(this.label, this.color);
-  final String label;
-  final Color color;
 }
 
 class BuildingUse {
@@ -95,7 +90,6 @@ class _FirstFormState extends State<FirstForm> {
   final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final TextEditingController colorController = TextEditingController();
-  ColorLabel? selectedColor;
   String? selectedOption;
 
   @override
@@ -217,6 +211,8 @@ class _FirstFormState extends State<FirstForm> {
                         // if (_formKey.currentState!.validate()) {
                         // If the form is valid, display a snackbar. In the real world,
                         // you'd often call a server or save the information in a database.
+                        widget.onDataChange!(
+                            {"Nombre": "Miguel", "Apellido": "Gonzalez"});
                         widget.onNextPagePressed();
                         // }
                       },
