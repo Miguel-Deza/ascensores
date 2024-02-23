@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       ),
 
       home: const HomeScreen(
-        token: "Bearer 121|yMUrgpuTXP7JIsXcbSRbnYOqOVM7x3pMAftUHjAxa3bd9977",
+        token: "Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0",
       ), // Usar solo el tema oscuro
     );
   }

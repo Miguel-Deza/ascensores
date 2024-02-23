@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class CalculationHistoryPage extends StatefulWidget {
   const CalculationHistoryPage({super.key});
@@ -8,6 +11,67 @@ class CalculationHistoryPage extends StatefulWidget {
 }
 
 class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
+  List<DataRow> dataRows = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDataTable();
+  }
+
+  Future<void> getDataTable() async {
+    const String apiUrl = 'https://dev.ktel.pe/api/quotes';
+    try {
+      http.Response response = await http.get(Uri.parse(apiUrl), headers: {
+        'Authorization':
+            'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+      });
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        List<Map<String, dynamic>> dataList =
+            List<Map<String, dynamic>>.from(data.values);
+        setState(() {
+          dataRows = buildDataRows(dataList);
+        });
+      }
+      else{
+        print('Error en la petición: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en el getDataTable: $e');
+    }
+  }
+
+  List<DataRow> buildDataRows(List<Map<String, dynamic>> dataList) {
+    return dataList.map((dataItem) {
+      return DataRow(cells: [
+        DataCell(Text('${dataItem['description']}')),
+        DataCell(Text('${dataItem['brand']}')),
+        DataCell(Text('${dataItem['model']}')),
+        DataCell(Text('${dataItem['project']}')),
+        DataCell(Text('${dataItem['created_at']}')),
+        DataCell(Text('En proceso')),
+        DataCell(Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                // Lógica para editar la fila 1
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                // Lógica para eliminar la fila 1
+              },
+            ),
+          ],
+        )),
+      ]);
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,7 +86,7 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: DataTable(
-                columns: [
+                columns: const [
                   DataColumn(label: Text('Descripción')),
                   DataColumn(label: Text('Marca')),
                   DataColumn(label: Text('Modelo')),
@@ -31,274 +95,7 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
                   DataColumn(label: Text('Estado')),
                   DataColumn(label: Text('Acciones')),
                 ],
-                rows: [
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 1')),
-                    DataCell(Text('⚙️ Marca A')),
-                    DataCell(Text('👤 Modelo 123')),
-                    DataCell(Text('🏢 Proyecto X')),
-                    DataCell(Text('📅 2024-02-22')),
-                    DataCell(Text('📗 Activo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 1
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 1
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('🔢 Producto 2')),
-                    DataCell(Text('⚙️ Marca B')),
-                    DataCell(Text('👤 Modelo 456')),
-                    DataCell(Text('🏢 Proyecto Y')),
-                    DataCell(Text('📅 2024-02-21')),
-                    DataCell(Text('⭕ Inactivo')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar la fila 2
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar la fila 2
-                          },
-                        ),
-                      ],
-                    )),
-                  ]),
-
-                  // Puedes agregar más filas aquí según sea necesario
-                ],
+                rows: dataRows,
               ),
             ),
           ),
