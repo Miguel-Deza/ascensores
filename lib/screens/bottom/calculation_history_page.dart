@@ -11,7 +11,7 @@ class CalculationHistoryPage extends StatefulWidget {
 }
 
 class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
-  List<DataRow> dataRows = [];
+  List<Map<String, dynamic>> _data = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -29,13 +29,10 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
-        List<Map<String, dynamic>> dataList =
-            List<Map<String, dynamic>>.from(data.values);
         setState(() {
-          dataRows = buildDataRows(dataList);
+          _data = List<Map<String, dynamic>>.from(data.values);
         });
-      }
-      else{
+      } else {
         print('Error en la petición: ${response.statusCode}');
       }
     } catch (e) {
@@ -43,8 +40,29 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
     }
   }
 
-  List<DataRow> buildDataRows(List<Map<String, dynamic>> dataList) {
-    return dataList.map((dataItem) {
+  Future<void> deleteRowQuote(int id) async {
+    final String apiUrl = 'https://dev.ktel.pe/api/quotes/$id';
+    try {
+      http.Response response = await http.delete(Uri.parse(apiUrl), headers: {
+        'Authorization':
+            'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+      });
+
+      if (response.statusCode == 200) {
+        setState(() {
+          _data.removeWhere((item) => item['id'] == id);
+        });
+        print('Fila eliminada');
+      } else {
+        print('Error en la petición: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en el deleteRowQuote: $e');
+    }
+  }
+
+  List<DataRow> buildDataRows() {
+    return _data.map((dataItem) {
       return DataRow(cells: [
         DataCell(Text('${dataItem['description']}')),
         DataCell(Text('${dataItem['brand']}')),
@@ -62,8 +80,11 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
             ),
             IconButton(
               icon: Icon(Icons.delete),
-              onPressed: () {
-                // Lógica para eliminar la fila 1
+              onPressed: () async {
+                setState(() {
+                  _data.removeWhere((item) => item['id'] == dataItem['id']);
+                });
+                await deleteRowQuote(dataItem['id']);
               },
             ),
           ],
@@ -95,7 +116,7 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
                   DataColumn(label: Text('Estado')),
                   DataColumn(label: Text('Acciones')),
                 ],
-                rows: dataRows,
+                rows: buildDataRows(),
               ),
             ),
           ),
