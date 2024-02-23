@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
-class CotizationPricesPage extends StatefulWidget {
-  const CotizationPricesPage({Key? key}) : super(key: key);
+class GeneralDataScreen extends StatefulWidget {
+  const GeneralDataScreen({super.key});
 
   @override
-  State<CotizationPricesPage> createState() => _CotizationPricesPageState();
+  State<GeneralDataScreen> createState() => _GeneralDataScreenState();
 }
 
-class _CotizationPricesPageState extends State<CotizationPricesPage> {
+class _GeneralDataScreenState extends State<GeneralDataScreen> {
   String? selectedElevatorBrand;
   String? selectedElevatorModel;
   String? selectedElevatorUse;
   String? selectedElevatorVelocity;
   bool? requireDobleAccess;
   String? selectedNumberPanoramicFaces;
+  String? selectedDoorWidth;
 
   List<String> elevatorBrands = [
     'Edificio A',
@@ -43,19 +44,27 @@ class _CotizationPricesPageState extends State<CotizationPricesPage> {
   ];
 
   List<String> numberPanoramicFaces = [
-    'Ninguna'
-        '1',
+    'Ninguna',
+    '1',
     '2',
     '3',
     '4',
     '5',
   ];
 
+  List<String> doorWidths = [
+    '0.8 m',
+    '1 m',
+    '1.2 m',
+    '1.5 m',
+    '1.8 m',
+    '2 m',
+  ];
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(60.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -203,7 +212,28 @@ class _CotizationPricesPageState extends State<CotizationPricesPage> {
                 ],
                 onChanged: (String? newValue) {
                   setState(() {
-                    selectedElevatorVelocity = newValue;
+                    selectedNumberPanoramicFaces = newValue;
+                  });
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Cantidad de caras panorámicas',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              DropdownButtonFormField<String>(
+                value: selectedDoorWidth,
+                iconEnabledColor: Colors.white,
+                isExpanded: true,
+                items: [
+                  for (String doorWidth in doorWidths)
+                    DropdownMenuItem(
+                      value: doorWidth,
+                      child: Text(doorWidth),
+                    ),
+                ],
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedDoorWidth = newValue;
                   });
                 },
                 decoration: const InputDecoration(

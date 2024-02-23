@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:ascensores/screens/bottom/calculation_history_page.dart';
-import 'package:ascensores/screens/bottom/cotization_prices_page.dart';
+import 'package:ascensores/screens/bottom/cotizations/cotization_prices_page.dart';
 import 'package:ascensores/screens/bottom/trafic_study/trafic_study_page.dart';
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
