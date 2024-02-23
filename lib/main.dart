@@ -1,8 +1,8 @@
 import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-// import 'package:ascensores/screens/login_page.dart';
 
-void main() {
+// import 'package:ascensores/screens/login_page.dart';
+main() {
   runApp(const MyApp());
 }
 

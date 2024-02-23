@@ -68,7 +68,7 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text('Datos generales'),
+              Text('Datos generales a'),
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Proyecto',
