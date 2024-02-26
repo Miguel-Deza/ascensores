@@ -1,4 +1,7 @@
+import 'package:ascensores/providers/quote_form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:ascensores/screens/bottom/cotizations/data/lists_options.dart';
+import 'package:provider/provider.dart';
 
 class CabinDetailsScreen extends StatefulWidget {
   const CabinDetailsScreen({super.key});
@@ -36,30 +39,6 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
   final TextEditingController lcdCabinController = TextEditingController();
   final TextEditingController lcdFloorController = TextEditingController();
 
-  List<String> cabinTypes = [
-    'Option A',
-    'Option B',
-    'Option C',
-  ];
-
-  List<String> cabinRoofs = [
-    'Option 1',
-    'Option 2',
-    'Option 3',
-  ];
-
-  List<String> cabinFloors = [
-    'Option X',
-    'Option Y',
-    'Option Z',
-  ];
-
-  List<String> cabinHandrails = [
-    'Option H',
-    'Option J',
-    'Option K',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -77,9 +56,9 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   child: Text(cabinType),
                 ),
             ],
-            onChanged: (String? newValue) {
+            onChanged: (newValue) {
               setState(() {
-                selectedCabinType = newValue;
+                selectedCabinType = newValue ?? "";
               });
             },
             decoration: const InputDecoration(
@@ -97,9 +76,9 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   child: Text(cabinRoof),
                 ),
             ],
-            onChanged: (String? newValue) {
+            onChanged: (newValue) {
               setState(() {
-                selectedCabinRoof = newValue;
+                selectedCabinRoof = newValue ?? "";
               });
             },
             decoration: const InputDecoration(
@@ -117,9 +96,9 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   child: Text(cabinFloor),
                 ),
             ],
-            onChanged: (String? newValue) {
+            onChanged: (newValue) {
               setState(() {
-                selectedCabinFloor = newValue;
+                selectedCabinFloor = newValue ?? "";
               });
             },
             decoration: const InputDecoration(
@@ -137,9 +116,9 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   child: Text(cabinHandrail),
                 ),
             ],
-            onChanged: (String? newValue) {
+            onChanged: (newValue) {
               setState(() {
-                selectedCabinHandrail = newValue;
+                selectedCabinHandrail = newValue ?? "";
               });
             },
             decoration: const InputDecoration(
@@ -384,32 +363,13 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
             child: ElevatedButton(
               child: const Text('Enviar cotización'),
               onPressed: () {
-                print('Tipo de cabina seleccionado: $selectedCabinType');
-                print('Techo de cabina seleccionado: $selectedCabinRoof');
-                print('Piso de cabina seleccionado: $selectedCabinFloor');
-                print(
-                    'Pasamanos de cabina seleccionado: $selectedCabinHandrail');
-
-                print('Marco de puerta: ${doorFrameController.text}');
-                print('Marcador automático: ${automaticMarkerController.text}');
-                print(
-                    'Sintetizador de voz: ${voiceSynthesizerController.text}');
-                print('Gong: ${gongController.text}');
-                print('COP de bomberos: ${firefightersCopController.text}');
-                print('LOP de bomberos: ${firefightersLopController.text}');
-                print('Ventiladores: ${fansController.text}');
-                print('Sensor sísmico: ${seismicSensorController.text}');
-                print('Transformador: ${transformerController.text}');
-                print('Cable extra: ${extraCableController.text}');
-                print(
-                    'Lector de tarjeta inalámbrico: ${wirelessCardReaderController.text}');
-                print('Tarjetas inalámbricas: ${wirelessCardsController.text}');
-                print('TFT de cabina: ${tftCabinController.text}');
-                print('TFT de piso: ${tftFloorController.text}');
-                print(
-                    'Sistema de cerradura de llave: ${keyLockSystemController.text}');
-                print('LCD de cabina: ${lcdCabinController.text}');
-                print('LCD de piso: ${lcdFloorController.text}');
+                final provider = context.read<QuoteFormProvider>();
+                provider.selectedCabinType = selectedCabinType ?? "";
+                provider.selectedCabinRoof = selectedCabinRoof ?? "";
+                provider.selectedCabinFloor = selectedCabinFloor ?? "";
+                provider.selectedCabinHandrail = selectedCabinHandrail ?? "";
+                provider.doorFrameController = doorFrameController.text;
+                provider.printQuoteFormProviderData();
               },
             ),
           ),

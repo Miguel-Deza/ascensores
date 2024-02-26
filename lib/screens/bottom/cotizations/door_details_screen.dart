@@ -1,6 +1,7 @@
 import 'package:ascensores/providers/quote_form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ascensores/screens/bottom/cotizations/data/lists_options.dart';
 
 class DoorDetailsScreen extends StatefulWidget {
   const DoorDetailsScreen({super.key});
@@ -14,30 +15,6 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
   String? selectedAccessDoor;
   String? selectedOptionStop1;
   String? selectedOptionStop2;
-
-  List<String> optionsCabin = [
-    'Opción 1',
-    'Opción 2',
-    'Opción 3',
-  ];
-
-  List<String> optionsStop1 = [
-    'Opción A',
-    'Opción B',
-    'Opción C',
-  ];
-
-  List<String> optionsStop2 = [
-    'Opción X',
-    'Opción Y',
-    'Opción Z',
-  ];
-
-  List<String> optionsAccessDoor = [
-    'Opción H',
-    'Opción J',
-    'Opción K',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +72,9 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                                 child: Text(option),
                               ),
                           ],
-                          onChanged: (String? newValue) {
+                          onChanged: (newValue) {
                             setState(() {
-                              selectedOptionCabin = newValue;
+                              selectedOptionCabin = newValue ?? "";
                             });
                           },
                           decoration: const InputDecoration(
@@ -124,9 +101,9 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                                 child: Text(option),
                               ),
                           ],
-                          onChanged: (String? newValue) {
+                          onChanged: (newValue) {
                             setState(() {
-                              selectedAccessDoor = newValue;
+                              selectedAccessDoor = newValue ?? "";
                             });
                           },
                           decoration: const InputDecoration(
@@ -154,9 +131,9 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                                 child: Text(option),
                               ),
                           ],
-                          onChanged: (String? newValue) {
+                          onChanged: (newValue) {
                             setState(() {
-                              selectedOptionStop1 = newValue;
+                              selectedOptionStop1 = newValue ?? "";
                             });
                           },
                           decoration: const InputDecoration(
@@ -183,9 +160,9 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                                 child: Text(option),
                               ),
                           ],
-                          onChanged: (String? newValue) {
+                          onChanged: (newValue) {
                             setState(() {
-                              selectedOptionStop2 = newValue;
+                              selectedOptionStop2 = newValue ?? "";
                             });
                           },
                           decoration: const InputDecoration(
@@ -202,10 +179,12 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  print(selectedOptionCabin);
-                  print(selectedAccessDoor);
-                  print(selectedOptionStop1);
-                  print(selectedOptionStop2);
+                  final provider = context.read<QuoteFormProvider>();                  
+                  provider.selectedOptionCabin = selectedOptionCabin ?? "";
+                  provider.selectedAccessDoor = selectedAccessDoor ?? "";
+                  provider.selectedOptionStop1 = selectedOptionStop1 ?? "";
+                  provider.selectedOptionStop2 = selectedOptionStop2 ?? "";                  
+                  provider.printQuoteFormProviderData();
                 },
                 child: Text('Imprimir datos'))
           ],
