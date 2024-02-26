@@ -13,6 +13,29 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
   String? selectedCabinFloor;
   String? selectedCabinHandrail;
 
+  final TextEditingController doorFrameController = TextEditingController();
+  final TextEditingController automaticMarkerController =
+      TextEditingController();
+  final TextEditingController voiceSynthesizerController =
+      TextEditingController();
+  final TextEditingController gongController = TextEditingController();
+  final TextEditingController firefightersCopController =
+      TextEditingController();
+  final TextEditingController firefightersLopController =
+      TextEditingController();
+  final TextEditingController fansController = TextEditingController();
+  final TextEditingController seismicSensorController = TextEditingController();
+  final TextEditingController transformerController = TextEditingController();
+  final TextEditingController extraCableController = TextEditingController();
+  final TextEditingController wirelessCardReaderController =
+      TextEditingController();
+  final TextEditingController wirelessCardsController = TextEditingController();
+  final TextEditingController tftCabinController = TextEditingController();
+  final TextEditingController tftFloorController = TextEditingController();
+  final TextEditingController keyLockSystemController = TextEditingController();
+  final TextEditingController lcdCabinController = TextEditingController();
+  final TextEditingController lcdFloorController = TextEditingController();
+
   List<String> cabinTypes = [
     'Option A',
     'Option B',
@@ -138,6 +161,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: doorFrameController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -150,6 +174,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: automaticMarkerController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -162,6 +187,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: voiceSynthesizerController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -174,6 +200,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: gongController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -186,6 +213,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: firefightersCopController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -198,6 +226,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: firefightersLopController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -210,6 +239,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: fansController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -222,6 +252,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: seismicSensorController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -234,6 +265,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: transformerController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -246,6 +278,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: extraCableController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -258,6 +291,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: wirelessCardReaderController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -270,6 +304,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: wirelessCardsController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -282,6 +317,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: tftCabinController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -294,6 +330,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: tftFloorController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -306,6 +343,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: keyLockSystemController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -318,6 +356,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: lcdCabinController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -332,6 +371,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
+                      controller: lcdFloorController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -343,7 +383,34 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
             width: double.infinity,
             child: ElevatedButton(
               child: const Text('Enviar cotización'),
-              onPressed: () {},
+              onPressed: () {
+                print('Tipo de cabina seleccionado: $selectedCabinType');
+                print('Techo de cabina seleccionado: $selectedCabinRoof');
+                print('Piso de cabina seleccionado: $selectedCabinFloor');
+                print(
+                    'Pasamanos de cabina seleccionado: $selectedCabinHandrail');
+
+                print('Marco de puerta: ${doorFrameController.text}');
+                print('Marcador automático: ${automaticMarkerController.text}');
+                print(
+                    'Sintetizador de voz: ${voiceSynthesizerController.text}');
+                print('Gong: ${gongController.text}');
+                print('COP de bomberos: ${firefightersCopController.text}');
+                print('LOP de bomberos: ${firefightersLopController.text}');
+                print('Ventiladores: ${fansController.text}');
+                print('Sensor sísmico: ${seismicSensorController.text}');
+                print('Transformador: ${transformerController.text}');
+                print('Cable extra: ${extraCableController.text}');
+                print(
+                    'Lector de tarjeta inalámbrico: ${wirelessCardReaderController.text}');
+                print('Tarjetas inalámbricas: ${wirelessCardsController.text}');
+                print('TFT de cabina: ${tftCabinController.text}');
+                print('TFT de piso: ${tftFloorController.text}');
+                print(
+                    'Sistema de cerradura de llave: ${keyLockSystemController.text}');
+                print('LCD de cabina: ${lcdCabinController.text}');
+                print('LCD de piso: ${lcdFloorController.text}');
+              },
             ),
           ),
         ],

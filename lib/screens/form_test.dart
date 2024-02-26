@@ -8,7 +8,6 @@ class FormTest extends StatefulWidget {
   @override
   State<FormTest> createState() => _FormTestState();
 }
-
 class _FormTestState extends State<FormTest> {
   final _formKey = GlobalKey<FormBuilderState>();
   final _emailFieldKey = GlobalKey<FormFieldState<String>>();

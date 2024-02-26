@@ -184,6 +184,14 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                 ],
               ),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  print(selectedOptionCabin);
+                  print(selectedAccessDoor);
+                  print(selectedOptionStop1);
+                  print(selectedOptionStop2);
+                },
+                child: Text('Imprimir datos'))
           ],
         ),
       ),

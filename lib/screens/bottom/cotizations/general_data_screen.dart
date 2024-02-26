@@ -8,10 +8,14 @@ class GeneralDataScreen extends StatefulWidget {
 }
 
 class _GeneralDataScreenState extends State<GeneralDataScreen> {
+  final TextEditingController projectNameController = TextEditingController();
+  final TextEditingController projectDescriptionController =
+      TextEditingController();
   String? selectedElevatorBrand;
   String? selectedElevatorModel;
   String? selectedElevatorUse;
   String? selectedElevatorVelocity;
+  final TextEditingController stopsNumber = TextEditingController();
   bool? requireDobleAccess;
   String? selectedNumberPanoramicFaces;
   String? selectedDoorWidth;
@@ -70,11 +74,13 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
             children: [
               Text('Datos generales a'),
               TextField(
+                controller: projectNameController,
                 decoration: InputDecoration(
                   labelText: 'Proyecto',
                 ),
               ),
               TextField(
+                controller: projectDescriptionController,
                 decoration: InputDecoration(
                   labelText: 'Descripción',
                 ),
@@ -165,6 +171,7 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                 ),
               ),
               TextField(
+                controller: stopsNumber,
                 decoration: InputDecoration(
                   labelText: 'Paradas del ascensor',
                 ),
@@ -240,6 +247,27 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                   labelText: 'Cantidad de caras panorámicas',
                   border: OutlineInputBorder(),
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Lógica para guardar los datos
+                  print('Nombre del proyecto: ${projectNameController.text}');
+                  print(
+                      'Descripción del proyecto: ${projectDescriptionController.text}');
+                  print(
+                      'Marca del elevador seleccionada: $selectedElevatorBrand');
+                  print(
+                      'Modelo del elevador seleccionado: $selectedElevatorModel');
+                  print('Uso del elevador seleccionado: $selectedElevatorUse');
+                  print(
+                      'Velocidad del elevador seleccionada: $selectedElevatorVelocity');
+                  print('Número de paradas: ${stopsNumber.text}');
+                  print('¿Se requiere acceso doble?: $requireDobleAccess');
+                  print(
+                      'Número de caras panorámicas seleccionadas: $selectedNumberPanoramicFaces');
+                  print('Ancho de la puerta seleccionado: $selectedDoorWidth');
+                },
+                child: const Text('Guardar'),
               ),
             ],
           ),
