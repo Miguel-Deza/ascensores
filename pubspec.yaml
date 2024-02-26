@@ -38,6 +38,7 @@ dependencies:
     form_builder_validators: ^9.1.0
     http: ^1.2.0
     outlined_text: ^1.0.1
+    provider: ^6.1.1
     syncfusion_flutter_datagrid: ^24.2.7
 
 dev_dependencies:

@@ -1,4 +1,6 @@
+import 'package:ascensores/providers/quote_form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DoorDetailsScreen extends StatefulWidget {
   const DoorDetailsScreen({super.key});
@@ -46,6 +48,11 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(context
+                .watch<QuoteFormProvider>()
+                .projectDescription
+                .toString()),
+            Text(context.watch<QuoteFormProvider>().counter.toString()),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Altura de las puertas(mm)',

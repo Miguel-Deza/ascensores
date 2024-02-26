@@ -1,9 +1,12 @@
+import 'package:ascensores/providers/quote_form_provider.dart';
 import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // import 'package:ascensores/screens/login_page.dart';
 main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => QuoteFormProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

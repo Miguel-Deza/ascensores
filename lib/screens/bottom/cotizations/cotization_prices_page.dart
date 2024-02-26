@@ -1,7 +1,9 @@
 import 'package:ascensores/screens/bottom/cotizations/cabin_details_screen.dart';
 import 'package:ascensores/screens/bottom/cotizations/door_details_screen.dart';
 import 'package:ascensores/screens/bottom/cotizations/general_data_screen.dart';
+
 import 'package:flutter/material.dart';
+
 
 class CotizationPricesPage extends StatefulWidget {
   const CotizationPricesPage({Key? key}) : super(key: key);
