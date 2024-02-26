@@ -48,11 +48,19 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(context.watch<QuoteFormProvider>().projectName.toString()),
             Text(context
                 .watch<QuoteFormProvider>()
                 .projectDescription
                 .toString()),
-            Text(context.watch<QuoteFormProvider>().counter.toString()),
+            Text(context
+                .watch<QuoteFormProvider>()
+                .selectedElevatorBrand
+                .toString()),
+            Text(context
+                .watch<QuoteFormProvider>()
+                .selectedElevatorModel
+                .toString()),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Altura de las puertas(mm)',

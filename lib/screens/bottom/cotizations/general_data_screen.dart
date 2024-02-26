@@ -13,7 +13,7 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
   final TextEditingController projectNameController = TextEditingController();
   final TextEditingController projectDescriptionController =
       TextEditingController();
-  String selectedElevatorBrand = "";
+  String? selectedElevatorBrand;
   String? selectedElevatorModel;
   String? selectedElevatorUse;
   String? selectedElevatorVelocity;
@@ -74,13 +74,6 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text(context.watch<QuoteFormProvider>().counter.toString()),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<QuoteFormProvider>().increment();
-                },
-                child: Text('Incrementar'),
-              ),
               Text('Datos generales '),
               TextField(
                 controller: projectNameController,
@@ -127,9 +120,9 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                       child: Text(elevatorModel),
                     ),
                 ],
-                onChanged: (String? newValue) {
+                onChanged: (newValue) {
                   setState(() {
-                    selectedElevatorModel = newValue;
+                    selectedElevatorModel = newValue ?? "";
                   });
                 },
                 decoration: const InputDecoration(
@@ -154,7 +147,7 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                   });
                 },
                 decoration: const InputDecoration(
-                  labelText: 'Modelo del ascensor',
+                  labelText: 'Uso del ascensor',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -260,12 +253,18 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
               ElevatedButton(
                 onPressed: () {
                   // Lógica para guardar los datos
-                  context.read<QuoteFormProvider>().increment();
-                  // context.read<QuoteFormProvider>().projectDescription(projectNameController.text);
+                  
+                  context.read<QuoteFormProvider>().projectName =
+                      projectNameController.text;
+
                   context.read<QuoteFormProvider>().projectDescription =
                       projectNameController.text;
 
-                  context.read<QuoteFormProvider>().selectedElevatorBrand = selectedElevatorBrand;
+                  context.read<QuoteFormProvider>().selectedElevatorBrand =
+                      selectedElevatorBrand ?? "";
+                  context.read<QuoteFormProvider>().selectedElevatorModel = 
+                      selectedElevatorModel ?? "";                      
+                  
 
                   print('Nombre del proyecto: ${projectNameController.text}');
                   print(
