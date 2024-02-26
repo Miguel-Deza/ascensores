@@ -58,10 +58,10 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
             //     .selectedElevatorBrand
             //     .toString()),
             //
-            Text(context
-                .watch<QuoteFormProvider>()
-                .requireDobleAccess
-                .toString()),
+            // Text(context
+            //     .watch<QuoteFormProvider>()
+            //     .requireDobleAccess
+            //     .toString()),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Altura de las puertas(mm)',

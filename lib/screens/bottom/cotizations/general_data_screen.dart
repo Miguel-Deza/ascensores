@@ -1,6 +1,7 @@
 import 'package:ascensores/providers/quote_form_provider.dart';
 import 'package:ascensores/screens/bottom/cotizations/data/lists_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class GeneralDataScreen extends StatefulWidget {
@@ -130,6 +131,11 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                 ),
               ),
               TextField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                onChanged: (value) {
+                  stopsNumber = value.isNotEmpty ? int.tryParse(value) : null;
+                },
                 decoration: InputDecoration(
                   labelText: 'Paradas del ascensor',
                 ),
@@ -208,55 +214,21 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // Lógica para guardar los datos
-                  print('Nombre del proyecto: ${projectNameController.text}');
-                  context.read<QuoteFormProvider>().projectName =
-                      projectNameController.text;
-                  print(
-                      'Descripción del proyecto: ${projectDescriptionController.text}');
-
-                  context.read<QuoteFormProvider>().projectDescription =
-                      projectNameController.text;
-
-                  print(
-                      'Marca del elevador seleccionada: $selectedElevatorBrand');
-
-                  context.read<QuoteFormProvider>().selectedElevatorBrand =
-                      selectedElevatorBrand ?? "";
-                  print(
-                      'Modelo del elevador seleccionado: $selectedElevatorModel');
-                  context.read<QuoteFormProvider>().selectedElevatorModel =
-                      selectedElevatorModel ?? "";
-
-                  print('Uso del elevador seleccionado: $selectedElevatorUse');
-                  context.read<QuoteFormProvider>().selectedElevatorUse =
-                      selectedElevatorUse ?? "";
-                  print(
-                      'Velocidad del elevador seleccionada: $selectedElevatorVelocity');
-                  context.read<QuoteFormProvider>().selectedElevatorVelocity =
+                  final provider = context.read<QuoteFormProvider>();
+                  provider.projectName = projectNameController.text;
+                  provider.projectDescription =
+                      projectDescriptionController.text;
+                  provider.selectedElevatorBrand = selectedElevatorBrand ?? "";
+                  provider.selectedElevatorModel = selectedElevatorModel ?? "";
+                  provider.selectedElevatorUse = selectedElevatorUse ?? "";
+                  provider.selectedElevatorVelocity =
                       selectedElevatorVelocity ?? "";
-                  print('Número de paradas: ${stopsNumber ?? "Es nulo"}');
-
-                  context.read<QuoteFormProvider>().stopsNumber =
-                      stopsNumber ?? 0;
-                  ;
-
-                  print('¿Se requiere acceso doble?: $requireDobleAccess');
-                  context.read<QuoteFormProvider>().requireDobleAccess =
-                      requireDobleAccess ?? false;
-                  print(
-                      'Número de caras panorámicas seleccionadas: $selectedNumberPanoramicFaces');
-                  context
-                          .read<QuoteFormProvider>()
-                          .selectedNumberPanoramicFaces =
+                  provider.stopsNumber = stopsNumber ?? 0;
+                  provider.requireDobleAccess = requireDobleAccess ?? false;
+                  provider.selectedNumberPanoramicFaces =
                       selectedNumberPanoramicFaces ?? "";
-                  print('Ancho de la puerta seleccionado: $selectedDoorWidth');
-                  context.read<QuoteFormProvider>().selectedDoorWidth =
-                      selectedDoorWidth ?? "";
-
-                  context
-                      .read<QuoteFormProvider>()
-                      .printQuoteFormProviderData();
+                  provider.selectedDoorWidth = selectedDoorWidth ?? "";
+                  provider.printQuoteFormProviderData();
                 },
                 child: const Text('Guardar'),
               ),
