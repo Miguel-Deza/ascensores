@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 class QuoteFormProvider with ChangeNotifier {
-  int _counter = 0;
-  int get counter => _counter;
-
   String _projectName = "";
   String get projectName => _projectName;
   set projectName(String value) {
@@ -74,8 +71,16 @@ class QuoteFormProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void increment() {
-    _counter++;
-    notifyListeners();
+  void printQuoteFormProviderData() {
+    print('Project Name: ${_projectName}');
+    print('Project Description: ${_projectDescription}');
+    print('Selected Elevator Brand: ${_selectedElevatorBrand}');
+    print('Selected Elevator Model: ${_selectedElevatorModel}');
+    print('Selected Elevator Use: ${_selectedElevatorUse}');
+    print('Selected Elevator Velocity: ${_selectedElevatorVelocity}');
+    print('Stops Number: ${_stopsNumber}');
+    print('Require Double Access: ${_requireDobleAccess}');
+    print('Selected Number Panoramic Faces: ${_selectedNumberPanoramicFaces}');
+    print('Selected Door Width: ${_selectedDoorWidth}');
   }
 }

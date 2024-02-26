@@ -1,4 +1,5 @@
 import 'package:ascensores/providers/quote_form_provider.dart';
+import 'package:ascensores/screens/bottom/cotizations/data/lists_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,55 +18,11 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
   String? selectedElevatorModel;
   String? selectedElevatorUse;
   String? selectedElevatorVelocity;
-  final TextEditingController stopsNumber = TextEditingController();
+  int? stopsNumber;
   bool? requireDobleAccess;
   String? selectedNumberPanoramicFaces;
   String? selectedDoorWidth;
 
-  List<String> elevatorBrands = [
-    'Edificio A',
-    'Edificio B',
-    'Edificio C',
-  ];
-
-  List<String> elevatorModels = [
-    'Modelo X',
-    'Modelo Y',
-    'Modelo Z',
-  ];
-
-  List<String> elevatorUses = [
-    'Residencial',
-    'Comercial',
-    'Industrial',
-  ];
-
-  List<String> elevatorVelocities = [
-    '0.5 m/s',
-    '1 m/s',
-    '1.5 m/s',
-    '2 m/s',
-    '2.5 m/s',
-    '3 m/s',
-  ];
-
-  List<String> numberPanoramicFaces = [
-    'Ninguna',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-  ];
-
-  List<String> doorWidths = [
-    '0.8 m',
-    '1 m',
-    '1.2 m',
-    '1.5 m',
-    '1.8 m',
-    '2 m',
-  ];
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -141,9 +98,9 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                       child: Text(elevatorUse),
                     ),
                 ],
-                onChanged: (String? newValue) {
+                onChanged: (newValue) {
                   setState(() {
-                    selectedElevatorUse = newValue;
+                    selectedElevatorUse = newValue ?? "";
                   });
                 },
                 decoration: const InputDecoration(
@@ -162,9 +119,9 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                       child: Text(elevatorVelocity),
                     ),
                 ],
-                onChanged: (String? newValue) {
+                onChanged: (newValue) {
                   setState(() {
-                    selectedElevatorVelocity = newValue;
+                    selectedElevatorVelocity = newValue ?? "";
                   });
                 },
                 decoration: const InputDecoration(
@@ -173,7 +130,6 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                 ),
               ),
               TextField(
-                controller: stopsNumber,
                 decoration: InputDecoration(
                   labelText: 'Paradas del ascensor',
                 ),
@@ -219,9 +175,9 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                       child: Text(numberPanoramic),
                     ),
                 ],
-                onChanged: (String? newValue) {
+                onChanged: (newValue) {
                   setState(() {
-                    selectedNumberPanoramicFaces = newValue;
+                    selectedNumberPanoramicFaces = newValue ?? "";
                   });
                 },
                 decoration: const InputDecoration(
@@ -240,47 +196,67 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                       child: Text(doorWidth),
                     ),
                 ],
-                onChanged: (String? newValue) {
+                onChanged: (newValue) {
                   setState(() {
-                    selectedDoorWidth = newValue;
+                    selectedDoorWidth = newValue ?? "";
                   });
                 },
                 decoration: const InputDecoration(
-                  labelText: 'Cantidad de caras panorámicas',
+                  labelText: 'Cantidad de anchos de puerta',
                   border: OutlineInputBorder(),
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
                   // Lógica para guardar los datos
-                  
+                  print('Nombre del proyecto: ${projectNameController.text}');
                   context.read<QuoteFormProvider>().projectName =
                       projectNameController.text;
+                  print(
+                      'Descripción del proyecto: ${projectDescriptionController.text}');
 
                   context.read<QuoteFormProvider>().projectDescription =
                       projectNameController.text;
 
-                  context.read<QuoteFormProvider>().selectedElevatorBrand =
-                      selectedElevatorBrand ?? "";
-                  context.read<QuoteFormProvider>().selectedElevatorModel = 
-                      selectedElevatorModel ?? "";                      
-                  
-
-                  print('Nombre del proyecto: ${projectNameController.text}');
-                  print(
-                      'Descripción del proyecto: ${projectDescriptionController.text}');
                   print(
                       'Marca del elevador seleccionada: $selectedElevatorBrand');
+
+                  context.read<QuoteFormProvider>().selectedElevatorBrand =
+                      selectedElevatorBrand ?? "";
                   print(
                       'Modelo del elevador seleccionado: $selectedElevatorModel');
+                  context.read<QuoteFormProvider>().selectedElevatorModel =
+                      selectedElevatorModel ?? "";
+
                   print('Uso del elevador seleccionado: $selectedElevatorUse');
+                  context.read<QuoteFormProvider>().selectedElevatorUse =
+                      selectedElevatorUse ?? "";
                   print(
                       'Velocidad del elevador seleccionada: $selectedElevatorVelocity');
-                  print('Número de paradas: ${stopsNumber.text}');
+                  context.read<QuoteFormProvider>().selectedElevatorVelocity =
+                      selectedElevatorVelocity ?? "";
+                  print('Número de paradas: ${stopsNumber ?? "Es nulo"}');
+
+                  context.read<QuoteFormProvider>().stopsNumber =
+                      stopsNumber ?? 0;
+                  ;
+
                   print('¿Se requiere acceso doble?: $requireDobleAccess');
+                  context.read<QuoteFormProvider>().requireDobleAccess =
+                      requireDobleAccess ?? false;
                   print(
                       'Número de caras panorámicas seleccionadas: $selectedNumberPanoramicFaces');
+                  context
+                          .read<QuoteFormProvider>()
+                          .selectedNumberPanoramicFaces =
+                      selectedNumberPanoramicFaces ?? "";
                   print('Ancho de la puerta seleccionado: $selectedDoorWidth');
+                  context.read<QuoteFormProvider>().selectedDoorWidth =
+                      selectedDoorWidth ?? "";
+
+                  context
+                      .read<QuoteFormProvider>()
+                      .printQuoteFormProviderData();
                 },
                 child: const Text('Guardar'),
               ),

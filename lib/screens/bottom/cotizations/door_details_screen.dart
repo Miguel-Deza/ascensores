@@ -48,18 +48,19 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(context.watch<QuoteFormProvider>().projectName.toString()),
+            // Text(context.watch<QuoteFormProvider>().projectName.toString()),
+            // Text(context
+            //     .watch<QuoteFormProvider>()
+            //     .projectDescription
+            //     .toString()),
+            // Text(context
+            //     .watch<QuoteFormProvider>()
+            //     .selectedElevatorBrand
+            //     .toString()),
+            //
             Text(context
                 .watch<QuoteFormProvider>()
-                .projectDescription
-                .toString()),
-            Text(context
-                .watch<QuoteFormProvider>()
-                .selectedElevatorBrand
-                .toString()),
-            Text(context
-                .watch<QuoteFormProvider>()
-                .selectedElevatorModel
+                .requireDobleAccess
                 .toString()),
             TextField(
               decoration: InputDecoration(
