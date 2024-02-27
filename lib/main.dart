@@ -1,12 +1,18 @@
-import 'package:ascensores/providers/quote_form_provider.dart';
+import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // import 'package:ascensores/screens/login_page.dart';
 main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => QuoteFormProvider(), child: const MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DuctFormProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

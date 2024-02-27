@@ -1,4 +1,6 @@
+import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FirstForm extends StatefulWidget {
   final VoidCallback onNextPagePressed;
@@ -84,142 +86,155 @@ class _FirstFormState extends State<FirstForm> {
       value: 'Estacionamiento de autoservicio de una tienda departamental',
     ),
   ];
-
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
-  final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController colorController = TextEditingController();
-  String? selectedOption;
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
-  }
+  //*Controllers
+  TextEditingController stopsNumberController = TextEditingController();
+  TextEditingController buildingHeightController = TextEditingController();
+  TextEditingController floorAreaController = TextEditingController();
+  TextEditingController expressZoneFloorsController = TextEditingController();
+  TextEditingController unitPerLevelController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(60.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DropdownButtonFormField<String>(
-                    value: selectedOption,
-                    iconEnabledColor: Colors.white,
-                    isExpanded: true,
-                    items: [
-                      for (BuildingUse buildingUse in buildingUses)
-                        DropdownMenuItem(
-                          value: buildingUse.value,
-                          child: Text(buildingUse.label),
-                        ),
-                    ],
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedOption = newValue;
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Selecciona el uso del edificio',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Número de paradas',
-                    ),
-                    // The validator receives the text that the user has entered.
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingresa algún dato';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Altura del edificio (m)',
-                    ),
-                    // The validator receives the text that the user has entered.
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingresa algún dato';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Superficie por planta (m2)',
-                    ),
-                    // The validator receives the text that the user has entered.
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingresa algún dato';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Pisos en zona Express',
-                    ),
-                    // The validator receives the text that the user has entered.
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingresa algún dato';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Número de unidad por nivel servido',
-                    ),
-                    // The validator receives the text that the user has entered.
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingresa algún dato';
-                      }
-                      return null;
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Validate returns true if the form is valid, or false otherwise.
-                        // if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        widget.onDataChange!(
-                            {"Nombre": "Miguel", "Apellido": "Gonzalez"});
-                        widget.onNextPagePressed();
-                        // }
+    return Consumer<DuctFormProvider>(
+      builder: (context, valueProvider, child) => Scaffold(
+        body: SafeArea(
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(60.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DropdownButtonFormField<String>(
+                      value: valueProvider.selectedBuildingUse,
+                      iconEnabledColor: Colors.white,
+                      isExpanded: true,
+                      items: [
+                        for (String buildingUse
+                            in valueProvider.buildingUseDropdownList)
+                          DropdownMenuItem(
+                            value: buildingUse,
+                            child: Text(buildingUse),
+                          ),
+                      ],
+                      onChanged: (String? newValue) {
+                        valueProvider.setSelectedBuildingUse(newValue!);
                       },
-                      child: const Text('Continuar'),
+                      decoration: const InputDecoration(
+                        labelText: 'Selecciona el uso del edificio',
+                        border: OutlineInputBorder(),
+                      ),
                     ),
-                  ),
-                ],
+                    TextFormField(
+                      controller: stopsNumberController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Número de paradas',
+                      ),
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingresa algún dato';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: buildingHeightController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Altura del edificio (m)',
+                      ),
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingresa algún dato';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: floorAreaController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Superficie por planta (m2)',
+                      ),
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingresa algún dato';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: expressZoneFloorsController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Pisos en zona Express',
+                      ),
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingresa algún dato';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: unitPerLevelController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        labelText: 'Número de unidad por nivel servido',
+                      ),
+                      // The validator receives the text that the user has entered.
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingresa algún dato';
+                        }
+                        return null;
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Validate returns true if the form is valid, or false otherwise.
+                          // if (_formKey.currentState!.validate()) {
+                          //Añadir datos al provider
+                          valueProvider.setSelectedStopsNumber(
+                              stopsNumberController.text);
+
+                          valueProvider.setSelectedBuildingHeight(
+                              buildingHeightController.text);
+
+                          valueProvider
+                              .setSelectedFloorArea(floorAreaController.text);
+
+                          valueProvider.setSelectedExpressZoneFloor(
+                              expressZoneFloorsController.text);
+
+                          valueProvider.setSelectedUnitPerLevel(
+                              unitPerLevelController.text);
+
+                          /////////////
+                          widget.onNextPagePressed();
+                          valueProvider.printDataDuctFormProvider();
+                          // }
+                        },
+                        child: const Text('Continuar'),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
