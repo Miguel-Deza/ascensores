@@ -211,19 +211,29 @@ class _FirstFormState extends State<FirstForm> {
                           // if (_formKey.currentState!.validate()) {
                           //Añadir datos al provider
                           valueProvider.setSelectedStopsNumber(
-                              stopsNumberController.text);
+                              stopsNumberController.text.isEmpty
+                                  ? '0'
+                                  : stopsNumberController.text);
 
                           valueProvider.setSelectedBuildingHeight(
-                              buildingHeightController.text);
+                              buildingHeightController.text.isEmpty
+                                  ? '0'
+                                  : buildingHeightController.text);
 
-                          valueProvider
-                              .setSelectedFloorArea(floorAreaController.text);
+                          valueProvider.setSelectedFloorArea(
+                              floorAreaController.text.isEmpty
+                                  ? '0'
+                                  : floorAreaController.text);
 
                           valueProvider.setSelectedExpressZoneFloor(
-                              expressZoneFloorsController.text);
+                              expressZoneFloorsController.text.isEmpty
+                                  ? '0'
+                                  : expressZoneFloorsController.text);
 
                           valueProvider.setSelectedUnitPerLevel(
-                              unitPerLevelController.text);
+                              unitPerLevelController.text.isEmpty
+                                  ? '0'
+                                  : unitPerLevelController.text);
 
                           /////////////
                           widget.onNextPagePressed();

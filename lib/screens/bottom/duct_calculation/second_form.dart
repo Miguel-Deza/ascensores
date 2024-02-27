@@ -15,7 +15,7 @@ class SecondForm extends StatefulWidget {
 class _SecondFormState extends State<SecondForm> {
   final _formKey = GlobalKey<FormState>();
   String selectedDoorType = "Lateral";
-
+  
   // Future<void> getTraficStudy() async {
   //   Map<String, dynamic> dataToPass = {
   //     "id": 6,

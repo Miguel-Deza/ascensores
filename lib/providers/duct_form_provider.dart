@@ -8,7 +8,7 @@ class DuctFormProvider with ChangeNotifier {
   getDataFromAPI() async {
     Map<String, dynamic> dataToPass = {
       "building_type_id": 6,
-      "stops": 8,
+      "stops": int.parse(selectedStopsNumber),
       "height": double.parse(selectedBuildingHeight),
       "surface": double.parse(selectedFloorArea),
       "express_floors": int.parse(selectedExpressZoneFloor),
@@ -27,6 +27,7 @@ class DuctFormProvider with ChangeNotifier {
             'Authorization':
                 'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0',
             'Content-Type': 'application/json',
+            
           },
           body: jsonEncode(dataToPass));
       print("Datos enviados");
@@ -59,7 +60,7 @@ class DuctFormProvider with ChangeNotifier {
   }
 
   //Stops Number selected
-  String selectedStopsNumber = "2";
+  String selectedStopsNumber = "0";
   setSelectedStopsNumber(String value) {
     selectedStopsNumber = value;
     notifyListeners();
@@ -90,7 +91,6 @@ class DuctFormProvider with ChangeNotifier {
   }
 
   // Tecnical Characteristics
-
   List<String> passengerCountDropdownList = [
     "1",
     "2",
