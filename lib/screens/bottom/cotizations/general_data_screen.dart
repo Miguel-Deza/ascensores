@@ -228,6 +228,7 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                   provider.selectedNumberPanoramicFaces =
                       selectedNumberPanoramicFaces ?? "";
                   provider.selectedDoorWidth = selectedDoorWidth ?? "";
+                  
                   provider.printQuoteFormProviderData();
                 },
                 child: const Text('Guardar'),

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class QuoteFormProvider with ChangeNotifier {
@@ -135,10 +136,129 @@ class QuoteFormProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  TextEditingController _doorFrameController = TextEditingController();
-  String get doorFrameController => _doorFrameController.text;
-  set doorFrameController(String value) {
-    _doorFrameController.text = value;
+  // TextEditingController _doorFrameController = TextEditingController();
+  // String get doorFrameController => _doorFrameController.text;
+  // set doorFrameController(String value) {
+  //   _doorFrameController.text = value;
+  //   notifyListeners();
+  // }
+
+  int _amountDoorFrame = 0;
+  int get amountDoorFrame => _amountDoorFrame;
+  set amountDoorFrame(int value) {
+    _amountDoorFrame = value;
+    notifyListeners();
+  }
+
+  int _amountAutomaticMarker = 0;
+  int get amountAutomaticMarker => _amountAutomaticMarker;
+  set amountAutomaticMarker(int value) {
+    _amountAutomaticMarker = value;
+    notifyListeners();
+  }
+
+  int _amountVoiceSynthesizer = 0;
+  int get amountVoiceSynthesizer => _amountVoiceSynthesizer;
+  set amountVoiceSynthesizer(int value) {
+    _amountVoiceSynthesizer = value;
+    notifyListeners();
+  }
+
+  int _amountGong = 0;
+  int get amountGong => _amountGong;
+  set amountGong(int value) {
+    _amountGong = value;
+    notifyListeners();
+  }
+
+  int _amountFireFightersCop = 0;
+  int get amountFireFightersCop => _amountFireFightersCop;
+  set amountFireFightersCop(int value) {
+    _amountFireFightersCop = value;
+    notifyListeners();
+  }
+
+  int _amountFireFightersLop = 0;
+  int get amountFireFightersLop => _amountFireFightersLop;
+  set amountFireFightersLop(int value) {
+    _amountFireFightersLop = value;
+    notifyListeners();
+  }
+
+  int _amountFans = 0;
+  int get amountFans => _amountFans;
+  set amountFans(int value) {
+    _amountFans = value;
+    notifyListeners();
+  }
+
+  int _amountSeismicSensor = 0;
+  int get amountSeismicSensor => _amountSeismicSensor;
+  set amountSeismicSensor(int value) {
+    _amountSeismicSensor = value;
+    notifyListeners();
+  }
+
+  int _amountTransformer = 0;
+  int get amountTransformer => _amountTransformer;
+  set amountTransformer(int value) {
+    _amountTransformer = value;
+    notifyListeners();
+  }
+
+  int _amountExtraCable = 0;
+  int get amountExtraCable => _amountExtraCable;
+  set amountExtraCable(int value) {
+    _amountExtraCable = value;
+    notifyListeners();
+  }
+
+  int _amountWirelessCardReader = 0;
+  int get amountWirelessCardReader => _amountWirelessCardReader;
+  set amountWirelessCardReader(int value) {
+    _amountWirelessCardReader = value;
+    notifyListeners();
+  }
+
+  int _amountWirelessCard = 0;
+  int get amountWirelessCard => _amountWirelessCard;
+  set amountWirelessCard(int value) {
+    _amountWirelessCard = value;
+    notifyListeners();
+  }
+
+  int _amountTftCabin = 0;
+  int get amountTftCabin => _amountTftCabin;
+  set amountTftCabin(int value) {
+    _amountTftCabin = value;
+    notifyListeners();
+  }
+
+  int _amountTftFloor = 0;
+  int get amountTftFloor => _amountTftFloor;
+  set amountTftFloor(int value) {
+    _amountTftFloor = value;
+    notifyListeners();
+  }
+
+  int _amountKeyLockSystem = 0;
+  int get amountKeyLockSystem => _amountKeyLockSystem;
+  set amountKeyLockSystem(int value) {
+    _amountKeyLockSystem = value;
+    notifyListeners();
+  }
+
+  int _amountLcdCabin = 0;
+  int get amountLcdCabin => _amountLcdCabin;
+  set amountLcdCabin(int value) {
+    _amountLcdCabin = value;
+    notifyListeners();
+  }
+
+  int _amountLcdFloor = 0;
+  int get amountLcdFloor => _amountLcdFloor;
+  set amountLcdFloor(int value) {
+    _amountLcdFloor = value;
     notifyListeners();
   }
 
@@ -163,6 +283,23 @@ class QuoteFormProvider with ChangeNotifier {
     print('Selected Cabin Roof: ${_selectedCabinRoof}');
     print('Selected Cabin Floor: ${_selectedCabinFloor}');
     print('Selected Cabin Handrail: ${_selectedCabinHandrail}');
-    print('Door Frame: ${_doorFrameController.text}');
+    //Amounts cabins
+    print('Door Frame: ${amountDoorFrame}');
+    print('Automatic Marker: ${amountAutomaticMarker}');
+    print('Voice Synthesizer: ${amountVoiceSynthesizer}');
+    print('Gong: ${amountGong}');
+    print('Fire Fighters Cop: ${amountFireFightersCop}');
+    print('Fire Fighters Lop: ${amountFireFightersLop}');
+    print('Fans Controller: ${amountFans}');
+    print('Seismic Sensor: ${amountSeismicSensor}');
+    print('Transformer Controller: ${amountTransformer}');
+    print('Extra Cable: ${amountExtraCable}');
+    print('Wireless Card Reader: ${amountWirelessCardReader}');
+    print('Wireless Card: ${amountWirelessCard}');
+    print('Tft Cabin: ${amountTftCabin}');
+    print('Tft Floor: ${amountTftFloor}');
+    print('Key Lock System: ${amountKeyLockSystem}');
+    print('Lcd Cabin: ${amountLcdCabin}');
+    print('Lcd Floor: ${amountLcdFloor}');
   }
 }

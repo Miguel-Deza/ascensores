@@ -368,7 +368,35 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
                 provider.selectedCabinRoof = selectedCabinRoof ?? "";
                 provider.selectedCabinFloor = selectedCabinFloor ?? "";
                 provider.selectedCabinHandrail = selectedCabinHandrail ?? "";
-                provider.doorFrameController = doorFrameController.text;
+                //Detalles adicionales cantidad
+                provider.amountDoorFrame = int.parse(doorFrameController.text);
+                provider.amountAutomaticMarker =
+                    int.parse(automaticMarkerController.text);
+                provider.amountVoiceSynthesizer =
+                    int.parse(voiceSynthesizerController.text);
+                provider.amountGong = int.parse(gongController.text);
+                provider.amountFireFightersCop =
+                    int.parse(firefightersCopController.text);
+                provider.amountFireFightersLop =
+                    int.parse(firefightersLopController.text);
+                provider.amountFans = int.parse(fansController.text);
+                provider.amountSeismicSensor =
+                    int.parse(seismicSensorController.text);
+                provider.amountTransformer =
+                    int.parse(transformerController.text);
+                provider.amountExtraCable =
+                    int.parse(extraCableController.text);
+                provider.amountWirelessCardReader =
+                    int.parse(wirelessCardReaderController.text);
+                provider.amountWirelessCard =
+                    int.parse(wirelessCardsController.text);
+                provider.amountTftCabin = int.parse(tftCabinController.text);
+                provider.amountTftFloor = int.parse(tftFloorController.text);
+                provider.amountKeyLockSystem =
+                    int.parse(keyLockSystemController.text);
+                provider.amountLcdCabin = int.parse(lcdCabinController.text);
+                provider.amountLcdFloor = int.parse(lcdFloorController.text);
+
                 provider.printQuoteFormProviderData();
               },
             ),
