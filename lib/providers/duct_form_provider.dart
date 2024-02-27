@@ -1,6 +1,51 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class DuctFormProvider with ChangeNotifier {
+  //API GET CALCULATIONS
+  //getDataFromAPI
+  getDataFromAPI() async {
+    Map<String, dynamic> dataToPass = {
+      "building_type_id": 6,
+      "stops": 8,
+      "height": double.parse(selectedBuildingHeight),
+      "surface": double.parse(selectedFloorArea),
+      "express_floors": int.parse(selectedExpressZoneFloor),
+      "units_per_level_served": int.parse(selectedUnitPerLevel),
+      "is_hospital": false,
+      "capacity": 8,
+      "velocity": double.parse(selectedElevatorSpeed),
+      "safety_margin": 100.0,
+      "door_width": (double.parse(selectedDoorWidth) / 1000),
+      "door_technology": "lateral"
+    };
+    const apiEndpoint = "https://dev.ktel.pe/api/elevator-calculations";
+    try {
+      http.Response response = await http.post(Uri.parse(apiEndpoint),
+          headers: {
+            'Authorization':
+                'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0',
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode(dataToPass));
+      print("Datos enviados");
+      print(dataToPass);
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = jsonDecode(response.body);
+        print(data);
+        print("Desde provider");
+      } else {
+        print('Error en la petición: ${response.statusCode}');
+        print('Error en la petición: ${response.body}');
+      }
+    } catch (e) {
+      print('Error en el getDataTable: $e');
+    }
+  }
+  //API GET CALCULATIONS
+
   //Select Building Use
   List<String> buildingUseDropdownList = [
     "Edificio 1",
@@ -14,7 +59,7 @@ class DuctFormProvider with ChangeNotifier {
   }
 
   //Stops Number selected
-  String selectedStopsNumber = "0";
+  String selectedStopsNumber = "2";
   setSelectedStopsNumber(String value) {
     selectedStopsNumber = value;
     notifyListeners();

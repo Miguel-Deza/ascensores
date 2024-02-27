@@ -15,44 +15,43 @@ class SecondForm extends StatefulWidget {
 class _SecondFormState extends State<SecondForm> {
   final _formKey = GlobalKey<FormState>();
   String selectedDoorType = "Lateral";
-  
 
-  Future<void> getTraficStudy() async {
-    Map<String, dynamic> dataToPass = {
-      "id": 6,
-      "stops": 12,
-      "height": 4,
-      "surface": 300,
-      "express_floors": 0,
-      "units_per_level_served": 12,
-      "is_hospital": false,
-      "capacity": 8,
-      "velocity": 3.0,
-      "safety_margin": 100,
-      "door_width": 0.85,
-      "door_technology": "lateral"
-    };
-    const String apiUrl = 'https://dev.ktel.pe/api/traffic-study';
-    try {
-      http.Response response = await http.post(Uri.parse(apiUrl),
-          headers: {
-            'Authorization':
-                'Bearer 136|I2nFZZXetgd8oKn1azL02Fw84TUDQdnlZtiqNuhSfc7fcd88',
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode(dataToPass));
+  // Future<void> getTraficStudy() async {
+  //   Map<String, dynamic> dataToPass = {
+  //     "id": 6,
+  //     "stops": 12,
+  //     "height": 4,
+  //     "surface": 300,
+  //     "express_floors": 0,
+  //     "units_per_level_served": 12,
+  //     "is_hospital": false,
+  //     "capacity": 8,
+  //     "velocity": 3.0,
+  //     "safety_margin": 100,
+  //     "door_width": 0.85,
+  //     "door_technology": "lateral"
+  //   };
+  //   const String apiUrl = 'https://dev.ktel.pe/api/traffic-study';
+  //   try {
+  //     http.Response response = await http.post(Uri.parse(apiUrl),
+  //         headers: {
+  //           'Authorization':
+  //               'Bearer 136|I2nFZZXetgd8oKn1azL02Fw84TUDQdnlZtiqNuhSfc7fcd88',
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: jsonEncode(dataToPass));
 
-      if (response.statusCode == 200) {
-        print('Bien echo petición: ${response.statusCode}');
-        Map<String, dynamic> data = jsonDecode(response.body);
-        print(data);
-      } else {
-        print('Error en la petición: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error en el getDataTable: $e');
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       print('Bien echo petición: ${response.statusCode}');
+  //       Map<String, dynamic> data = jsonDecode(response.body);
+  //       print(data);
+  //     } else {
+  //       print('Error en la petición: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     print('Error en el getDataTable: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +193,7 @@ class _SecondFormState extends State<SecondForm> {
                                     Text('Parametros ingresado con éxito!')),
                           );
                           valueProvider.printDataDuctFormProvider();
-                          await getTraficStudy();
+                          await valueProvider.getDataFromAPI();
                         }
                       },
                       child: const Text('Operar'),
