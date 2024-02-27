@@ -1,4 +1,9 @@
+import 'dart:convert';
+
+import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class SecondForm extends StatefulWidget {
   const SecondForm({super.key});
@@ -9,250 +14,198 @@ class SecondForm extends StatefulWidget {
 
 class _SecondFormState extends State<SecondForm> {
   final _formKey = GlobalKey<FormState>();
-  int? selectedPassengerCount;
-  double? selectedWeight;
-  int? selectedDoorWidth;
-  String? selectedDoorType;
+  String selectedDoorType = "Lateral";
+  
+
+  Future<void> getTraficStudy() async {
+    Map<String, dynamic> dataToPass = {
+      "id": 6,
+      "stops": 12,
+      "height": 4,
+      "surface": 300,
+      "express_floors": 0,
+      "units_per_level_served": 12,
+      "is_hospital": false,
+      "capacity": 8,
+      "velocity": 3.0,
+      "safety_margin": 100,
+      "door_width": 0.85,
+      "door_technology": "lateral"
+    };
+    const String apiUrl = 'https://dev.ktel.pe/api/traffic-study';
+    try {
+      http.Response response = await http.post(Uri.parse(apiUrl),
+          headers: {
+            'Authorization':
+                'Bearer 136|I2nFZZXetgd8oKn1azL02Fw84TUDQdnlZtiqNuhSfc7fcd88',
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode(dataToPass));
+
+      if (response.statusCode == 200) {
+        print('Bien echo petición: ${response.statusCode}');
+        Map<String, dynamic> data = jsonDecode(response.body);
+        print(data);
+      } else {
+        print('Error en la petición: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en el getDataTable: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(60.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Características técnicas',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                DropdownButtonFormField<int>(
-                  value: selectedPassengerCount,
-                  iconEnabledColor: Colors.white,
-                  onChanged: (int? newValue) {
-                    setState(() {
-                      selectedPassengerCount = newValue!;
-                    });
-                  },
-                  items: const [
-                    DropdownMenuItem<int>(
-                      value: 6,
-                      child: Text('6 pasajeros'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 8,
-                      child: Text('8 pasajeros'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 10,
-                      child: Text('10 pasajeros'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 11,
-                      child: Text('11 pasajeros'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 13,
-                      child: Text('13 pasajeros'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 16,
-                      child: Text('16 pasajeros'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 20,
-                      child: Text('20 pasajeros'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 23,
-                      child: Text('23 pasajeros'),
-                    ),
-                  ],
-                  decoration: const InputDecoration(
-                    labelText: 'Cantidad de pasajeros',
-                    border: OutlineInputBorder(),
+    return Consumer<DuctFormProvider>(
+      builder: (context, valueProvider, child) => Scaffold(
+          body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(60.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Características técnicas',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                DropdownButtonFormField<double>(
-                  value: selectedWeight,
-                  iconEnabledColor: Colors.white,
-                  onChanged: (double? newValue) {
-                    setState(() {
-                      selectedWeight = newValue!;
-                    });
-                  },
-                  items: const [
-                    DropdownMenuItem<double>(
-                      value: 0.4,
-                      child: Text('0.4 m/s'),
-                    ),
-                    DropdownMenuItem<double>(
-                      value: 0.63,
-                      child: Text('0.63 m/s'),
-                    ),
-                    DropdownMenuItem<double>(
-                      value: 1.0,
-                      child: Text('1.0 m/s'),
-                    ),
-                    DropdownMenuItem<double>(
-                      value: 1.6,
-                      child: Text('1.6 m/s'),
-                    ),
-                    DropdownMenuItem<double>(
-                      value: 1.75,
-                      child: Text('1.75 m/s'),
-                    ),
-                    DropdownMenuItem<double>(
-                      value: 2.0,
-                      child: Text('2.0 m/s'),
-                    ),
-                    DropdownMenuItem<double>(
-                      value: 3.0,
-                      child: Text('3.0 m/s'),
-                    ),
-                  ],
-                  decoration: const InputDecoration(
-                    labelText: 'Velocidad del ascensor',
-                    border: OutlineInputBorder(),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                DropdownButtonFormField<int>(
-                  value: selectedDoorWidth,
-                  iconEnabledColor: Colors.white,
-                  onChanged: (int? newValue) {
-                    setState(() {
-                      selectedDoorWidth = newValue!;
-                    });
-                  },
-                  items: const [
-                    DropdownMenuItem<int>(
-                      value: 700,
-                      child: Text('700 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 750,
-                      child: Text('750 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 800,
-                      child: Text('800 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 850,
-                      child: Text('850 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 900,
-                      child: Text('900 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 1000,
-                      child: Text('1000 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 1100,
-                      child: Text('1100 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 1200,
-                      child: Text('1200 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 1300,
-                      child: Text('1300 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 1400,
-                      child: Text('1400 mm'),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 1500,
-                      child: Text('1500 mm'),
-                    ),
-                  ],
-                  decoration: const InputDecoration(
-                    labelText: 'Velocidad del ascensor',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Escoge las puertas del ascensor',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        Radio<String>(
-                          value: 'Lateral',
-                          groupValue: selectedDoorType,
-                          fillColor: MaterialStateProperty.all(Colors.white),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedDoorType = value;
-                            });
-                          },
+                  DropdownButtonFormField<String>(
+                    value: valueProvider.selectedPassengerCount,
+                    iconEnabledColor: Colors.white,
+                    items: [
+                      for (String passagerCount
+                          in valueProvider.passengerCountDropdownList)
+                        DropdownMenuItem(
+                          value: passagerCount,
+                          child: Text(passagerCount),
                         ),
-                        const Text('Lateral'),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Radio<String>(
-                          value: 'Central',
-                          fillColor: MaterialStateProperty.all(Colors.white),
-                          groupValue: selectedDoorType,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedDoorType = value;
-                            });
-                          },
-                        ),
-                        const Text('Central'),
-                      ],
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Parametros ingresado con éxito!')),
-                        );
-                      }
+                    ],
+                    onChanged: (String? newValue) {
+                      valueProvider.setSelectedPassengerCount(newValue!);
                     },
-                    child: const Text('Operar'),
+                    decoration: const InputDecoration(
+                      labelText: 'Cantidad de pasajeros',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  DropdownButtonFormField<String>(
+                    value: valueProvider.selectedElevatorSpeed,
+                    iconEnabledColor: Colors.white,
+                    items: [
+                      for (String elevatorSpeed
+                          in valueProvider.elevatorSpeedDropdownList)
+                        DropdownMenuItem(
+                          value: elevatorSpeed,
+                          child: Text(elevatorSpeed),
+                        ),
+                    ],
+                    onChanged: (String? newValue) {
+                      valueProvider.setSelectedElevatorSpeed(newValue!);
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Velocidad del ascensor',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  DropdownButtonFormField<String>(
+                    value: valueProvider.selectedDoorWidth,
+                    iconEnabledColor: Colors.white,
+                    items: [
+                      for (String doorWidth
+                          in valueProvider.doorWidthDropdownList)
+                        DropdownMenuItem(
+                          value: doorWidth,
+                          child: Text(doorWidth),
+                        ),
+                    ],
+                    onChanged: (value) {
+                      valueProvider.setSelectedDoorWidth(value!);
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Ancho de la puerta',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Escoge las puertas del ascensor',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        children: [
+                          Radio<String>(
+                            value: 'Lateral',
+                            groupValue: selectedDoorType,
+                            fillColor: MaterialStateProperty.all(Colors.white),
+                            onChanged: (String? value) {
+                              setState(() {
+                                selectedDoorType = value!;
+                              });
+                              valueProvider.setSelectedDoorType(value!);
+                            },
+                          ),
+                          const Text('Lateral'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio<String>(
+                            value: 'Central',
+                            fillColor: MaterialStateProperty.all(Colors.white),
+                            groupValue: selectedDoorType,
+                            onChanged: (String? value) {
+                              setState(() {
+                                selectedDoorType = value!;
+                              });
+                              valueProvider.setSelectedDoorType(value!);
+                            },
+                          ),
+                          const Text('Central'),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        // Validate returns true if the form is valid, or false otherwise.
+                        if (_formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content:
+                                    Text('Parametros ingresado con éxito!')),
+                          );
+                          valueProvider.printDataDuctFormProvider();
+                          await getTraficStudy();
+                        }
+                      },
+                      child: const Text('Operar'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 }

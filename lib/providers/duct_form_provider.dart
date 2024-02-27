@@ -44,6 +44,47 @@ class DuctFormProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Tecnical Characteristics
+
+  List<String> passengerCountDropdownList = [
+    "1",
+    "2",
+    "3",
+  ];
+  String selectedPassengerCount = "1";
+  setSelectedPassengerCount(String value) {
+    selectedPassengerCount = value;
+    notifyListeners();
+  }
+
+  List<String> elevatorSpeedDropdownList = [
+    "0.4",
+    "0.63",
+    "1.0",
+  ];
+  String selectedElevatorSpeed = "0.4";
+  setSelectedElevatorSpeed(String value) {
+    selectedElevatorSpeed = value;
+    notifyListeners();
+  }
+
+  List<String> doorWidthDropdownList = [
+    "700",
+    "750",
+    "800",
+  ];
+  String selectedDoorWidth = "700";
+  setSelectedDoorWidth(String value) {
+    selectedDoorWidth = value;
+    notifyListeners();
+  }
+
+  String selectedDoorType = "Lateral";
+  setSelectedDoorType(String value) {
+    selectedDoorType = value;
+    notifyListeners();
+  }
+
   //Print all data from Duct Form Provider
   void printDataDuctFormProvider() {
     print("selectedBuildingUse: $selectedBuildingUse");
@@ -52,5 +93,194 @@ class DuctFormProvider with ChangeNotifier {
     print("selectedFloorArea: $selectedFloorArea");
     print("selectedExpressZoneFloor: $selectedExpressZoneFloor");
     print("selectedUnitPerLevel: $selectedUnitPerLevel");
+    //Second Screen Data
+    print("selectedPassengerCount: $selectedPassengerCount");
+    print("selectedElevatorSpeed: $selectedElevatorSpeed");
+    print("selectedDoorWidth: $selectedDoorWidth");
+    print("selectedDoorType: $selectedDoorType");
   }
 }
+
+
+// Extras
+// items: const [
+//                       DropdownMenuItem<int>(
+//                         value: 6,
+//                         child: Text('6 pasajeros'),
+//                       ),
+//                       DropdownMenuItem<int>(
+//                         value: 8,
+//                         child: Text('8 pasajeros'),
+//                       ),
+//                       DropdownMenuItem<int>(
+//                         value: 10,
+//                         child: Text('10 pasajeros'),
+//                       ),
+//                       DropdownMenuItem<int>(
+//                         value: 11,
+//                         child: Text('11 pasajeros'),
+//                       ),
+//                       DropdownMenuItem<int>(
+//                         value: 13,
+//                         child: Text('13 pasajeros'),
+//                       ),
+//                       DropdownMenuItem<int>(
+//                         value: 16,
+//                         child: Text('16 pasajeros'),
+//                       ),
+//                       DropdownMenuItem<int>(
+//                         value: 20,
+//                         child: Text('20 pasajeros'),
+//                       ),
+//                       DropdownMenuItem<int>(
+//                         value: 23,
+//                         child: Text('23 pasajeros'),
+//                       ),
+//                     ],
+
+
+
+
+//////////////////////////
+///items: const [
+                  //     DropdownMenuItem<double>(
+                  //       value: 0.4,
+                  //       child: Text('0.4 m/s'),
+                  //     ),
+                  //     DropdownMenuItem<double>(
+                  //       value: 0.63,
+                  //       child: Text('0.63 m/s'),
+                  //     ),
+                  //     DropdownMenuItem<double>(
+                  //       value: 1.0,
+                  //       child: Text('1.0 m/s'),
+                  //     ),
+                  //     DropdownMenuItem<double>(
+                  //       value: 1.6,
+                  //       child: Text('1.6 m/s'),
+                  //     ),
+                  //     DropdownMenuItem<double>(
+                  //       value: 1.75,
+                  //       child: Text('1.75 m/s'),
+                  //     ),
+                  //     DropdownMenuItem<double>(
+                  //       value: 2.0,
+                  //       child: Text('2.0 m/s'),
+                  //     ),
+                  //     DropdownMenuItem<double>(
+                  //       value: 3.0,
+                  //       child: Text('3.0 m/s'),
+                  //     ),
+                  //   ],
+                  //   decoration: const InputDecoration(
+                  //     labelText: 'Velocidad del ascensor',
+                  //     border: OutlineInputBorder(),
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
+                  // DropdownButtonFormField<int>(
+                  //   value: selectedDoorWidth,
+                  //   iconEnabledColor: Colors.white,
+                  //   onChanged: (int? newValue) {
+                  //     setState(() {
+                  //       selectedDoorWidth = newValue!;
+                  //     });
+                  //   },
+                  //   items: const [
+                  //     DropdownMenuItem<int>(
+                  //       value: 700,
+                  //       child: Text('700 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 750,
+                  //       child: Text('750 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 800,
+                  //       child: Text('800 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 850,
+                  //       child: Text('850 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 900,
+                  //       child: Text('900 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 1000,
+                  //       child: Text('1000 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 1100,
+                  //       child: Text('1100 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 1200,
+                  //       child: Text('1200 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 1300,
+                  //       child: Text('1300 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 1400,
+                  //       child: Text('1400 mm'),
+                  //     ),
+                  //     DropdownMenuItem<int>(
+                  //       value: 1500,
+                  //       child: Text('1500 mm'),
+                  //     ),
+                  //   ],
+
+
+
+                  ///////////////////////
+                  ///items: const [
+                    //   DropdownMenuItem<int>(
+                    //     value: 700,
+                    //     child: Text('700 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 750,
+                    //     child: Text('750 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 800,
+                    //     child: Text('800 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 850,
+                    //     child: Text('850 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 900,
+                    //     child: Text('900 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 1000,
+                    //     child: Text('1000 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 1100,
+                    //     child: Text('1100 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 1200,
+                    //     child: Text('1200 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 1300,
+                    //     child: Text('1300 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 1400,
+                    //     child: Text('1400 mm'),
+                    //   ),
+                    //   DropdownMenuItem<int>(
+                    //     value: 1500,
+                    //     child: Text('1500 mm'),
+                    //   ),
+                    // ],
