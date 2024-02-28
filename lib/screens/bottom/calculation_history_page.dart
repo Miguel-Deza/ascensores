@@ -22,48 +22,6 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
     // getDataTable();
   }
 
-  // Future<void> getDataTable() async {
-  //   const String apiUrl = 'https://dev.ktel.pe/api/quotes';
-  //   try {
-  //     http.Response response = await http.get(Uri.parse(apiUrl), headers: {
-  //       'Authorization':
-  //           'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
-  //     });
-
-  //     if (response.statusCode == 200) {
-  //       Map<String, dynamic> data = jsonDecode(response.body);
-  //       setState(() {
-  //         _data = List<Map<String, dynamic>>.from(data.values);
-  //       });
-  //     } else {
-  //       print('Error en la petición: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     print('Error en el getDataTable: $e');
-  //   }
-  // }
-
-  // Future<void> deleteRowQuote(int id) async {
-  //   final String apiUrl = 'https://dev.ktel.pe/api/quotes/$id';
-  //   try {
-  //     http.Response response = await http.delete(Uri.parse(apiUrl), headers: {
-  //       'Authorization':
-  //           'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
-  //     });
-
-  //     if (response.statusCode == 200) {
-  //       setState(() {
-  //         _data.removeWhere((item) => item['id'] == id);
-  //       });
-  //       print('Fila eliminada');
-  //     } else {
-  //       print('Error en la petición: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     print('Error en el deleteRowQuote: $e');
-  //   }
-  // }
-
   List<DataRow> buildDataRows(DuctFormProvider valueProvider) {
     return valueProvider.dataTabla.map((dataItem) {
       return DataRow(cells: [
@@ -73,19 +31,21 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
         DataCell(Text('${dataItem['total_time']}')),
         DataCell(Row(
           children: [
-            IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                // Lógica para editar la fila 1
-              },
-            ),
+            // IconButton(
+            //   icon: Icon(Icons.edit),
+            //   onPressed: () {
+            //     // Lógica para editar la fila 1
+            //   },
+            // ),
             IconButton(
               icon: Icon(Icons.delete),
               onPressed: () async {
-                // setState(() {
-                //   _data.removeWhere((item) => item['id'] == dataItem['id']);
-                // });
-                // await deleteRowQuote(dataItem['id']);
+                await valueProvider
+                    .deleteRowFromTable(dataItem['id'].toString());
+                valueProvider.dataTabla
+                    .removeWhere((item) => item['id'] == dataItem['id']);
+
+                //TODO creo que aqui no logro informar que se reconstruay mi widget, la posible solución CREo que seria utilizar una variable externa en lugar de una fucnión
               },
             ),
           ],
@@ -127,9 +87,49 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
   }
 }
 
+// Future<void> getDataTable() async {
+//   const String apiUrl = 'https://dev.ktel.pe/api/quotes';
+//   try {
+//     http.Response response = await http.get(Uri.parse(apiUrl), headers: {
+//       'Authorization':
+//           'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+//     });
 
+//     if (response.statusCode == 200) {
+//       Map<String, dynamic> data = jsonDecode(response.body);
+//       setState(() {
+//         _data = List<Map<String, dynamic>>.from(data.values);
+//       });
+//     } else {
+//       print('Error en la petición: ${response.statusCode}');
+//     }
+//   } catch (e) {
+//     print('Error en el getDataTable: $e');
+//   }
+// }
 
+// Future<void> deleteRowQuote(int id) async {
+//   final String apiUrl = 'https://dev.ktel.pe/api/quotes/$id';
+//   try {
+//     http.Response response = await http.delete(Uri.parse(apiUrl), headers: {
+//       'Authorization':
+//           'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+//     });
 
+//     if (response.statusCode == 200) {
+//       setState(() {
+//         _data.removeWhere((item) => item['id'] == id);
+//       });
+//       print('Fila eliminada');
+//     } else {
+//       print('Error en la petición: ${response.statusCode}');
+//     }
+//   } catch (e) {
+//     print('Error en el deleteRowQuote: $e');
+//   }
+// }
+//////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
 // List<DataRow> buildDataRows() {
 //     return _data.map((dataItem) {

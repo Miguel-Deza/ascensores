@@ -27,6 +27,29 @@ class DuctFormProvider with ChangeNotifier {
     }
   }
 
+  Future<void> deleteRowFromTable(String indexToDelete) async {
+    String apiUrl =
+        'https://dev.ktel.pe/api/elevator-calculations/$indexToDelete';
+    try {
+      http.Response response = await http.delete(Uri.parse(apiUrl), headers: {
+        'Authorization':
+            'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+      });
+
+      if (response.statusCode == 200) {
+        print("Eliminado con éxito");        
+        // TODO eliminar fuente ligada
+        // TODO Cuando se elimine un elemento que se actualice en el UI
+        // TODO podria reconstruir mi widget cuando llamo esta función, ya que esta en la misma pantalla no se reconstruye         
+        notifyListeners();
+      } else {
+        print('Error en la petición: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en el getDataTable: $e');
+    }
+  }
+
   //GET VALUES AFTER CALCULATION
   String index = "0 personas/recámara";
   setIndex(String value) {
