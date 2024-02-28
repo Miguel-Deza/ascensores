@@ -125,3 +125,70 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
     );
   }
 }
+
+
+
+
+
+// List<DataRow> buildDataRows() {
+//     return _data.map((dataItem) {
+//       return DataRow(cells: [
+//         DataCell(Text('${dataItem['description']}')),
+//         DataCell(Text('${dataItem['brand']}')),
+//         DataCell(Text('${dataItem['model']}')),
+//         DataCell(Text('${dataItem['project']}')),
+//         DataCell(Text('${dataItem['created_at']}')),
+//         DataCell(Text('En proceso')),
+//         DataCell(Row(
+//           children: [
+//             IconButton(
+//               icon: Icon(Icons.edit),
+//               onPressed: () {
+//                 // Lógica para editar la fila 1
+//               },
+//             ),
+//             IconButton(
+//               icon: Icon(Icons.delete),
+//               onPressed: () async {
+//                 setState(() {
+//                   _data.removeWhere((item) => item['id'] == dataItem['id']);
+//                 });
+//                 await deleteRowQuote(dataItem['id']);
+//               },
+//             ),
+//           ],
+//         )),
+//       ]);
+//     }).toList();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(16),
+//       child: Scrollbar(
+//         thumbVisibility: true,
+//         thickness: 10,
+//         child: SingleChildScrollView(
+//           scrollDirection: Axis.horizontal,
+//           child: Scrollbar(
+//             thumbVisibility: true,
+//             child: SingleChildScrollView(
+//               scrollDirection: Axis.vertical,
+//               child: DataTable(
+//                 columns: const [
+//                   DataColumn(label: Text('Descripción')),
+//                   DataColumn(label: Text('Marca')),
+//                   DataColumn(label: Text('Modelo')),
+//                   DataColumn(label: Text('Proyecto')),
+//                   DataColumn(label: Text('Fecha de registro')),
+//                   DataColumn(label: Text('Estado')),
+//                   DataColumn(label: Text('Acciones')),
+//                 ],
+//                 rows: buildDataRows(),
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );

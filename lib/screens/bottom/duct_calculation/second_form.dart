@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ascensores/providers/duct_form_provider.dart';
+import 'package:ascensores/screens/bottom/trafic_study/trafic_study_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class SecondForm extends StatefulWidget {
 class _SecondFormState extends State<SecondForm> {
   final _formKey = GlobalKey<FormState>();
   String selectedDoorType = "Lateral";
-  
+
   // Future<void> getTraficStudy() async {
   //   Map<String, dynamic> dataToPass = {
   //     "id": 6,
@@ -194,6 +195,12 @@ class _SecondFormState extends State<SecondForm> {
                           );
                           valueProvider.printDataDuctFormProvider();
                           await valueProvider.getDataFromAPI();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TraficStudyPage(),
+                            ),
+                          );
                         }
                       },
                       child: const Text('Operar'),

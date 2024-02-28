@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = <Widget>[
     const DuctCalculationPage(),
     TraficStudyPage(),
-    const CotizationPricesPage(),
+    // const CotizationPricesPage(),
     const CalculationHistoryPage(),
   ];
   @override
@@ -250,10 +250,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.traffic),
             label: '  Estudio\nde tráfico',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money),
-            label: 'Cotizaciones',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.attach_money),
+          //   label: 'Cotizaciones',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'Historial',
