@@ -15,7 +15,7 @@ class DuctFormProvider with ChangeNotifier {
         'Authorization':
             'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
       });
-      
+
       if (response.statusCode == 200) {
         dataTabla = jsonDecode(response.body);
         notifyListeners();
@@ -37,7 +37,7 @@ class DuctFormProvider with ChangeNotifier {
       });
 
       if (response.statusCode == 200) {
-        print("Eliminado con éxito");                
+        print("Eliminado con éxito");
         notifyListeners();
       } else {
         print('Error en la petición: ${response.statusCode}');
@@ -236,17 +236,33 @@ class DuctFormProvider with ChangeNotifier {
   }
   //API GET CALCULATIONS
 
-  //Select Building Use
-  List<String> buildingUseDropdownList = [
-    "Edificio 1",
-    "Edificio 2",
-    "Edificio 3"
-  ];
-  String selectedBuildingUse = "Edificio 1";
-  setSelectedBuildingUse(String value) {
+//Select Building Use Test
+  var testBuildingUseDropdownList = {
+    "1. Edificio de oficinas diversas, tipo despachos, consultorios, etc., en área céntrica de alta rentabilidad":
+        "1",
+    "2. Edificio similar al anterior, ubicado en un suburbio, o de tipo económico":
+        "2",
+    "3. Edificio para oficinas perteneciente a una sola compañía": "3",
+    "4. Edificio de una dependencia gubernamental": "4",
+    "5. Edificios de departamentos con alta rentabilidad": "5",
+    "6. Edificios de departamentos con rentabilidad media": "6",
+    "7. Hospital de tipo privado": "7",
+    "8. Hospital de tipo estatal": "8",
+    "9. Hotel con alta rentabilidad en área cosmopolita": "9",
+    "10. Hotel con alta rentabilidad en área en lugar de veraneo": "10",
+    "11. Hotel con baja rentabilidad en área cosmopolita": "11",
+    "12. Hotel con baja rentabilidad en área en lugar de veraneo": "12",
+    "13. Estacionamientos de autoservicio": "13",
+    "14. Estacionamiento de autoservicio de una tienda departamental": "14",
+  };
+  String selectedBuildingUse = "1";
+  void setSelectedBuildingUse(String value) {
     selectedBuildingUse = value;
-    notifyListeners();
+    print(selectedBuildingUse);
+    notifyListeners(); // Notifica a los widgets que escuchan este provider que el valor ha cambiado
   }
+
+  //Select Building Use
 
   //Stops Number selected
   String selectedStopsNumber = "0";

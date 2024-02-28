@@ -120,17 +120,15 @@ class _FirstFormState extends State<FirstForm> {
                       value: valueProvider.selectedBuildingUse,
                       iconEnabledColor: Colors.white,
                       isExpanded: true,
-                      items: [
-                        for (String buildingUse
-                            in valueProvider.buildingUseDropdownList)
-                          DropdownMenuItem(
-                            value: buildingUse,
-                            child: Text(buildingUse),
-                          ),
-                      ],
-                      onChanged: (String? newValue) {
-                        valueProvider.setSelectedBuildingUse(newValue!);
-                      },
+                      items: valueProvider.testBuildingUseDropdownList.entries
+                          .map((entry) {
+                        return DropdownMenuItem<String>(
+                          value: entry.value,
+                          child: Text(entry.key),
+                        );
+                      }).toList(),
+                      onChanged: (value) =>
+                          valueProvider.setSelectedBuildingUse(value!),
                       decoration: const InputDecoration(
                         labelText: 'Selecciona el uso del edificio',
                         border: OutlineInputBorder(),

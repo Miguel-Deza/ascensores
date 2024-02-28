@@ -56,7 +56,7 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
     'probable_stops': 'Paradas probables',
     'total_stops': 'Paradas totales',
     'average_jump': 'Salto promedio',
-    'nominal_developed_velocity': 'Velocidad nominal desarrollada',
+  'nominal_developed_velocity': 'Velocidad nominal desarrollada',
     'travel_time_for_partial_stops': 'Tiempo de viaje para paradas parciales',
     'travel_time_for_express_floors': 'Tiempo de viaje para pisos express',
     'acceleration_and_deceleration_time':
