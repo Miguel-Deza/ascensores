@@ -1,7 +1,8 @@
-
+import 'dart:convert';
 
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class CalculationHistoryPage extends StatefulWidget {
@@ -14,11 +15,66 @@ class CalculationHistoryPage extends StatefulWidget {
 class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
   @override
   void initState() {
-    
     super.initState();
     final myProvider = Provider.of<DuctFormProvider>(context, listen: false);
     myProvider.getDataTable();
     // getDataTable();
+  }
+
+  Future<void> getInfoOfTraficStudyById(String id) async {
+    String apiUrl = 'https://dev.ktel.pe/api/elevator-calculations/$id';
+
+    try {
+      http.Response response = await http.get(Uri.parse(apiUrl), headers: {
+        'Authorization':
+            'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+      });
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        print(data);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ListView(
+              children: [
+                AlertDialog(
+                  title: Text("Información"),
+                  content: Center(
+                    child: DataTable(
+                      columns: const [
+                        DataColumn(label: Text('Variable')),
+                        DataColumn(label: Text('Valor')),
+                      ],
+                      rows: data.entries.map<DataRow>((entry) {
+                        return DataRow(cells: [
+                          DataCell(
+                              Container(width: 100, child: Text(entry.key))),
+                          DataCell(Container(
+                              width: 100, child: Text(entry.value.toString()))),
+                        ]);
+                      }).toList(),
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text("Cerrar"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        print('Error en la petición: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en el getDataTable: $e');
+    }
   }
 
   List<DataRow> buildDataRows(DuctFormProvider valueProvider) {
@@ -30,12 +86,12 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
         DataCell(Text('${dataItem['total_time']}')),
         DataCell(Row(
           children: [
-            // IconButton(
-            //   icon: Icon(Icons.edit),
-            //   onPressed: () {
-            //     // Lógica para editar la fila 1
-            //   },
-            // ),
+            IconButton(
+                icon: Icon(Icons.visibility),
+                onPressed: () async {
+                  await getInfoOfTraficStudyById(dataItem['id'].toString());
+                  // Lógica para editar la fila 1
+                }),
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () async {
