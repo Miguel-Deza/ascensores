@@ -1,8 +1,7 @@
-import 'dart:convert';
+
 
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class CalculationHistoryPage extends StatefulWidget {
@@ -15,7 +14,7 @@ class CalculationHistoryPage extends StatefulWidget {
 class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     final myProvider = Provider.of<DuctFormProvider>(context, listen: false);
     myProvider.getDataTable();
@@ -38,14 +37,12 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
             //   },
             // ),
             IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () async {
                 await valueProvider
                     .deleteRowFromTable(dataItem['id'].toString());
                 valueProvider.dataTabla
                     .removeWhere((item) => item['id'] == dataItem['id']);
-
-                //TODO creo que aqui no logro informar que se reconstruay mi widget, la posible solución CREo que seria utilizar una variable externa en lugar de una fucnión
               },
             ),
           ],

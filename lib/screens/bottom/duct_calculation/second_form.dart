@@ -1,9 +1,7 @@
-import 'dart:convert';
 
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/screens/bottom/trafic_study/trafic_study_page.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class SecondForm extends StatefulWidget {
@@ -198,7 +196,7 @@ class _SecondFormState extends State<SecondForm> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TraficStudyPage(),
+                              builder: (context) => const TraficStudyPage(),
                             ),
                           );
                         }

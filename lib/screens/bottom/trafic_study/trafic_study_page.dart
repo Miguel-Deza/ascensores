@@ -3,7 +3,7 @@ import 'package:ascensores/screens/bottom/trafic_study/time_data.dart';
 import 'package:flutter/material.dart';
 
 class TraficStudyPage extends StatefulWidget {
-  TraficStudyPage({Key? key}) : super(key: key);
+  const TraficStudyPage({Key? key}) : super(key: key);
 
   @override
   State<TraficStudyPage> createState() => _TraficStudyPageState();
@@ -26,7 +26,7 @@ class _TraficStudyPageState extends State<TraficStudyPage> {
                 _currentPage = page;
               });
             },
-            children: <Widget>[
+            children: const <Widget>[
               StudyData(),
               TimeData(),
             ],

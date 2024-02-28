@@ -39,7 +39,7 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
             //     .watch<QuoteFormProvider>()
             //     .requireDobleAccess
             //     .toString()),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Altura de las puertas(mm)',
               ),
@@ -48,7 +48,7 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
               scrollDirection: Axis.horizontal,
               child: DataTable(
                 dataRowMaxHeight: double.infinity,
-                columns: [
+                columns: const [
                   DataColumn(label: Text('#')),
                   DataColumn(label: Text('Parada')),
                   DataColumn(label: Text('Ancho (mm)')),
@@ -57,9 +57,9 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                 rows: [
                   DataRow(
                     cells: [
-                      DataCell(SizedBox.shrink()),
-                      DataCell(Text('Cabina')),
-                      DataCell(Text('200')),
+                      const DataCell(SizedBox.shrink()),
+                      const DataCell(Text('Cabina')),
+                      const DataCell(Text('200')),
                       DataCell(
                         DropdownButtonFormField<String>(
                           value: selectedOptionCabin,
@@ -86,9 +86,9 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                   ),
                   DataRow(
                     cells: [
-                      DataCell(SizedBox.shrink()),
-                      DataCell(Text('Puertas de acceso')),
-                      DataCell(SizedBox.shrink()),
+                      const DataCell(SizedBox.shrink()),
+                      const DataCell(Text('Puertas de acceso')),
+                      const DataCell(SizedBox.shrink()),
                       DataCell(
                         DropdownButtonFormField<String>(
                           value: selectedAccessDoor,
@@ -116,9 +116,9 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                   ),
                   DataRow(
                     cells: [
-                      DataCell(Text('1')),
-                      DataCell(Text('Parada 1')),
-                      DataCell(Text('200')),
+                      const DataCell(Text('1')),
+                      const DataCell(Text('Parada 1')),
+                      const DataCell(Text('200')),
                       DataCell(
                         DropdownButtonFormField<String>(
                           value: selectedOptionStop1,
@@ -145,9 +145,9 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                   ),
                   DataRow(
                     cells: [
-                      DataCell(Text('2')),
-                      DataCell(Text('Parada 2')),
-                      DataCell(Text('250')),
+                      const DataCell(Text('2')),
+                      const DataCell(Text('Parada 2')),
+                      const DataCell(Text('250')),
                       DataCell(
                         DropdownButtonFormField<String>(
                           value: selectedOptionStop2,
@@ -186,7 +186,7 @@ class _DoorDetailsScreenState extends State<DoorDetailsScreen> {
                   provider.selectedOptionStop2 = selectedOptionStop2 ?? "";                  
                   provider.printQuoteFormProviderData();
                 },
-                child: Text('Imprimir datos'))
+                child: const Text('Imprimir datos'))
           ],
         ),
       ),

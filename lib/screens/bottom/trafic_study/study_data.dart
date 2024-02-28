@@ -23,36 +23,36 @@ class _StudyDataState extends State<StudyData> {
             ],
             rows: [
               DataRow(cells: [
-                DataCell(Text('Índice para calcular la población:')),
+                const DataCell(Text('Índice para calcular la población:')),
                 DataCell(Text(valueProvider.index)),
               ]),
               DataRow(cells: [
-                DataCell(Text('Nro de Plantas:')),
+                const DataCell(Text('Nro de Plantas:')),
                 DataCell(Text(valueProvider.floors)),
               ]),
               DataRow(cells: [
-                DataCell(Text(
+                const DataCell(Text(
                     'Porcentaje de población a transportar en 5 minutos:')),
                 DataCell(Text('${valueProvider.percentage}%')),
               ]),
               DataRow(cells: [
-                DataCell(Text('Población total:')),
+                const DataCell(Text('Población total:')),
                 DataCell(Text(valueProvider.totalPopulation)),
               ]),
               DataRow(cells: [
-                DataCell(Text('Población servida:')),
+                const DataCell(Text('Población servida:')),
                 DataCell(Text(valueProvider.servedPopulation)),
               ]),
               DataRow(cells: [
-                DataCell(Text('Pisos servidos:')),
+                const DataCell(Text('Pisos servidos:')),
                 DataCell(Text(valueProvider.servedFloors)),
               ]),
               DataRow(cells: [
-                DataCell(Text('Detenciones Probables:')),
+                const DataCell(Text('Detenciones Probables:')),
                 DataCell(Text(valueProvider.probableStops)),
               ]),
               DataRow(cells: [
-                DataCell(Text('Salto promedio:')),
+                const DataCell(Text('Salto promedio:')),
                 DataCell(Text(valueProvider.averageJump)),
               ]),
             ],

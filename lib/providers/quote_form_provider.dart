@@ -263,43 +263,43 @@ class QuoteFormProvider with ChangeNotifier {
   }
 
   void printQuoteFormProviderData() {
-    print('Project Name: ${_projectName}');
-    print('Project Description: ${_projectDescription}');
-    print('Selected Elevator Brand: ${_selectedElevatorBrand}');
-    print('Selected Elevator Model: ${_selectedElevatorModel}');
-    print('Selected Elevator Use: ${_selectedElevatorUse}');
-    print('Selected Elevator Velocity: ${_selectedElevatorVelocity}');
-    print('Stops Number: ${_stopsNumber}');
-    print('Require Double Access: ${_requireDobleAccess}');
-    print('Selected Number Panoramic Faces: ${_selectedNumberPanoramicFaces}');
-    print('Selected Door Width: ${_selectedDoorWidth}');
+    print('Project Name: $_projectName');
+    print('Project Description: $_projectDescription');
+    print('Selected Elevator Brand: $_selectedElevatorBrand');
+    print('Selected Elevator Model: $_selectedElevatorModel');
+    print('Selected Elevator Use: $_selectedElevatorUse');
+    print('Selected Elevator Velocity: $_selectedElevatorVelocity');
+    print('Stops Number: $_stopsNumber');
+    print('Require Double Access: $_requireDobleAccess');
+    print('Selected Number Panoramic Faces: $_selectedNumberPanoramicFaces');
+    print('Selected Door Width: $_selectedDoorWidth');
     //Door details print
-    print('Selected Option Cabin: ${_selectedOptionCabin}');
-    print('Selected Access Door: ${_selectedAccessDoor}');
-    print('Selected Option Stop 1: ${_selectedOptionStop1}');
-    print('Selected Option Stop 2: ${_selectedOptionStop2}');
+    print('Selected Option Cabin: $_selectedOptionCabin');
+    print('Selected Access Door: $_selectedAccessDoor');
+    print('Selected Option Stop 1: $_selectedOptionStop1');
+    print('Selected Option Stop 2: $_selectedOptionStop2');
     //Cabin details print
-    print('Selected Cabin Type: ${_selectedCabinType}');
-    print('Selected Cabin Roof: ${_selectedCabinRoof}');
-    print('Selected Cabin Floor: ${_selectedCabinFloor}');
-    print('Selected Cabin Handrail: ${_selectedCabinHandrail}');
+    print('Selected Cabin Type: $_selectedCabinType');
+    print('Selected Cabin Roof: $_selectedCabinRoof');
+    print('Selected Cabin Floor: $_selectedCabinFloor');
+    print('Selected Cabin Handrail: $_selectedCabinHandrail');
     //Amounts cabins
-    print('Door Frame: ${amountDoorFrame}');
-    print('Automatic Marker: ${amountAutomaticMarker}');
-    print('Voice Synthesizer: ${amountVoiceSynthesizer}');
-    print('Gong: ${amountGong}');
-    print('Fire Fighters Cop: ${amountFireFightersCop}');
-    print('Fire Fighters Lop: ${amountFireFightersLop}');
-    print('Fans Controller: ${amountFans}');
-    print('Seismic Sensor: ${amountSeismicSensor}');
-    print('Transformer Controller: ${amountTransformer}');
-    print('Extra Cable: ${amountExtraCable}');
-    print('Wireless Card Reader: ${amountWirelessCardReader}');
-    print('Wireless Card: ${amountWirelessCard}');
-    print('Tft Cabin: ${amountTftCabin}');
-    print('Tft Floor: ${amountTftFloor}');
-    print('Key Lock System: ${amountKeyLockSystem}');
-    print('Lcd Cabin: ${amountLcdCabin}');
-    print('Lcd Floor: ${amountLcdFloor}');
+    print('Door Frame: $amountDoorFrame');
+    print('Automatic Marker: $amountAutomaticMarker');
+    print('Voice Synthesizer: $amountVoiceSynthesizer');
+    print('Gong: $amountGong');
+    print('Fire Fighters Cop: $amountFireFightersCop');
+    print('Fire Fighters Lop: $amountFireFightersLop');
+    print('Fans Controller: $amountFans');
+    print('Seismic Sensor: $amountSeismicSensor');
+    print('Transformer Controller: $amountTransformer');
+    print('Extra Cable: $amountExtraCable');
+    print('Wireless Card Reader: $amountWirelessCardReader');
+    print('Wireless Card: $amountWirelessCard');
+    print('Tft Cabin: $amountTftCabin');
+    print('Tft Floor: $amountTftFloor');
+    print('Key Lock System: $amountKeyLockSystem');
+    print('Lcd Cabin: $amountLcdCabin');
+    print('Lcd Floor: $amountLcdFloor');
   }
 }

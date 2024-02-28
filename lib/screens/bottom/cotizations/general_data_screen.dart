@@ -32,20 +32,20 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text('Datos generales '),
+              const Text('Datos generales '),
               TextField(
                 controller: projectNameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Proyecto',
                 ),
               ),
               TextField(
                 controller: projectDescriptionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Descripción',
                 ),
               ),
-              Text('Detalles del Ascensor'),
+              const Text('Detalles del Ascensor'),
               DropdownButtonFormField<String>(
                 value: selectedElevatorBrand,
                 iconEnabledColor: Colors.white,
@@ -136,11 +136,11 @@ class _GeneralDataScreenState extends State<GeneralDataScreen> {
                 onChanged: (value) {
                   stopsNumber = value.isNotEmpty ? int.tryParse(value) : null;
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Paradas del ascensor',
                 ),
               ),
-              Text('Requiere doble acceso'),
+              const Text('Requiere doble acceso'),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[

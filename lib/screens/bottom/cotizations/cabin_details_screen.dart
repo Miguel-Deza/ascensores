@@ -44,7 +44,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Text("Detalles de la cabina"),
+          const Text("Detalles de la cabina"),
           DropdownButtonFormField<String>(
             value: selectedCabinType,
             iconEnabledColor: Colors.white,
@@ -125,9 +125,9 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               labelText: 'Tipo de pasamanos de cabina',
             ),
           ),
-          Text("Detalles adicionales"),
+          const Text("Detalles adicionales"),
           DataTable(
-            columns: [
+            columns: const [
               DataColumn(label: Text('Concepto adicional')),
               DataColumn(label: Text('Precio')),
               DataColumn(label: Text('Cantidad')),
@@ -135,8 +135,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
             rows: [
               DataRow(
                 cells: [
-                  DataCell(Text('Controlador de Marco de Puerta')),
-                  DataCell(Text('\$10.00')),
+                  const DataCell(Text('Controlador de Marco de Puerta')),
+                  const DataCell(Text('\$10.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -148,8 +148,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Marcador Automático')),
-                  DataCell(Text('\$10.00')),
+                  const DataCell(Text('Marcador Automático')),
+                  const DataCell(Text('\$10.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -161,8 +161,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Sintetizador de Voz')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Sintetizador de Voz')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -174,8 +174,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Gong')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Gong')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -187,8 +187,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Interrupto de Bomberos COP')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Interrupto de Bomberos COP')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -200,8 +200,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Interrupto de Bomberos LOP')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Interrupto de Bomberos LOP')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -213,8 +213,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Ventilador')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Ventilador')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -226,8 +226,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Sensor Sísmico')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Sensor Sísmico')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -239,8 +239,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Transformador (\$780)')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Transformador (\$780)')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -252,8 +252,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Menos extras de cable (\$780)')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Menos extras de cable (\$780)')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -265,8 +265,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Lector de tarjetas inalambricas')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Lector de tarjetas inalambricas')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -278,8 +278,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Tarjetas inalambricas')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Tarjetas inalambricas')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -291,8 +291,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Display TFT Cabina')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Display TFT Cabina')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -304,8 +304,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Display TFT Piso')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Display TFT Piso')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -317,8 +317,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Sistema de cerradura con llave')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Sistema de cerradura con llave')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -330,8 +330,8 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(Text('Display LCD Cabina')),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('Display LCD Cabina')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -343,10 +343,10 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
               DataRow(
                 cells: [
-                  DataCell(
+                  const DataCell(
                     Text('Display LCD Piso'),
                   ),
-                  DataCell(Text('\$20.00')),
+                  const DataCell(Text('\$20.00')),
                   DataCell(
                     // Campo de texto para la cantidad
                     TextFormField(
@@ -358,7 +358,7 @@ class _CabinDetailsScreenState extends State<CabinDetailsScreen> {
               ),
             ],
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               child: const Text('Enviar cotización'),

@@ -37,10 +37,7 @@ class DuctFormProvider with ChangeNotifier {
       });
 
       if (response.statusCode == 200) {
-        print("Eliminado con éxito");        
-        // TODO eliminar fuente ligada
-        // TODO Cuando se elimine un elemento que se actualice en el UI
-        // TODO podria reconstruir mi widget cuando llamo esta función, ya que esta en la misma pantalla no se reconstruye         
+        print("Eliminado con éxito");                
         notifyListeners();
       } else {
         print('Error en la petición: ${response.statusCode}');

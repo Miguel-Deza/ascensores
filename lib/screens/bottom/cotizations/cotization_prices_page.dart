@@ -29,7 +29,7 @@ class _CotizationPricesPageState extends State<CotizationPricesPage> {
                 _currentPage = page;
               });
             },
-            children: <Widget>[
+            children: const <Widget>[
               GeneralDataScreen(),
               DoorDetailsScreen(),
               CabinDetailsScreen(),
