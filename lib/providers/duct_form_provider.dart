@@ -3,6 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class DuctFormProvider with ChangeNotifier {
+  //VALUES FROM TABLE
+  List dataTabla = [];
+
+  //GET VALUES FOR FUTURE TABLE
+  Future<void> getDataTable() async {
+    const String apiUrl = 'https://dev.ktel.pe/api/elevator-calculations';
+
+    try {
+      http.Response response = await http.get(Uri.parse(apiUrl), headers: {
+        'Authorization':
+            'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+      });
+
+      if (response.statusCode == 200) {
+        dataTabla = jsonDecode(response.body);
+        notifyListeners();
+      } else {
+        print('Error en la petición: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en el getDataTable: $e');
+    }
+  }
+
   //GET VALUES AFTER CALCULATION
   String index = "0 personas/recámara";
   setIndex(String value) {
@@ -159,7 +183,7 @@ class DuctFormProvider with ChangeNotifier {
         probableStops = data["probable_stops"].toString();
         averageJump = data["average_jump"].toString();
         //TIME DATA
-        
+
         travelTimeForPartialStops =
             data["travel_time_for_partial_stops"].toString();
         travelTimeForExpressFloors =
@@ -180,7 +204,7 @@ class DuctFormProvider with ChangeNotifier {
         print(doorOpeningAndClosingTime);
         print(passengerEntryAndExitTime);
         print(recoveryTime);
-        print(totalTime);                
+        print(totalTime);
         notifyListeners();
       } else {
         print('Error en la petición: ${response.statusCode}');
