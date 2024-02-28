@@ -108,6 +108,14 @@ class _FirstFormState extends State<FirstForm> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const Text(
+                      'Parametros correspondientes',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     DropdownButtonFormField<String>(
                       value: valueProvider.selectedBuildingUse,
                       iconEnabledColor: Colors.white,

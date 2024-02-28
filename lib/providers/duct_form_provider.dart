@@ -15,7 +15,7 @@ class DuctFormProvider with ChangeNotifier {
         'Authorization':
             'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
       });
-
+      
       if (response.statusCode == 200) {
         dataTabla = jsonDecode(response.body);
         notifyListeners();

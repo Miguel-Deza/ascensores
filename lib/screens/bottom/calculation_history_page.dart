@@ -112,28 +112,36 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
     return Consumer<DuctFormProvider>(
       builder: (context, valueProvider, child) => Padding(
         padding: const EdgeInsets.all(16),
-        child: Scrollbar(
-          thumbVisibility: true,
-          thickness: 10,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Scrollbar(
+        child: Column(
+          children: [
+            const Text(
+              'Historial de estudios',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            Scrollbar(
               thumbVisibility: true,
+              thickness: 10,
               child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: DataTable(
-                  columns: const [
-                    DataColumn(label: Text('Fecha de creación')),
-                    DataColumn(label: Text('Paradas')),
-                    DataColumn(label: Text('Pisos')),
-                    DataColumn(label: Text('Tiempo total')),
-                    DataColumn(label: Text('Options')),
-                  ],
-                  rows: buildDataRows(valueProvider),
+                scrollDirection: Axis.horizontal,
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: DataTable(
+                      columns: const [
+                        DataColumn(label: Text('Fecha de creación')),
+                        DataColumn(label: Text('Paradas')),
+                        DataColumn(label: Text('Pisos')),
+                        DataColumn(label: Text('Tiempo total')),
+                        DataColumn(label: Text('Options')),
+                      ],
+                      rows: buildDataRows(valueProvider),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

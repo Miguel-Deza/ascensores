@@ -27,13 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = <Widget>[
     const DuctCalculationPage(),
     const TraficStudyPage(),
-    // const CotizationPricesPage(),
     const CalculationHistoryPage(),
+    // const CotizationPricesPage(),
   ];
   @override
   void initState() {
     super.initState();
-    // Llamar a la función getInfoUser() al inicializar el widget
     getInfoUser();
   }
 
@@ -80,12 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                // Implementar la acción de validar correo
-              },
-              child: const Text('Validar correo'),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     // Implementar la acción de validar correo
+            //   },
+            //   child: const Text('Validar correo'),
+            // ),
             TextButton(
               onPressed: () async {
                 await updateInfoUser(
@@ -98,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   phone = phoneController.text;
                   email = emailController.text;
                 });
-                Navigator.of(context).pop();
+                if (context.mounted) Navigator.of(context).pop();
               },
               child: const Text('Guardar'),
             ),
@@ -108,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> LogOutUser() async {
+  Future<void> logOutUser() async {
     const String apiUrl = 'https://dev.ktel.pe/api/logout';
     try {
       http.Request request = http.Request('POST', Uri.parse(apiUrl));
@@ -225,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               title: const Text('Salir'),
               onTap: () async {
-                await LogOutUser();
+                await logOutUser();
                 if (mounted) {
                   Navigator.pushAndRemoveUntil(
                     context,
