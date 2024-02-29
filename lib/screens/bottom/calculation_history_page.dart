@@ -19,7 +19,9 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
   void initState() {
     super.initState();
     final myProvider = Provider.of<DuctFormProvider>(context, listen: false);
-    myProvider.getDataTable();
+    final myUserAuthProvider =
+        Provider.of<UserAuthProvider>(context, listen: false);
+    myProvider.getDataTable(myUserAuthProvider.getTokenUser());
     // getDataTable();
   }
 
@@ -82,7 +84,7 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
 
     try {
       http.Response response = await http.get(Uri.parse(apiUrl),
-          headers: {'Authorization': 'Bearer ${myToken}'});
+          headers: {'Authorization': 'Bearer $myToken'});
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
@@ -139,7 +141,7 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
         print('Error en la petición: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error en el getDataTable: $e');
+      print('Error en el ggetInfoOfTraficStudyById() $e');
     }
   }
 
@@ -163,8 +165,11 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
             IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () async {
-                await valueProvider
-                    .deleteRowFromTable(dataItem['id'].toString());
+                final myUserAuthProvider =
+                    Provider.of<UserAuthProvider>(context, listen: false);
+                await valueProvider.deleteRowFromTable(
+                    dataItem['id'].toString(),
+                    myUserAuthProvider.getTokenUser());
                 valueProvider.dataTabla
                     .removeWhere((item) => item['id'] == dataItem['id']);
               },

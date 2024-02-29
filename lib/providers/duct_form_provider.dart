@@ -7,34 +7,32 @@ class DuctFormProvider with ChangeNotifier {
   List dataTabla = [];
 
   //GET VALUES FOR FUTURE TABLE
-  Future<void> getDataTable() async {
+  Future<void> getDataTable(String bearerKey) async {
     const String apiUrl = 'https://dev.ktel.pe/api/elevator-calculations';
 
     try {
-      http.Response response = await http.get(Uri.parse(apiUrl), headers: {
-        'Authorization':
-            'Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab'
-      });
+      http.Response response = await http.get(Uri.parse(apiUrl),
+          headers: {'Authorization': 'Bearer $bearerKey'});
 
       if (response.statusCode == 200) {
         dataTabla = jsonDecode(response.body);
         notifyListeners();
       } else {
         print('Error en la petición: ${response.statusCode}');
+        print("No se obtuvo datos en la tabla");
       }
     } catch (e) {
-      print('Error en el getDataTable: $e');
+      print('Error en el getDataTable aquo: $e');
     }
   }
 
-  Future<void> deleteRowFromTable(String indexToDelete) async {
+  Future<void> deleteRowFromTable(
+      String indexToDelete, String bearerKey) async {
     String apiUrl =
         'https://dev.ktel.pe/api/elevator-calculations/$indexToDelete';
     try {
-      http.Response response = await http.delete(Uri.parse(apiUrl), headers: {
-        'Authorization':
-            'Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab'
-      });
+      http.Response response = await http.delete(Uri.parse(apiUrl),
+          headers: {'Authorization': 'Bearer $bearerKey'});
 
       if (response.statusCode == 200) {
         print("Eliminado con éxito");
@@ -43,7 +41,7 @@ class DuctFormProvider with ChangeNotifier {
         print('Error en la petición: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error en el getDataTable: $e');
+      print('Error en el deleteRowFromTable: $e');
     }
   }
 
@@ -147,7 +145,7 @@ class DuctFormProvider with ChangeNotifier {
 
   //API GET CALCULATIONS
   //getDataFromAPI
-  getDataFromAPI() async {
+  getDataFromAPI(String bearerKey) async {
     //! VALUES TO TEST
     // Map<String, dynamic> dataToPass = {
     //   "building_type_id": 6,
@@ -183,8 +181,7 @@ class DuctFormProvider with ChangeNotifier {
     try {
       http.Response response = await http.post(Uri.parse(apiEndpoint),
           headers: {
-            'Authorization':
-                'Bearer {141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab}',
+            'Authorization': 'Bearer $bearerKey',
             'Content-Type': 'application/json',
           },
           body: jsonEncode(dataToPass));
@@ -231,7 +228,7 @@ class DuctFormProvider with ChangeNotifier {
         print('Error en la petición: ${response.body}');
       }
     } catch (e) {
-      print('Error en el getDataTable: $e');
+      print('Error en el getDataFromAPI: $e');
     }
   }
   //API GET CALCULATIONS
