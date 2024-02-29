@@ -13,7 +13,7 @@ class DuctFormProvider with ChangeNotifier {
     try {
       http.Response response = await http.get(Uri.parse(apiUrl), headers: {
         'Authorization':
-            'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+            'Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab'
       });
 
       if (response.statusCode == 200) {
@@ -33,7 +33,7 @@ class DuctFormProvider with ChangeNotifier {
     try {
       http.Response response = await http.delete(Uri.parse(apiUrl), headers: {
         'Authorization':
-            'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0'
+            'Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab'
       });
 
       if (response.statusCode == 200) {
@@ -149,42 +149,42 @@ class DuctFormProvider with ChangeNotifier {
   //getDataFromAPI
   getDataFromAPI() async {
     //! ESTOS SON VALORES DE PRUEBA
-    Map<String, dynamic> dataToPass = {
-      "building_type_id": 6,
-      "stops": 12,
-      "height": 4,
-      "surface": 300,
-      "express_floors": 0,
-      "units_per_level_served": 12,
-      "is_hospital": false,
-      "capacity": 8,
-      "velocity": 3.0,
-      "safety_margin": 100,
-      "door_width": 0.85,
-      "door_technology": "lateral"
-    };
-
-    //!USE THIS VALUES
     // Map<String, dynamic> dataToPass = {
     //   "building_type_id": 6,
-    //   "stops": int.parse(selectedStopsNumber),
-    //   "height": double.parse(selectedBuildingHeight),
-    //   "surface": double.parse(selectedFloorArea),
-    //   "express_floors": int.parse(selectedExpressZoneFloor),
-    //   "units_per_level_served": int.parse(selectedUnitPerLevel),
+    //   "stops": 12,
+    //   "height": 4,
+    //   "surface": 300,
+    //   "express_floors": 0,
+    //   "units_per_level_served": 12,
     //   "is_hospital": false,
     //   "capacity": 8,
-    //   "velocity": double.parse(selectedElevatorSpeed),
-    //   "safety_margin": 100.0,
-    //   "door_width": (double.parse(selectedDoorWidth) / 1000),
+    //   "velocity": 3.0,
+    //   "safety_margin": 100,
+    //   "door_width": 0.85,
     //   "door_technology": "lateral"
     // };
+
+    //!USE THIS VALUES
+    Map<String, dynamic> dataToPass = {
+      "building_type_id": int.parse(selectedBuildingUse),
+      "stops": int.parse(selectedStopsNumber),
+      "height": double.parse(selectedBuildingHeight),
+      "surface": double.parse(selectedFloorArea),
+      "express_floors": int.parse(selectedExpressZoneFloor),
+      "units_per_level_served": int.parse(selectedUnitPerLevel),
+      "is_hospital": false,
+      "capacity": int.parse(selectedPassengerCount),
+      "velocity": double.parse(selectedElevatorSpeed),
+      "safety_margin": 100,
+      "door_width": (double.parse(selectedDoorWidth) / 1000),
+      "door_technology": selectedDoorType,
+    };
     const apiEndpoint = "https://dev.ktel.pe/api/elevator-calculations";
     try {
       http.Response response = await http.post(Uri.parse(apiEndpoint),
           headers: {
             'Authorization':
-                'Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0',
+                'Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab',
             'Content-Type': 'application/json',
           },
           body: jsonEncode(dataToPass));

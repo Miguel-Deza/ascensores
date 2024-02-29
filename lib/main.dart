@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Inicio de sesión',
       theme: AppTheme.darkTheme, // Usar solo el tema oscuro
       home: const HomeScreen(
-        token: "Bearer 134|bhBFZWzmqN4Urxeki7TzCC53uEBn1gP6dpdwp8Fz1ae020b0",
+        token: "Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab",
       ),
     );
   }
