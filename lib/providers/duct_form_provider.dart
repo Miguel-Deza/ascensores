@@ -297,11 +297,16 @@ class DuctFormProvider with ChangeNotifier {
 
   // Tecnical Characteristics
   List<String> passengerCountDropdownList = [
-    "1",
-    "2",
-    "3",
+    "5",
+    "6",
+    "8",
+    "10",
+    "13",
+    "17",
+    "21",
+    "50",
   ];
-  String selectedPassengerCount = "1";
+  String selectedPassengerCount = "5";
   setSelectedPassengerCount(String value) {
     selectedPassengerCount = value;
     notifyListeners();
@@ -311,6 +316,10 @@ class DuctFormProvider with ChangeNotifier {
     "0.4",
     "0.63",
     "1.0",
+    "1.6",
+    "1.75",
+    "2.0",
+    "3.0",
   ];
   String selectedElevatorSpeed = "0.4";
   setSelectedElevatorSpeed(String value) {
@@ -322,6 +331,14 @@ class DuctFormProvider with ChangeNotifier {
     "700",
     "750",
     "800",
+    "850",
+    "900",
+    "1000",
+    "1100",
+    "1200",
+    "1300",
+    "1400",
+    "1500",
   ];
   String selectedDoorWidth = "700";
   setSelectedDoorWidth(String value) {

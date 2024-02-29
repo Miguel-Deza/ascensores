@@ -1,4 +1,3 @@
-
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/screens/bottom/trafic_study/trafic_study_page.dart';
 import 'package:flutter/material.dart';
@@ -110,7 +109,7 @@ class _SecondFormState extends State<SecondForm> {
                       valueProvider.setSelectedElevatorSpeed(newValue!);
                     },
                     decoration: const InputDecoration(
-                      labelText: 'Velocidad del ascensor',
+                      labelText: 'Velocidad del ascensor (m/s)',
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -132,7 +131,7 @@ class _SecondFormState extends State<SecondForm> {
                       valueProvider.setSelectedDoorWidth(value!);
                     },
                     decoration: const InputDecoration(
-                      labelText: 'Ancho de la puerta',
+                      labelText: 'Ancho de la puerta (mm)',
                       border: OutlineInputBorder(),
                     ),
                   ),
