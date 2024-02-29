@@ -2,19 +2,9 @@ import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class VerifyPage extends StatelessWidget {
-  final String email;
-  final String newPassword;
-  final String phone;
-  final String fullName;
-  final String token;
-
-  const VerifyPage(
-      {super.key,
-      required this.email,
-      required this.newPassword,
-      required this.phone,
-      required this.fullName,
-      required this.token});
+  const VerifyPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +24,11 @@ class VerifyPage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  print('Correo: $email');
-                  print('Contraseña: $newPassword');
-                  print('Teléfono: $phone');
-                  print('Nombre: $fullName');
-
-                  // Acción para reenviar correo de verificación
+                                   // Acción para reenviar correo de verificación
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => HomeScreen(                        
-                        token: token,
                       ),
                     ),
                   );

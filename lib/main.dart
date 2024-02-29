@@ -1,5 +1,7 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
+import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/home_screen.dart';
+import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +10,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DuctFormProvider()),
+        ChangeNotifierProvider(create: (_) => UserAuthProvider()),
       ],
       child: const MyApp(),
     ),
@@ -22,9 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Inicio de sesión',
       theme: AppTheme.darkTheme, // Usar solo el tema oscuro
-      home: const HomeScreen(
-        token: "Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab",
-      ),
+      home: const LoginPage(),
     );
   }
 }

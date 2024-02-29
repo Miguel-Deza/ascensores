@@ -148,7 +148,7 @@ class DuctFormProvider with ChangeNotifier {
   //API GET CALCULATIONS
   //getDataFromAPI
   getDataFromAPI() async {
-    //! ESTOS SON VALORES DE PRUEBA
+    //! VALUES TO TEST
     // Map<String, dynamic> dataToPass = {
     //   "building_type_id": 6,
     //   "stops": 12,
@@ -184,7 +184,7 @@ class DuctFormProvider with ChangeNotifier {
       http.Response response = await http.post(Uri.parse(apiEndpoint),
           headers: {
             'Authorization':
-                'Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab',
+                'Bearer {141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab}',
             'Content-Type': 'application/json',
           },
           body: jsonEncode(dataToPass));

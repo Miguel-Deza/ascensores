@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ascensores/providers/duct_form_provider.dart';
+import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -56,7 +57,7 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
     'probable_stops': 'Paradas probables',
     'total_stops': 'Paradas totales',
     'average_jump': 'Salto promedio',
-  'nominal_developed_velocity': 'Velocidad nominal desarrollada',
+    'nominal_developed_velocity': 'Velocidad nominal desarrollada',
     'travel_time_for_partial_stops': 'Tiempo de viaje para paradas parciales',
     'travel_time_for_express_floors': 'Tiempo de viaje para pisos express',
     'acceleration_and_deceleration_time':
@@ -76,13 +77,13 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
 
   Future<void> getInfoOfTraficStudyById(String id) async {
     String apiUrl = 'https://dev.ktel.pe/api/elevator-calculations/$id';
+    final myToken =
+        Provider.of<UserAuthProvider>(context, listen: false).getTokenUser();
 
     try {
-      http.Response response = await http.get(Uri.parse(apiUrl), headers: {
-        'Authorization':
-            'Bearer 141|9Cg7gt1R6o1ouaDC0tQzD1dRK3KNt4z1B2lu8oFl4a950bab'
-      });
- 
+      http.Response response = await http.get(Uri.parse(apiUrl),
+          headers: {'Authorization': 'Bearer ${myToken}'});
+
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         print(data);
