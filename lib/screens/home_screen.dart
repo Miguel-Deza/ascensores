@@ -45,10 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showUserDataDialog(BuildContext context) {
+    var userInfo = context.read<UserAuthProvider>();
     TextEditingController nameController =
-        TextEditingController(text: fullName);
-    TextEditingController phoneController = TextEditingController(text: phone);
-    TextEditingController emailController = TextEditingController(text: email);
+        TextEditingController(text: userInfo.fullNameUser);
+    TextEditingController phoneController =
+        TextEditingController(text: userInfo.phoneUser);
+    TextEditingController emailController =
+        TextEditingController(text: userInfo.emailUser);
 
     showDialog(
       context: context,

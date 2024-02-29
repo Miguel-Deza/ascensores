@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class UserAuthProvider with ChangeNotifier {
   //TODO MI usuario solo tiene el token pero debe empezar con beare arreglalo
-  
+
   //VALUES FROM USER
   String tokenUser = "";
   setTokenUser(String token) {
@@ -78,10 +78,9 @@ class UserAuthProvider with ChangeNotifier {
       'email': email,
     };
     String requestBodyJson = jsonEncode(requestBody);
-    notifyListeners();
     try {
       http.Request request = http.Request('POST', Uri.parse(apiUrl));
-      request.headers['Authorization'] = 'Bearer ${tokenUser}';
+      request.headers['Authorization'] = 'Bearer $tokenUser';
       request.headers['Content-Type'] = 'application/json';
       request.body = requestBodyJson;
 
@@ -89,6 +88,10 @@ class UserAuthProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         print("Datos actualizos con éxito");
+        fullNameUser = name;
+        phoneUser = phone;
+        emailUser = email;
+        notifyListeners();
         print(name);
         print(phone);
         print(email);
