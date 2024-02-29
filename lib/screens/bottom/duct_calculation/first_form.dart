@@ -109,7 +109,7 @@ class _FirstFormState extends State<FirstForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Parametros correspondientes',
+                      'Calculo de ductos',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),

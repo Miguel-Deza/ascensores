@@ -199,8 +199,7 @@ class _SecondFormState extends State<SecondForm> {
                           print("TOKEN");
                           print(myToken);
 
-                          await valueProvider
-                              .getDataFromAPI(myToken);
+                          await valueProvider.getDataFromAPI(myToken);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -209,7 +208,7 @@ class _SecondFormState extends State<SecondForm> {
                           );
                         }
                       },
-                      child: const Text('Operar'),
+                      child: const Text('Enviar'),
                     ),
                   ),
                 ],

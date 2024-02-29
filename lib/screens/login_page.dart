@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   bool showNewCreatedPassword = false;
   bool isNewUser = false;
   bool showErrorMessageEmail = false;
-  
+
 // Método para verificar si un usuario existe o no (simulado)
   Future<bool> verifyUser(String email) async {
     // URL del endpoint
@@ -52,8 +52,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  
-
   bool verifyEmail() {
     // Lógica para verificar si el usuario verifico su correo o no
     return true;
@@ -78,229 +76,245 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsets.all(4.0),
                     child: Image(
                       width: 150.0,
-                      image: AssetImage('images/isotipo-negro.png'),
-                    ),
-                  ),
-                  TextField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Ingresa tu correo electrónico',
-                    ),
-                  ),
-                  Visibility(
-                    visible: showErrorMessageEmail,
-                    child: const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Ingresa un correo válido.',
-                        style: TextStyle(
-                          color: Color(0xFF782732),
-                          fontSize: 14.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  //=============================
-                  //Logica boton Continuar
-                  //=============================
-                  Visibility(
-                    visible: !showPasswordInput && !isNewUser,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        child: const Text('Continuar'),
-                        onPressed: () async {
-                          String email = emailController.text.trim();
-                          // Verificar si el usuario existe o no
-                          bool usuarioExiste = await verifyUser(email);
-      
-                          if (EmailValidator.validate(emailController.text)) {
-                            if (usuarioExiste) {
-                              // Usuario existe, mostrar campo de contraseña
-                              setState(() {
-                                showPasswordInput = true;
-                                showErrorMessageEmail = false;
-                              });
-                            } else {
-                              //Usuario crea su contraseña
-                              setState(() {
-                                isNewUser = true;
-                                showErrorMessageEmail = false;
-                              });
-                            }
-                          } else {
-                            print("El email no es valido");
-                            setState(() {
-                              showErrorMessageEmail = true;
-                            });
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-      
-                  Visibility(
-                    visible: showPasswordInput,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        TextField(
-                          controller: passwordController,
-                          obscureText: !showPassword,
-                          decoration: InputDecoration(
-                            labelText: 'Ingresa tu contraseña',
-                            suffixIcon: IconButton(
-                              color: Colors.white,
-                              icon: Icon(
-                                showPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  showPassword = !showPassword;
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              height: 18.0,
-                              width: 18.0,
-                              child: Checkbox(
-                                side: const BorderSide(color: Colors.white),
-                                value: rememberPassword,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    rememberPassword = newValue!;
-                                  });
-                                },
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            const Text("Recordar contraseña"),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        //=============================
-                        //Logica Login user
-                        //=============================
-                        ElevatedButton(
-                          child: const Text('Ingresar'),
-                          onPressed: () async {
-                            String password = passwordController.text.trim();
-                            bool isPasswordCorrect =
-                                await valueProvider.verifyLogin(emailController.text, password);
-                            if (isPasswordCorrect) {
-                              // Password Correct
-      
-                              if (verifyEmail()) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(                                    
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                //=============================
-                                //Logica Email Not Verified
-                                //=============================
-                              }
-                            } else {
-                              // Password Incorrect
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Contraseña incorrecta, intentalo nuevamente!')),
-                              );
-                            }
-                          },
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            // Lógica para manejar el evento de "¿Olvidaste tu contraseña?"
-                          },
-                          child: const Text(
-                            '¿Olvidaste tu contraseña?',
-                            style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-      
-                  //=============================
-                  //Registro de usuario
-                  //=============================
-                  Visibility(
-                    visible: isNewUser,
-                    child: TextField(
-                      controller: newPasswordController,
-                      obscureText: !showNewCreatedPassword,
-                      decoration: InputDecoration(
-                        labelText: 'Crea una contraseña',
-                        suffixIcon: IconButton(
-                          color: Colors.white,
-                          icon: Icon(
-                            showNewCreatedPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              showNewCreatedPassword = !showNewCreatedPassword;
-                            });
-                          },
-                        ),
-                      ),
+                      image: AssetImage('images/isotipo.png'),
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 30.0,
                   ),
-                  Visibility(
-                    visible: isNewUser,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        child: const Text('Registrarme'),
-                        onPressed: () {
-                          String email = emailController.text;
-                          String password = newPasswordController.text;
-      
-                          if (password.length > 7) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RegisterPage(
-                                    email: email, password: password),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30.0, vertical: 20.0),
+                      child: Column(
+                        children: [
+                          TextField(
+                            controller: emailController,
+                            decoration: const InputDecoration(
+                              labelText: 'Ingresa tu correo electrónico',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          Visibility(
+                            visible: showErrorMessageEmail,
+                            child: const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Ingresa un correo válido.',
+                                style: TextStyle(
+                                  color: Color(0xFF782732),
+                                  fontSize: 14.0,
+                                ),
                               ),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'La contraseña debe tener al menos 8 caracteres')),
-                            );
-                          }
-                        },
+                            ),
+                          ),
+                          Visibility(
+                            visible: !showPasswordInput && !isNewUser,
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                child: const Text('Continuar'),
+                                onPressed: () async {
+                                  String email = emailController.text.trim();
+                                  // Verificar si el usuario existe o no
+                                  bool usuarioExiste = await verifyUser(email);
+
+                                  if (EmailValidator.validate(
+                                      emailController.text)) {
+                                    if (usuarioExiste) {
+                                      // Usuario existe, mostrar campo de contraseña
+                                      setState(() {
+                                        showPasswordInput = true;
+                                        showErrorMessageEmail = false;
+                                      });
+                                    } else {
+                                      //Usuario crea su contraseña
+                                      setState(() {
+                                        isNewUser = true;
+                                        showErrorMessageEmail = false;
+                                      });
+                                    }
+                                  } else {
+                                    print("El email no es valido");
+                                    setState(() {
+                                      showErrorMessageEmail = true;
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: showPasswordInput,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                TextField(
+                                  controller: passwordController,
+                                  obscureText: !showPassword,
+                                  decoration: InputDecoration(
+                                    labelText: 'Ingresa tu contraseña',
+                                    suffixIcon: IconButton(
+                                      color: Colors.blueGrey,
+                                      icon: Icon(
+                                        showPassword
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          showPassword = !showPassword;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20.0,
+                                ),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 18.0,
+                                      width: 18.0,
+                                      child: Checkbox(
+                                        side: const BorderSide(),
+                                        value: rememberPassword,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            rememberPassword = newValue!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    const Text("Recordar contraseña"),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20.0,
+                                ),
+                                //=============================
+                                //Logica Login user
+                                //=============================
+                                ElevatedButton(
+                                  
+                                  child: const Text('Ingresar'),                                  
+                                  onPressed: () async {
+                                    String password =
+                                        passwordController.text.trim();
+                                    bool isPasswordCorrect =
+                                        await valueProvider.verifyLogin(
+                                            emailController.text, password);
+                                    if (isPasswordCorrect) {
+                                      // Password Correct
+
+                                      if (verifyEmail()) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomeScreen(),
+                                          ),
+                                        );
+                                      } else {
+                                        //=============================
+                                        //Logica Email Not Verified
+                                        //=============================
+                                      }
+                                    } else {
+                                      // Password Incorrect
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Contraseña incorrecta, intentalo nuevamente!')),
+                                      );
+                                    }
+                                  },
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    // Lógica para manejar el evento de "¿Olvidaste tu contraseña?"
+                                  },
+                                  child: const Text(
+                                    '¿Olvidaste tu contraseña?',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          //=============================
+                          //Registro de usuario
+                          //=============================
+                          Visibility(
+                            visible: isNewUser,
+                            child: TextField(
+                              controller: newPasswordController,
+                              obscureText: !showNewCreatedPassword,
+                              decoration: InputDecoration(
+                                labelText: 'Crea una contraseña',
+                                suffixIcon: IconButton(
+                                  color: Colors.blueGrey,
+                                  icon: Icon(
+                                    showNewCreatedPassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      showNewCreatedPassword =
+                                          !showNewCreatedPassword;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Visibility(
+                            visible: isNewUser,
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                child: const Text('Registrarme'),
+                                onPressed: () {
+                                  String email = emailController.text;
+                                  String password = newPasswordController.text;
+
+                                  if (password.length > 7) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => RegisterPage(
+                                            email: email, password: password),
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              'La contraseña debe tener al menos 8 caracteres')),
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
+
+                  //=============================
+                  //Logica boton Continuar
+                  //=============================
                 ],
               ),
             ),
