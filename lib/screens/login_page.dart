@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,34 +24,21 @@ class _LoginPageState extends State<LoginPage> {
   bool isNewUser = false;
   bool showErrorMessageEmail = false;
 
-// Método para verificar si un usuario existe o no (simulado)
+// Email of user exist?
   Future<bool> verifyUser(String email) async {
-    // URL del endpoint
-    const String apiUrl = 'https://dev.ktel.pe/api/check-email';
-
-    // Cuerpo de la solicitud HTTP
-    final Map<String, String> data = {
-      'email': email,
-    };
-
-    // Realizar la solicitud HTTP
     try {
       final http.Response response = await http.post(
-        Uri.parse(apiUrl),
-        body: data,
+        Uri.parse('https://dev.ktel.pe/api/check-email'),
+        body: {'email': email},
       );
-      if (response.statusCode == 200) {
-        return false;
-      } else {
-        return true;
-      }
+      return response.statusCode != 200;
     } catch (e) {
       return false;
     }
   }
 
+// Logic for verify if user verify his email
   bool verifyEmail() {
-    // Lógica para verificar si el usuario verifico su correo o no
     return true;
   }
 
@@ -68,20 +53,13 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                //=============================
-                //Login de usuario
-                //=============================
+                //Login of user
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(4.0),
-                    child: Image(
-                      width: 150.0,
-                      image: AssetImage('images/isotipo.png'),
-                    ),
-                  ),
+                  newMethod(),
                   const SizedBox(
                     height: 30.0,
                   ),
+                  //All the logic of login
                   Card(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -202,8 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                                 //Logica Login user
                                 //=============================
                                 ElevatedButton(
-                                  
-                                  child: const Text('Ingresar'),                                  
+                                  child: const Text('Ingresar'),
                                   onPressed: () async {
                                     String password =
                                         passwordController.text.trim();
@@ -320,6 +297,18 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  //Metodos
+
+  Padding newMethod() {
+    return const Padding(
+      padding: EdgeInsets.all(4.0),
+      child: Image(
+        width: 150.0,
+        image: AssetImage('images/isotipo.png'),
       ),
     );
   }
