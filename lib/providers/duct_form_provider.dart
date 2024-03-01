@@ -9,6 +9,7 @@ class DuctFormProvider with ChangeNotifier {
   //GET VALUES FOR FUTURE TABLE
   Future<void> getDataTable(String bearerKey) async {
     const String apiUrl = 'https://dev.ktel.pe/api/elevator-calculations';
+    print(bearerKey);
 
     try {
       http.Response response = await http.get(Uri.parse(apiUrl),
@@ -16,6 +17,7 @@ class DuctFormProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         dataTabla = jsonDecode(response.body);
+        print(dataTabla);
         notifyListeners();
       } else {
         print('Error en la petición: ${response.statusCode}');

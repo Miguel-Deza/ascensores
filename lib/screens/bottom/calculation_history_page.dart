@@ -88,7 +88,6 @@ class _CalculationHistoryPageState extends State<CalculationHistoryPage> {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        print(data);
         showDialog(
           context: context,
           builder: (BuildContext context) {

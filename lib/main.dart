@@ -1,5 +1,6 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
+import 'package:ascensores/screens/home_screen.dart';
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(colorSchemeSeed: Colors.blueAccent),
       title: 'Inicio de sesión',
-      home: LoginPage(),
+      home: HomeScreen(),
     );
   }
 }

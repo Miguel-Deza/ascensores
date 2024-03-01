@@ -24,12 +24,11 @@ class VerifyPage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                                   // Acción para reenviar correo de verificación
+                  // Acción para reenviar correo de verificación
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomeScreen(                        
-                      ),
+                      builder: (context) => HomeScreen(),
                     ),
                   );
                 },
@@ -41,10 +40,6 @@ class VerifyPage extends StatelessWidget {
                 },
                 child: const Text(
                   'Reenviar correo de verificación',
-                  style: TextStyle(
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
-                  ),
                 ),
               ),
             ],

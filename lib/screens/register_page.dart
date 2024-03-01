@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/verify_page.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {

@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class UserAuthProvider with ChangeNotifier {
-  //TODO MI usuario solo tiene el token pero debe empezar con beare arreglalo
-
+  //!ESTOY USANDO UN BEARER KEY POR EL MOMENTO
   //VALUES FROM USER
-  String tokenUser = "";
+  String tokenUser = "170|FRSBsKBNhUmNpqAl0wvEKlRckr4esmB7Rwbl65NO01c71bd5";
   setTokenUser(String token) {
     tokenUser = token;
     notifyListeners();

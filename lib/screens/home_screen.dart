@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/bottom/calculation_history_page.dart';
 import 'package:ascensores/screens/bottom/trafic_study/trafic_study_page.dart';
@@ -7,6 +8,7 @@ import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/bottom/duct_calculation/duct_calculation_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,26 +24,31 @@ class _HomeScreenState extends State<HomeScreen> {
   String? fullName;
   String? phone;
   String? email;
+  // ! Estoy usando un tokenbearer por el momento
+  String tokenUser = "";
+  List tiles = [];
 
-  final List<Widget> _pages = <Widget>[
-    const DuctCalculationPage(),
-    const TraficStudyPage(),
-    const CalculationHistoryPage(),
-    // const CotizationPricesPage(),
-  ];
   @override
   void initState() {
     super.initState();
-    context.read<UserAuthProvider>().getInfoUser();
     // getInfoUser();
-  }
+    final myDuctFormProvider =
+        Provider.of<DuctFormProvider>(context, listen: false);
 
-  int _selectedIndex = 0;
+    final myUserAuthProvider =
+        Provider.of<UserAuthProvider>(context, listen: false);
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    myDuctFormProvider.getDataTable(myUserAuthProvider.getTokenUser());
+
+    // tiles = myDuctFormProvider.dataTabla.map((element) {
+    //   return ListTile(
+    //     title: Text('ID: ${element['id']}, User ID: ${element['user_id']}'),
+    //   );
+    // }).toList();
+
+    // tiles.forEach((tile) {
+    //   print(tile.title);
+    // });
   }
 
   void _showUserDataDialog(BuildContext context) {
@@ -82,12 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           actions: <Widget>[
-            // TextButton(
-            //   onPressed: () {
-            //     // Implementar la acción de validar correo
-            //   },
-            //   child: const Text('Validar correo'),
-            // ),
             TextButton(
               onPressed: () async {
                 await context.read<UserAuthProvider>().updateInfoUser(
@@ -110,53 +111,219 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<UserAuthProvider>(
-      builder: (context, valueProvider, child) => Scaffold(
-        body: SafeArea(
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              _pages[_selectedIndex],
-              Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    iconSize: 40.0,
-                    icon: const Icon(Icons.account_circle),
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
-                  );
-                },
-              ),
-            ],
+  //Mapa de converciones al español
+  final Map<String, String> nameConversions = {
+    'id': 'ID',
+    'user_id': 'ID de usuario',
+    'building_type_id': 'ID del tipo de edificio',
+    'stops': 'Paradas',
+    'height': 'Altura',
+    'surface': 'Superficie total',
+    'express_floors': 'Pisos express',
+    'units_per_level_served': 'Unidades por nivel servido',
+    'is_hospital': 'Es hospital',
+    'capacity': 'Capacidad',
+    'velocity': 'Velocidad',
+    'safety_margin': 'Margen de seguridad',
+    'door_width': 'Ancho de puerta',
+    'door_technology': 'Tecnología de puerta',
+    'index': 'Índice',
+    'floors': 'Pisos',
+    'percentage': 'Porcentaje',
+    'total_population': 'Población total',
+    'served_population': 'Población servida',
+    'capacity_passengers': 'Capacidad de pasajeros',
+    'capacity_kgs': 'Capacidad en kg',
+    'capacity_platform_front': 'Capacidad de plataforma (frontal)',
+    'capacity_platform_back': 'Capacidad de plataforma (trasera)',
+    'capacity_cube_front': 'Capacidad de cubo (frontal)',
+    'capacity_cube_back': 'Capacidad de cubo (trasera)',
+    'capacity_door_width': 'Ancho de puerta de capacidad',
+    'capacity_door_height': 'Altura de puerta de capacidad',
+    'passengers': 'Pasajeros',
+    'served_floors': 'Pisos servidos',
+    'probable_stops': 'Paradas probables',
+    'total_stops': 'Paradas totales',
+    'average_jump': 'Salto promedio',
+    'nominal_developed_velocity': 'Velocidad nominal desarrollada',
+    'travel_time_for_partial_stops': 'Tiempo de viaje para paradas parciales',
+    'travel_time_for_express_floors': 'Tiempo de viaje para pisos express',
+    'acceleration_and_deceleration_time':
+        'Tiempo de aceleración y desaceleración',
+    'false_stops': 'Paradas falsas',
+    'door_opening_and_closing_time': 'Tiempo de apertura y cierre de puerta',
+    'passenger_entry_and_exit_time': 'Tiempo de entrada y salida de pasajeros',
+    'leveling_time': 'Tiempo de nivelación',
+    'recovery_time': 'Tiempo de recuperación',
+    'total_time': 'Tiempo total',
+    'passengers_to_be_transported': 'Pasajeros a ser transportados',
+    'cabins_required': 'Cabinas requeridas',
+    'waiting_interval': 'Intervalo de espera',
+    'created_at': 'Creado en',
+    'updated_at': 'Actualizado en',
+  };
+
+  Future<void> getInfoOfTraficStudyById(String id) async {
+    String apiUrl = 'https://dev.ktel.pe/api/elevator-calculations/$id';
+    final myToken =
+        Provider.of<UserAuthProvider>(context, listen: false).getTokenUser();
+
+    try {
+      http.Response response = await http.get(Uri.parse(apiUrl),
+          headers: {'Authorization': 'Bearer $myToken'});
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ListView(
+              children: [
+                AlertDialog(
+                  title: Text("Información"),
+                  content: Center(
+                    child: DataTable(
+                      dataRowMaxHeight: double.infinity,
+                      columns: const [
+                        DataColumn(label: Text('Variable')),
+                        DataColumn(label: Text('Valor')),
+                      ],
+                      rows: data.entries.map<DataRow>((entry) {
+                        String key = entry.key;
+                        if (nameConversions.containsKey(key)) {
+                          key = nameConversions[key]!;
+                        } else {
+                          key = key.replaceAll("_", " ");
+                        }
+                        return DataRow(cells: [
+                          DataCell(Container(width: 100, child: Text(key))),
+                          DataCell(
+                            Container(
+                              width: 100,
+                              child: Text(
+                                entry.value.toString(),
+                              ),
+                            ),
+                          ),
+                        ]);
+                      }).toList(),
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text("Cerrar"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        print('Error en la petición: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error en el ggetInfoOfTraficStudyById() $e');
+    }
+  }
+
+  List<Card> buildListTiles(DuctFormProvider valueProvider) {
+    return valueProvider.dataTabla.map((dataItem) {
+      return Card(
+        child: ListTile(
+          title: Text('ID: ${dataItem['id']}'),
+          subtitle: Text('User ID: ${dataItem['user_id']}'),
+          onTap: () async {
+            await getInfoOfTraficStudyById(
+              dataItem['id'].toString(),
+            );
+          },
+          trailing: IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () async {
+              final myUserAuthProvider =
+                  Provider.of<UserAuthProvider>(context, listen: false);
+              await valueProvider.deleteRowFromTable(
+                  dataItem['id'].toString(), myUserAuthProvider.getTokenUser());
+              valueProvider.dataTabla
+                  .removeWhere((item) => item['id'] == dataItem['id']);
+            },
           ),
         ),
+      );
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer2<UserAuthProvider, DuctFormProvider>(
+      builder: (context, valueAuthProvider, valueDuctProvider, child) =>
+          Scaffold(
+        appBar: AppBar(
+          shadowColor: Colors.blue[900],
+          elevation: 5.0,
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: Colors.blue[900],
+          centerTitle: true,
+          title: Text(
+            'Ascensores',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: ListView(
+              children: buildListTiles(valueDuctProvider),
+            ),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {},
+          child: const Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         drawer: Drawer(
           child: ListView(
+            padding: const EdgeInsets.all(0),
             children: <Widget>[
               UserAccountsDrawerHeader(
                 decoration: const BoxDecoration(
-                  color: Color(0xFF155a96),
+                  color: Color.fromRGBO(13, 71, 161, 1),
+                  image: DecorationImage(
+                    image: AssetImage('images/ascensor_background_image.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                accountName: Text(valueProvider.fullNameUser ?? 'Cargando...'),
-                accountEmail: Text(valueProvider.emailUser ?? 'Cargando...'),
+                accountName: Text(valueAuthProvider.fullNameUser),
+                accountEmail: Text(valueAuthProvider.emailUser),
                 currentAccountPicture: CircleAvatar(
                   //TODO, at the beginning the user is null so it produces an error, fix it in auth provider
-                  child: Text(valueProvider.fullNameUser[0].toUpperCase()),
+                  child: Text(valueAuthProvider.fullNameUser[0].toUpperCase()),
                 ),
               ),
               ListTile(
+                leading: Icon(Icons.account_circle),
                 title: const Text('Mis Datos'),
                 onTap: () {
                   _showUserDataDialog(context);
                 },
               ),
               ListTile(
+                leading: Icon(Icons.file_copy),
+                title: const Text('Terminos y condiciones'),
+                onTap: () {
+                  _showUserDataDialog(context);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.logout),
                 title: const Text('Salir'),
                 onTap: () async {
-                  await valueProvider.logOutUser();
+                  await valueAuthProvider.logOutUser();
                   if (mounted) {
                     Navigator.pushAndRemoveUntil(
                       context,
@@ -170,30 +337,27 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.straighten),
-              label: '  Cálculo\nde ductos',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.traffic),
-              label: '  Estudio\nde tráfico',
-            ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.attach_money),
-            //   label: 'Cotizaciones',
-            // ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.history),
-              label: 'Historial',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-        ),
       ),
     );
   }
+
+  Card generateQuoteCard(
+      String titleQuote, String subtitleQuote, onDeleteQuote, onTapQuote) {
+    return Card(
+      child: ListTile(
+        leading: Icon(Icons.elevator),
+        title: Text('$titleQuote'),
+        subtitle: Text('$subtitleQuote'),
+        trailing:
+            IconButton(icon: Icon(Icons.delete), onPressed: onDeleteQuote),
+        onTap: () => onTapQuote(),
+      ),
+    );
+  }
+}
+
+class CardInfo {
+  String title;
+  String subtitle;
+  CardInfo(this.title, this.subtitle);
 }

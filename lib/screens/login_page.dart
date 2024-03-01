@@ -14,15 +14,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
   bool showPasswordInput = false;
   bool rememberPassword = false;
   bool showPassword = false;
   bool showNewCreatedPassword = false;
   bool isNewUser = false;
   bool showErrorMessageEmail = false;
+  bool isNewCreatedPasswordGreatherThanEight = false;
+  //
 
 // Email of user exist?
   Future<bool> verifyUser(String email) async {
@@ -59,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 30.0,
                   ),
+
                   //All the logic of login
                   Card(
                     child: Padding(
@@ -67,13 +70,13 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         children: [
                           TextField(
-                            controller: emailController,
+                            controller: _emailController,
                             decoration: const InputDecoration(
                               labelText: 'Ingresa tu correo electrónico',
                             ),
                           ),
                           const SizedBox(
-                            height: 20.0,
+                            height: 4.0,
                           ),
                           Visibility(
                             visible: showErrorMessageEmail,
@@ -95,12 +98,12 @@ class _LoginPageState extends State<LoginPage> {
                               child: ElevatedButton(
                                 child: const Text('Continuar'),
                                 onPressed: () async {
-                                  String email = emailController.text.trim();
+                                  String email = _emailController.text.trim();
                                   // Verificar si el usuario existe o no
                                   bool usuarioExiste = await verifyUser(email);
 
                                   if (EmailValidator.validate(
-                                      emailController.text)) {
+                                      _emailController.text)) {
                                     if (usuarioExiste) {
                                       // Usuario existe, mostrar campo de contraseña
                                       setState(() {
@@ -130,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 TextField(
-                                  controller: passwordController,
+                                  controller: _passwordController,
                                   obscureText: !showPassword,
                                   decoration: InputDecoration(
                                     labelText: 'Ingresa tu contraseña',
@@ -183,10 +186,10 @@ class _LoginPageState extends State<LoginPage> {
                                   child: const Text('Ingresar'),
                                   onPressed: () async {
                                     String password =
-                                        passwordController.text.trim();
+                                        _passwordController.text.trim();
                                     bool isPasswordCorrect =
                                         await valueProvider.verifyLogin(
-                                            emailController.text, password);
+                                            _emailController.text, password);
                                     if (isPasswordCorrect) {
                                       // Password Correct
 
@@ -230,26 +233,44 @@ class _LoginPageState extends State<LoginPage> {
                           //=============================
                           Visibility(
                             visible: isNewUser,
-                            child: TextField(
-                              controller: newPasswordController,
-                              obscureText: !showNewCreatedPassword,
-                              decoration: InputDecoration(
-                                labelText: 'Crea una contraseña',
-                                suffixIcon: IconButton(
-                                  color: Colors.blueGrey,
-                                  icon: Icon(
-                                    showNewCreatedPassword
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
+                            child: Column(
+                              children: [
+                                TextField(
+                                  controller: _newPasswordController,
+                                  obscureText: !showNewCreatedPassword,
+                                  decoration: InputDecoration(
+                                    labelText: 'Crea una contraseña',
+                                    suffixIcon: IconButton(
+                                      color: Colors.blueGrey,
+                                      icon: Icon(
+                                        showNewCreatedPassword
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          showNewCreatedPassword =
+                                              !showNewCreatedPassword;
+                                        });
+                                      },
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    setState(() {
-                                      showNewCreatedPassword =
-                                          !showNewCreatedPassword;
-                                    });
-                                  },
                                 ),
-                              ),
+                                Visibility(
+                                  visible:
+                                      isNewCreatedPasswordGreatherThanEight,
+                                  child: const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Mínimo 8 caracteres',
+                                      style: TextStyle(
+                                        color: Color(0xFF782732),
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           const SizedBox(
@@ -262,10 +283,14 @@ class _LoginPageState extends State<LoginPage> {
                               child: ElevatedButton(
                                 child: const Text('Registrarme'),
                                 onPressed: () {
-                                  String email = emailController.text;
-                                  String password = newPasswordController.text;
+                                  String email = _emailController.text;
+                                  String password = _newPasswordController.text;
 
                                   if (password.length > 7) {
+                                    setState(() {
+                                      isNewCreatedPasswordGreatherThanEight =
+                                          false;
+                                    });
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -274,11 +299,10 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     );
                                   } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text(
-                                              'La contraseña debe tener al menos 8 caracteres')),
-                                    );
+                                    setState(() {
+                                      isNewCreatedPasswordGreatherThanEight =
+                                          true;
+                                    });
                                   }
                                 },
                               ),
