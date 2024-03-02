@@ -106,7 +106,6 @@ class _FirstFormState extends State<FirstForm> {
                 padding: const EdgeInsets.all(60.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
                       'Calculo de ductos',
@@ -213,9 +212,6 @@ class _FirstFormState extends State<FirstForm> {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: ElevatedButton(
                         onPressed: () {
-                          // Validate returns true if the form is valid, or false otherwise.
-                          // if (_formKey.currentState!.validate()) {
-                          //Añadir datos al provider
                           valueProvider.setSelectedStopsNumber(
                               stopsNumberController.text.isEmpty
                                   ? '0'
@@ -240,11 +236,8 @@ class _FirstFormState extends State<FirstForm> {
                               unitPerLevelController.text.isEmpty
                                   ? '0'
                                   : unitPerLevelController.text);
-
-                          /////////////
                           widget.onNextPagePressed();
                           valueProvider.printDataDuctFormProvider();
-                          // }
                         },
                         child: const Text('Continuar'),
                       ),

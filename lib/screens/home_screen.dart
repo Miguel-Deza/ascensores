@@ -5,6 +5,7 @@ import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/bottom/calculation_history_page.dart';
 import 'package:ascensores/screens/bottom/trafic_study/trafic_study_page.dart';
 import 'package:ascensores/screens/login_page.dart';
+import 'package:ascensores/screens/quote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/bottom/duct_calculation/duct_calculation_page.dart';
 import 'package:http/http.dart' as http;
@@ -163,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'updated_at': 'Actualizado en',
   };
 
-  Future<void> getInfoOfTraficStudyById(String id) async {
+  Future<dynamic> getInfoOfTraficStudyById(String id) async {
     String apiUrl = 'https://dev.ktel.pe/api/elevator-calculations/$id';
     final myToken =
         Provider.of<UserAuthProvider>(context, listen: false).getTokenUser();
@@ -174,59 +175,61 @@ class _HomeScreenState extends State<HomeScreen> {
 
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return ListView(
-              children: [
-                AlertDialog(
-                  title: Text("Información"),
-                  content: Center(
-                    child: DataTable(
-                      dataRowMaxHeight: double.infinity,
-                      columns: const [
-                        DataColumn(label: Text('Variable')),
-                        DataColumn(label: Text('Valor')),
-                      ],
-                      rows: data.entries.map<DataRow>((entry) {
-                        String key = entry.key;
-                        if (nameConversions.containsKey(key)) {
-                          key = nameConversions[key]!;
-                        } else {
-                          key = key.replaceAll("_", " ");
-                        }
-                        return DataRow(cells: [
-                          DataCell(Container(width: 100, child: Text(key))),
-                          DataCell(
-                            Container(
-                              width: 100,
-                              child: Text(
-                                entry.value.toString(),
-                              ),
-                            ),
-                          ),
-                        ]);
-                      }).toList(),
-                    ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text("Cerrar"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            );
-          },
-        );
+        return data;
+        // showDialog(
+        //   context: context,
+        //   builder: (BuildContext context) {
+
+        // return ListView(
+        //   children: [
+        //     AlertDialog(
+        //       title: Text("Información"),
+        //       content: Center(
+        //         child: DataTable(
+        //           dataRowMaxHeight: double.infinity,
+        //           columns: const [
+        //             DataColumn(label: Text('Variable')),
+        //             DataColumn(label: Text('Valor')),
+        //           ],
+        //           rows: data.entries.map<DataRow>((entry) {
+        //             String key = entry.key;
+        //             if (nameConversions.containsKey(key)) {
+        //               key = nameConversions[key]!;
+        //             } else {
+        //               key = key.replaceAll("_", " ");
+        //             }
+        //             return DataRow(cells: [
+        //               DataCell(Container(width: 100, child: Text(key))),
+        //               DataCell(
+        //                 Container(
+        //                   width: 100,
+        //                   child: Text(
+        //                     entry.value.toString(),
+        //                   ),
+        //                 ),
+        //               ),
+        //             ]);
+        //           }).toList(),
+        //         ),
+        //       ),
+        //       actions: <Widget>[
+        //         TextButton(
+        //           child: Text("Cerrar"),
+        //           onPressed: () {
+        //             Navigator.of(context).pop();
+        //           },
+        //         ),
+        //       ],
+        //     ),
+        //   ],
+        // );
+        // },
+        // );
       } else {
         print('Error en la petición: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error en el ggetInfoOfTraficStudyById() $e');
+      print('Error en el getInfoOfTraficStudyById() $e');
     }
   }
 
@@ -237,9 +240,19 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('ID: ${dataItem['id']}'),
           subtitle: Text('User ID: ${dataItem['user_id']}'),
           onTap: () async {
-            await getInfoOfTraficStudyById(
+            var infoOfQuote = await getInfoOfTraficStudyById(
               dataItem['id'].toString(),
             );
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    QuoteDetail(quoteDetailModel: infoOfQuote),
+              ),
+            );
+            //! Lo de abajo funciona, pero no es lo que quiero
+            // await getInfoOfTraficStudyById(
+            //   dataItem['id'].toString(),
+            // );
           },
           trailing: IconButton(
             icon: const Icon(Icons.delete),
@@ -282,7 +295,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () async {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DuctCalculationPage(),
+              ),
+            );
+          },
           child: const Icon(Icons.add),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

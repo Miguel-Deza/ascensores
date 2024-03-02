@@ -151,7 +151,6 @@ class _SecondFormState extends State<SecondForm> {
                           Radio<String>(
                             value: 'Lateral',
                             groupValue: selectedDoorType,
-                            fillColor: MaterialStateProperty.all(Colors.white),
                             onChanged: (String? value) {
                               setState(() {
                                 selectedDoorType = value!;
@@ -166,7 +165,6 @@ class _SecondFormState extends State<SecondForm> {
                         children: [
                           Radio<String>(
                             value: 'Central',
-                            fillColor: MaterialStateProperty.all(Colors.white),
                             groupValue: selectedDoorType,
                             onChanged: (String? value) {
                               setState(() {

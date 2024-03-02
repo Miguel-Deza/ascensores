@@ -237,23 +237,22 @@ class DuctFormProvider with ChangeNotifier {
 
 //Select Building Use Test
   var testBuildingUseDropdownList = {
-    "1. Edificio de oficinas diversas, tipo despachos, consultorios, etc., en área céntrica de alta rentabilidad":
-        "1",
-    "2. Edificio similar al anterior, ubicado en un suburbio, o de tipo económico":
-        "2",
-    "3. Edificio para oficinas perteneciente a una sola compañía": "3",
-    "4. Edificio de una dependencia gubernamental": "4",
-    "5. Edificios de departamentos con alta rentabilidad": "5",
-    "6. Edificios de departamentos con rentabilidad media": "6",
-    "7. Hospital de tipo privado": "7",
-    "8. Hospital de tipo estatal": "8",
-    "9. Hotel con alta rentabilidad en área cosmopolita": "9",
-    "10. Hotel con alta rentabilidad en área en lugar de veraneo": "10",
-    "11. Hotel con baja rentabilidad en área cosmopolita": "11",
-    "12. Hotel con baja rentabilidad en área en lugar de veraneo": "12",
-    "13. Estacionamientos de autoservicio": "13",
-    "14. Estacionamiento de autoservicio de una tienda departamental": "14",
+    "Oficinas céntricas": "1",
+    "Oficinas suburbanas": "2",
+    "Oficinas corporativas": "3",
+    "Edificio gubernamental": "4",
+    "Departamentos alta rentabilidad": "5",
+    "Departamentos rentabilidad media": "6",
+    "Hospital privado": "7",
+    "Hospital estatal": "8",
+    "Hotel alta rentabilidad cosmopolita": "9",
+    "Hotel alta rentabilidad veraneo": "10",
+    "Hotel baja rentabilidad cosmopolita": "11",
+    "Hotel baja rentabilidad veraneo": "12",
+    "Estacionamiento autoservicio": "13",
+    "Estacionamiento tienda departamental": "14",
   };
+
   String selectedBuildingUse = "1";
   void setSelectedBuildingUse(String value) {
     selectedBuildingUse = value;
