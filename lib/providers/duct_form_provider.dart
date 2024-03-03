@@ -3,28 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class DuctFormProvider with ChangeNotifier {
-  //VALUES FROM TABLE
   List dataTabla = [];
 
-  //GET VALUES FOR FUTURE TABLE
+  List getData() {
+    return dataTabla;
+  }
+
   Future<void> getDataTable(String bearerKey) async {
-    const String apiUrl = 'https://dev.ktel.pe/api/elevator-calculations';
-    print(bearerKey);
-
     try {
-      http.Response response = await http.get(Uri.parse(apiUrl),
+      final response = await http.get(
+          Uri.parse('https://dev.ktel.pe/api/elevator-calculations'),
           headers: {'Authorization': 'Bearer $bearerKey'});
-
       if (response.statusCode == 200) {
+        print(response.body); // Imprime el cuerpo de la respuesta
         dataTabla = jsonDecode(response.body);
-        print(dataTabla);
         notifyListeners();
       } else {
         print('Error en la petición: ${response.statusCode}');
-        print("No se obtuvo datos en la tabla");
       }
     } catch (e) {
-      print('Error en el getDataTable aquo: $e');
+      print('Error en el getDataTable: $e');
     }
   }
 
@@ -260,22 +258,20 @@ class DuctFormProvider with ChangeNotifier {
     notifyListeners(); // Notifica a los widgets que escuchan este provider que el valor ha cambiado
   }
 
-  //Select Building Use
-
   //Stops Number selected
-  String selectedStopsNumber = "0";
+  String selectedStopsNumber = "12";
   setSelectedStopsNumber(String value) {
     selectedStopsNumber = value;
     notifyListeners();
   }
 
-  String selectedBuildingHeight = "0";
+  String selectedBuildingHeight = "4";
   setSelectedBuildingHeight(String value) {
     selectedBuildingHeight = value;
     notifyListeners();
   }
 
-  String selectedFloorArea = "0";
+  String selectedFloorArea = "300";
   setSelectedFloorArea(String value) {
     selectedFloorArea = value;
     notifyListeners();
@@ -287,7 +283,7 @@ class DuctFormProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String selectedUnitPerLevel = "0";
+  String selectedUnitPerLevel = "12";
   setSelectedUnitPerLevel(String value) {
     selectedUnitPerLevel = value;
     notifyListeners();
@@ -365,181 +361,3 @@ class DuctFormProvider with ChangeNotifier {
     print("selectedDoorType: $selectedDoorType");
   }
 }
-
-// Extras
-// items: const [
-//                       DropdownMenuItem<int>(
-//                         value: 6,
-//                         child: Text('6 pasajeros'),
-//                       ),
-//                       DropdownMenuItem<int>(
-//                         value: 8,
-//                         child: Text('8 pasajeros'),
-//                       ),
-//                       DropdownMenuItem<int>(
-//                         value: 10,
-//                         child: Text('10 pasajeros'),
-//                       ),
-//                       DropdownMenuItem<int>(
-//                         value: 11,
-//                         child: Text('11 pasajeros'),
-//                       ),
-//                       DropdownMenuItem<int>(
-//                         value: 13,
-//                         child: Text('13 pasajeros'),
-//                       ),
-//                       DropdownMenuItem<int>(
-//                         value: 16,
-//                         child: Text('16 pasajeros'),
-//                       ),
-//                       DropdownMenuItem<int>(
-//                         value: 20,
-//                         child: Text('20 pasajeros'),
-//                       ),
-//                       DropdownMenuItem<int>(
-//                         value: 23,
-//                         child: Text('23 pasajeros'),
-//                       ),
-//                     ],
-
-//////////////////////////
-///items: const [
-//     DropdownMenuItem<double>(
-//       value: 0.4,
-//       child: Text('0.4 m/s'),
-//     ),
-//     DropdownMenuItem<double>(
-//       value: 0.63,
-//       child: Text('0.63 m/s'),
-//     ),
-//     DropdownMenuItem<double>(
-//       value: 1.0,
-//       child: Text('1.0 m/s'),
-//     ),
-//     DropdownMenuItem<double>(
-//       value: 1.6,
-//       child: Text('1.6 m/s'),
-//     ),
-//     DropdownMenuItem<double>(
-//       value: 1.75,
-//       child: Text('1.75 m/s'),
-//     ),
-//     DropdownMenuItem<double>(
-//       value: 2.0,
-//       child: Text('2.0 m/s'),
-//     ),
-//     DropdownMenuItem<double>(
-//       value: 3.0,
-//       child: Text('3.0 m/s'),
-//     ),
-//   ],
-//   decoration: const InputDecoration(
-//     labelText: 'Velocidad del ascensor',
-//     border: OutlineInputBorder(),
-//   ),
-// ),
-// const SizedBox(
-//   height: 20,
-// ),
-// DropdownButtonFormField<int>(
-//   value: selectedDoorWidth,
-//   iconEnabledColor: Colors.white,
-//   onChanged: (int? newValue) {
-//     setState(() {
-//       selectedDoorWidth = newValue!;
-//     });
-//   },
-//   items: const [
-//     DropdownMenuItem<int>(
-//       value: 700,
-//       child: Text('700 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 750,
-//       child: Text('750 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 800,
-//       child: Text('800 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 850,
-//       child: Text('850 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 900,
-//       child: Text('900 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 1000,
-//       child: Text('1000 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 1100,
-//       child: Text('1100 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 1200,
-//       child: Text('1200 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 1300,
-//       child: Text('1300 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 1400,
-//       child: Text('1400 mm'),
-//     ),
-//     DropdownMenuItem<int>(
-//       value: 1500,
-//       child: Text('1500 mm'),
-//     ),
-//   ],
-
-///////////////////////
-///items: const [
-//   DropdownMenuItem<int>(
-//     value: 700,
-//     child: Text('700 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 750,
-//     child: Text('750 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 800,
-//     child: Text('800 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 850,
-//     child: Text('850 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 900,
-//     child: Text('900 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 1000,
-//     child: Text('1000 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 1100,
-//     child: Text('1100 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 1200,
-//     child: Text('1200 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 1300,
-//     child: Text('1300 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 1400,
-//     child: Text('1400 mm'),
-//   ),
-//   DropdownMenuItem<int>(
-//     value: 1500,
-//     child: Text('1500 mm'),
-//   ),
-// ],

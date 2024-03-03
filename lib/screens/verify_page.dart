@@ -1,4 +1,4 @@
-import 'package:ascensores/screens/home_screen.dart';
+import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class VerifyPage extends StatelessWidget {

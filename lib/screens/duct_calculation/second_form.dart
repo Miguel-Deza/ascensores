@@ -193,7 +193,7 @@ class _SecondFormState extends State<SecondForm> {
                           final myUserAuthProvider =
                               Provider.of<UserAuthProvider>(context,
                                   listen: false);
-                          String myToken = myUserAuthProvider.tokenUser;
+                          String myToken = myUserAuthProvider.getTokenUser();
                           print("TOKEN");
                           print(myToken);
 

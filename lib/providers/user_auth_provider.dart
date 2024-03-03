@@ -1,42 +1,36 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class UserAuthProvider with ChangeNotifier {
   //!ESTOY USANDO UN BEARER KEY POR EL MOMENTO
-  //VALUES FROM USER
-  String tokenUser = "170|FRSBsKBNhUmNpqAl0wvEKlRckr4esmB7Rwbl65NO01c71bd5";
-  setTokenUser(String token) {
-    tokenUser = token;
-    notifyListeners();
-  }
-
-  getTokenUser() {
-    return tokenUser;
-  }
-
+  String _tokenUser = "173|m3Nmm8sWJipiYQXWMmJpcFwLLRrwK60AyaflgLxgcadaaa2a";
   String fullNameUser = "L";
   String phoneUser = "";
   String emailUser = "";
 
-  Future<bool> verifyLogin(String email, String password) async {
-    // URL de la API de inicio de sesión
-    const String apiUrl = 'https://dev.ktel.pe/api/login';
+  setTokenUser(String token) {
+    _tokenUser = token;
+    notifyListeners();
+  }
 
-    // Cuerpo de la solicitud con los parámetros de inicio de sesión
+  getTokenUser() {
+    return _tokenUser;
+  }
+
+  Future<bool> verifyLogin(String email, String password) async {
+    const String apiUrl = 'https://dev.ktel.pe/api/login';
     final Map<String, String> data = {
       'email': email,
       'password': password,
     };
-
     try {
       final http.Response response = await http.post(
         Uri.parse(apiUrl),
         body: data,
       );
       if (response.statusCode == 200) {
-        tokenUser = json.decode(response.body)['token'] as String;
+        _tokenUser = json.decode(response.body)['token'] as String;
         notifyListeners();
         return true;
       } else {
@@ -47,17 +41,14 @@ class UserAuthProvider with ChangeNotifier {
     }
   }
 
-  // TODO añadir change notifiers!!!!!
-
   //logout
   Future<void> logOutUser() async {
     const String apiUrl = 'https://dev.ktel.pe/api/logout';
     try {
       http.Request request = http.Request('POST', Uri.parse(apiUrl));
-      request.headers['Authorization'] = 'Bearer ${tokenUser}';
+      request.headers['Authorization'] = 'Bearer $_tokenUser';
       http.StreamedResponse response = await request.send();
       notifyListeners();
-
       if (response.statusCode == 200) {
         print('Logout exitoso');
       } else {
@@ -68,7 +59,6 @@ class UserAuthProvider with ChangeNotifier {
     }
   }
 
-  //edit info
   Future<void> updateInfoUser(name, phone, email) async {
     const String apiUrl = 'https://dev.ktel.pe/api/update-user-info';
     Map<String, dynamic> requestBody = {
@@ -79,21 +69,16 @@ class UserAuthProvider with ChangeNotifier {
     String requestBodyJson = jsonEncode(requestBody);
     try {
       http.Request request = http.Request('POST', Uri.parse(apiUrl));
-      request.headers['Authorization'] = 'Bearer $tokenUser';
+      request.headers['Authorization'] = 'Bearer $_tokenUser';
       request.headers['Content-Type'] = 'application/json';
       request.body = requestBodyJson;
-
       http.StreamedResponse response = await request.send();
-
       if (response.statusCode == 200) {
         print("Datos actualizos con éxito");
         fullNameUser = name;
         phoneUser = phone;
         emailUser = email;
         notifyListeners();
-        print(name);
-        print(phone);
-        print(email);
       } else {
         print("Error en la solicitud: ${response.statusCode}");
       }
@@ -102,12 +87,11 @@ class UserAuthProvider with ChangeNotifier {
     }
   }
 
-  //getInfoUser
   Future<void> getInfoUser() async {
     const String apiUrl = 'https://dev.ktel.pe/api/user-info';
     try {
       http.Request request = http.Request('POST', Uri.parse(apiUrl));
-      request.headers['Authorization'] = 'Bearer ${tokenUser}';
+      request.headers['Authorization'] = 'Bearer ${_tokenUser}';
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
@@ -118,10 +102,6 @@ class UserAuthProvider with ChangeNotifier {
         phoneUser = userInfo['phone'];
         emailUser = userInfo['email'];
         notifyListeners();
-
-        print(fullNameUser);
-        print(phoneUser);
-        print(emailUser);
       } else {
         print("Error en la solicitud: ${response.statusCode}");
       }
@@ -130,13 +110,10 @@ class UserAuthProvider with ChangeNotifier {
     }
   }
 
-  //RegisterUser
   Future<bool> registerUser(
       String email, String password, String fullName, String phone) async {
-    // URL del endpoint
     const String apiUrl = 'https://dev.ktel.pe/api/register';
 
-    // Cuerpo de la solicitud HTTP
     final Map<String, String> data = {
       "name": fullName,
       "email": email,
@@ -144,17 +121,13 @@ class UserAuthProvider with ChangeNotifier {
       "password_confirmation": password,
       "phone": phone,
     };
-
-    print(data);
-
-    // Realizar la solicitud HTTP
     try {
       final http.Response response = await http.post(
         Uri.parse(apiUrl),
         body: data,
       );
       if (response.statusCode == 201) {
-        tokenUser = json.decode(response.body)['token'] as String;
+        _tokenUser = json.decode(response.body)['token'] as String;
         notifyListeners();
         return true;
       } else {

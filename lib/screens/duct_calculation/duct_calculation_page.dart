@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ascensores/screens/bottom/duct_calculation/second_form.dart';
-import 'package:ascensores/screens/bottom/duct_calculation/first_form.dart';
+import 'package:ascensores/screens/duct_calculation/second_form.dart';
+import 'package:ascensores/screens/duct_calculation/first_form.dart';
 
 class DuctCalculationPage extends StatefulWidget {
   const DuctCalculationPage({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:ascensores/providers/user_auth_provider.dart';
-import 'package:ascensores/screens/home_screen.dart';
+import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/register_page.dart';
 import 'package:email_validator/email_validator.dart';
