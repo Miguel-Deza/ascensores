@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   String? email;
   // ! Estoy usando un tokenBearer por el momento
   String tokenUser = "";
-  List<dynamic> tiles = [];
 
   @override
   void initState() {
@@ -79,7 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
               MaterialPageRoute(
                 builder: (context) => const DuctCalculationPage(),
               ),
-            );
+            ).then((value) => {
+                  "LLamando a fetch data",
+                  fetchData(),
+                });
           },
           child: const Icon(Icons.add),
         ),

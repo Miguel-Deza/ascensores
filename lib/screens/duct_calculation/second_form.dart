@@ -1,6 +1,6 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
-import 'package:ascensores/screens/bottom/trafic_study/trafic_study_page.dart';
+import 'package:ascensores/screens/trafic_study/trafic_study_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -189,15 +189,15 @@ class _SecondFormState extends State<SecondForm> {
                                 content:
                                     Text('Parametros ingresado con éxito!')),
                           );
-                          valueProvider.printDataDuctFormProvider();
                           final myUserAuthProvider =
                               Provider.of<UserAuthProvider>(context,
                                   listen: false);
                           String myToken = myUserAuthProvider.getTokenUser();
-                          print("TOKEN");
-                          print(myToken);
 
                           await valueProvider.getDataFromAPI(myToken);
+                          Navigator.pop(
+                            context,
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(

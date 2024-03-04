@@ -16,6 +16,7 @@ class _TimeDataState extends State<TimeData> {
       builder: (context, valueProvider, child) => Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Estudio de tiempos',

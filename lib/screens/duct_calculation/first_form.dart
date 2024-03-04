@@ -88,11 +88,16 @@ class _FirstFormState extends State<FirstForm> {
   ];
   final _formKey = GlobalKey<FormState>();
   //*Controllers
-  TextEditingController stopsNumberController = TextEditingController();
-  TextEditingController buildingHeightController = TextEditingController();
-  TextEditingController floorAreaController = TextEditingController();
-  TextEditingController expressZoneFloorsController = TextEditingController();
-  TextEditingController unitPerLevelController = TextEditingController();
+  TextEditingController stopsNumberController =
+      TextEditingController(text: "12");
+  TextEditingController buildingHeightController =
+      TextEditingController(text: "4");
+  TextEditingController floorAreaController =
+      TextEditingController(text: "300");
+  TextEditingController expressZoneFloorsController =
+      TextEditingController(text: "0");
+  TextEditingController unitPerLevelController =
+      TextEditingController(text: "12");
 
   @override
   Widget build(BuildContext context) {

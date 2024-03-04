@@ -259,19 +259,19 @@ class DuctFormProvider with ChangeNotifier {
   }
 
   //Stops Number selected
-  String selectedStopsNumber = "12";
+  String selectedStopsNumber = "0";
   setSelectedStopsNumber(String value) {
     selectedStopsNumber = value;
     notifyListeners();
   }
 
-  String selectedBuildingHeight = "4";
+  String selectedBuildingHeight = "0";
   setSelectedBuildingHeight(String value) {
     selectedBuildingHeight = value;
     notifyListeners();
   }
 
-  String selectedFloorArea = "300";
+  String selectedFloorArea = "0";
   setSelectedFloorArea(String value) {
     selectedFloorArea = value;
     notifyListeners();
@@ -283,7 +283,7 @@ class DuctFormProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  String selectedUnitPerLevel = "12";
+  String selectedUnitPerLevel = "0";
   setSelectedUnitPerLevel(String value) {
     selectedUnitPerLevel = value;
     notifyListeners();
@@ -300,7 +300,7 @@ class DuctFormProvider with ChangeNotifier {
     "21",
     "50",
   ];
-  String selectedPassengerCount = "5";
+  String selectedPassengerCount = "8";
   setSelectedPassengerCount(String value) {
     selectedPassengerCount = value;
     notifyListeners();
@@ -315,7 +315,7 @@ class DuctFormProvider with ChangeNotifier {
     "2.0",
     "3.0",
   ];
-  String selectedElevatorSpeed = "0.4";
+  String selectedElevatorSpeed = "3.0";
   setSelectedElevatorSpeed(String value) {
     selectedElevatorSpeed = value;
     notifyListeners();
@@ -334,7 +334,7 @@ class DuctFormProvider with ChangeNotifier {
     "1400",
     "1500",
   ];
-  String selectedDoorWidth = "700";
+  String selectedDoorWidth = "850";
   setSelectedDoorWidth(String value) {
     selectedDoorWidth = value;
     notifyListeners();

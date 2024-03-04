@@ -1,5 +1,5 @@
-import 'package:ascensores/screens/bottom/trafic_study/study_data.dart';
-import 'package:ascensores/screens/bottom/trafic_study/time_data.dart';
+import 'package:ascensores/screens/trafic_study/study_data.dart';
+import 'package:ascensores/screens/trafic_study/time_data.dart';
 import 'package:flutter/material.dart';
 
 class TraficStudyPage extends StatefulWidget {
