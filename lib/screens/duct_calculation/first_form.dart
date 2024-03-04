@@ -24,68 +24,6 @@ class BuildingUse {
 }
 
 class _FirstFormState extends State<FirstForm> {
-  List<BuildingUse> buildingUses = [
-    const BuildingUse(
-      label:
-          '1. Edificio de oficinas diversas, tipo despachos, consultorios, etc., en área céntrica de alta rentabilidad',
-      value:
-          'Edificio de oficinas diversas, tipo despachos, consultorios, etc., en área céntrica de alta rentabilidad',
-    ),
-    const BuildingUse(
-      label:
-          '2. Edificio similar al anterior, ubicado en un suburbio, o de tipo económico',
-      value:
-          'Edificio similar al anterior, ubicado en un suburbio, o de tipo económico',
-    ),
-    const BuildingUse(
-      label: '3. Edificio para oficinas perteneciente a una sola compañía',
-      value: 'Edificio para oficinas perteneciente a una sola compañía',
-    ),
-    const BuildingUse(
-      label: '4. Edificio de una dependencia gubernamental',
-      value: 'Edificio de una dependencia gubernamental',
-    ),
-    const BuildingUse(
-      label: '5. Edificios de departamentos con alta rentabilidad',
-      value: 'Edificios de departamentos con alta rentabilidad',
-    ),
-    const BuildingUse(
-      label: '6. Edificios de departamentos con rentabilidad media',
-      value: 'Edificios de departamentos con rentabilidad media',
-    ),
-    const BuildingUse(
-      label: '7. Hospital de tipo privado',
-      value: 'Hospital de tipo privado',
-    ),
-    const BuildingUse(
-      label: '8. Hospital de tipo estatal',
-      value: 'Hospital de tipo estatal',
-    ),
-    const BuildingUse(
-      label: '9. Hotel con alta rentabilidad en área cosmopolita',
-      value: 'Hotel con alta rentabilidad en área cosmopolita',
-    ),
-    const BuildingUse(
-      label: '10. Hotel con alta rentabilidad en área en lugar de veraneo',
-      value: 'Hotel con alta rentabilidad en área en lugar de veraneo',
-    ),
-    const BuildingUse(
-      label: '11. Hotel con baja rentabilidad en área cosmopolita',
-      value: 'Hotel con baja rentabilidad en área cosmopolita',
-    ),
-    const BuildingUse(
-      label: '12. Hotel con baja rentabilidad en área en lugar de veraneo',
-      value: 'Hotel con baja rentabilidad en área en lugar de veraneo',
-    ),
-    const BuildingUse(
-      label: '13. Estacionamientos de autoservicio',
-      value: 'Estacionamientos de autoservicio',
-    ),
-    const BuildingUse(
-      label: '14. Estacionamiento de autoservicio de una tienda departamental',
-      value: 'Estacionamiento de autoservicio de una tienda departamental',
-    ),
-  ];
   final _formKey = GlobalKey<FormState>();
   //*Controllers
   TextEditingController stopsNumberController =
