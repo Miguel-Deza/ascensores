@@ -104,6 +104,14 @@ class _FirstFormState extends State<FirstForm> {
     return Consumer<DuctFormProvider>(
       builder: (context, valueProvider, child) => Scaffold(
         body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("images/fondo.jpg"),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.1), BlendMode.dstATop),
+            ),
+          ),
           child: SafeArea(
             child: Form(
               key: _formKey,
@@ -116,7 +124,7 @@ class _FirstFormState extends State<FirstForm> {
                       const Text(
                         'Calculo de ductos',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 20,
@@ -385,32 +393,34 @@ class _FirstFormState extends State<FirstForm> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         child: ElevatedButton(
                           onPressed: () {
-                            valueProvider.setSelectedStopsNumber(
-                                stopsNumberController.text.isEmpty
-                                    ? '0'
-                                    : stopsNumberController.text);
+                            if (_formKey.currentState!.validate()) {
+                              valueProvider.setSelectedStopsNumber(
+                                  stopsNumberController.text.isEmpty
+                                      ? '0'
+                                      : stopsNumberController.text);
 
-                            valueProvider.setSelectedBuildingHeight(
-                                buildingHeightController.text.isEmpty
-                                    ? '0'
-                                    : buildingHeightController.text);
+                              valueProvider.setSelectedBuildingHeight(
+                                  buildingHeightController.text.isEmpty
+                                      ? '0'
+                                      : buildingHeightController.text);
 
-                            valueProvider.setSelectedFloorArea(
-                                floorAreaController.text.isEmpty
-                                    ? '0'
-                                    : floorAreaController.text);
+                              valueProvider.setSelectedFloorArea(
+                                  floorAreaController.text.isEmpty
+                                      ? '0'
+                                      : floorAreaController.text);
 
-                            valueProvider.setSelectedExpressZoneFloor(
-                                expressZoneFloorsController.text.isEmpty
-                                    ? '0'
-                                    : expressZoneFloorsController.text);
+                              valueProvider.setSelectedExpressZoneFloor(
+                                  expressZoneFloorsController.text.isEmpty
+                                      ? '0'
+                                      : expressZoneFloorsController.text);
 
-                            valueProvider.setSelectedUnitPerLevel(
-                                unitPerLevelController.text.isEmpty
-                                    ? '0'
-                                    : unitPerLevelController.text);
-                            widget.onNextPagePressed();
-                            valueProvider.printDataDuctFormProvider();
+                              valueProvider.setSelectedUnitPerLevel(
+                                  unitPerLevelController.text.isEmpty
+                                      ? '0'
+                                      : unitPerLevelController.text);
+                              widget.onNextPagePressed();
+                              valueProvider.printDataDuctFormProvider();
+                            }
                           },
                           child: const Text('Continuar'),
                         ),

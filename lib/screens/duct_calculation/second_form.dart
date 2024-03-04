@@ -15,206 +15,177 @@ class _SecondFormState extends State<SecondForm> {
   final _formKey = GlobalKey<FormState>();
   String selectedDoorType = "Lateral";
 
-  // Future<void> getTraficStudy() async {
-  //   Map<String, dynamic> dataToPass = {
-  //     "id": 6,
-  //     "stops": 12,
-  //     "height": 4,
-  //     "surface": 300,
-  //     "express_floors": 0,
-  //     "units_per_level_served": 12,
-  //     "is_hospital": false,
-  //     "capacity": 8,
-  //     "velocity": 3.0,
-  //     "safety_margin": 100,
-  //     "door_width": 0.85,
-  //     "door_technology": "lateral"
-  //   };
-  //   const String apiUrl = 'https://dev.ktel.pe/api/traffic-study';
-  //   try {
-  //     http.Response response = await http.post(Uri.parse(apiUrl),
-  //         headers: {
-  //           'Authorization':
-  //               'Bearer 136|I2nFZZXetgd8oKn1azL02Fw84TUDQdnlZtiqNuhSfc7fcd88',
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: jsonEncode(dataToPass));
-
-  //     if (response.statusCode == 200) {
-  //       print('Bien echo petición: ${response.statusCode}');
-  //       Map<String, dynamic> data = jsonDecode(response.body);
-  //       print(data);
-  //     } else {
-  //       print('Error en la petición: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     print('Error en el getDataTable: $e');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<DuctFormProvider>(
       builder: (context, valueProvider, child) => Scaffold(
-          body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(60.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Características técnicas',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  DropdownButtonFormField<String>(
-                    value: valueProvider.selectedPassengerCount,
-                    iconEnabledColor: Colors.white,
-                    items: [
-                      for (String passagerCount
-                          in valueProvider.passengerCountDropdownList)
-                        DropdownMenuItem(
-                          value: passagerCount,
-                          child: Text(passagerCount),
-                        ),
-                    ],
-                    onChanged: (String? newValue) {
-                      valueProvider.setSelectedPassengerCount(newValue!);
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Cantidad de pasajeros',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  DropdownButtonFormField<String>(
-                    value: valueProvider.selectedElevatorSpeed,
-                    iconEnabledColor: Colors.white,
-                    items: [
-                      for (String elevatorSpeed
-                          in valueProvider.elevatorSpeedDropdownList)
-                        DropdownMenuItem(
-                          value: elevatorSpeed,
-                          child: Text(elevatorSpeed),
-                        ),
-                    ],
-                    onChanged: (String? newValue) {
-                      valueProvider.setSelectedElevatorSpeed(newValue!);
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Velocidad del ascensor (m/s)',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  DropdownButtonFormField<String>(
-                    value: valueProvider.selectedDoorWidth,
-                    iconEnabledColor: Colors.white,
-                    items: [
-                      for (String doorWidth
-                          in valueProvider.doorWidthDropdownList)
-                        DropdownMenuItem(
-                          value: doorWidth,
-                          child: Text(doorWidth),
-                        ),
-                    ],
-                    onChanged: (value) {
-                      valueProvider.setSelectedDoorWidth(value!);
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Ancho de la puerta (mm)',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'Escoge las puertas del ascensor',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        children: [
-                          Radio<String>(
-                            value: 'Lateral',
-                            groupValue: selectedDoorType,
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectedDoorType = value!;
-                              });
-                              valueProvider.setSelectedDoorType(value!);
-                            },
-                          ),
-                          const Text('Lateral'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio<String>(
-                            value: 'Central',
-                            groupValue: selectedDoorType,
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectedDoorType = value!;
-                              });
-                              valueProvider.setSelectedDoorType(value!);
-                            },
-                          ),
-                          const Text('Central'),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text('Parametros ingresado con éxito!')),
-                          );
-                          final myUserAuthProvider =
-                              Provider.of<UserAuthProvider>(context,
-                                  listen: false);
-                          String myToken = myUserAuthProvider.getTokenUser();
-
-                          await valueProvider.getDataFromAPI(myToken);
-                          Navigator.pop(
-                            context,
-                          );
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const TraficStudyPage(),
-                            ),
-                          );
-                        }
-                      },
-                      child: const Text('Enviar'),
-                    ),
-                  ),
-                ],
+        body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("images/fondo.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.1), BlendMode.dstATop),
               ),
             ),
-          ),
-        ),
-      )),
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(60.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Características técnicas',
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    DropdownButtonFormField<String>(
+                      value: valueProvider.selectedPassengerCount,
+                      iconEnabledColor: Colors.white,
+                      items: [
+                        for (String passagerCount
+                            in valueProvider.passengerCountDropdownList)
+                          DropdownMenuItem(
+                            value: passagerCount,
+                            child: Text(passagerCount),
+                          ),
+                      ],
+                      onChanged: (String? newValue) {
+                        valueProvider.setSelectedPassengerCount(newValue!);
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Cantidad de pasajeros',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    DropdownButtonFormField<String>(
+                      value: valueProvider.selectedElevatorSpeed,
+                      iconEnabledColor: Colors.white,
+                      items: [
+                        for (String elevatorSpeed
+                            in valueProvider.elevatorSpeedDropdownList)
+                          DropdownMenuItem(
+                            value: elevatorSpeed,
+                            child: Text(elevatorSpeed),
+                          ),
+                      ],
+                      onChanged: (String? newValue) {
+                        valueProvider.setSelectedElevatorSpeed(newValue!);
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Velocidad del ascensor (m/s)',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    DropdownButtonFormField<String>(
+                      value: valueProvider.selectedDoorWidth,
+                      iconEnabledColor: Colors.white,
+                      items: [
+                        for (String doorWidth
+                            in valueProvider.doorWidthDropdownList)
+                          DropdownMenuItem(
+                            value: doorWidth,
+                            child: Text(doorWidth),
+                          ),
+                      ],
+                      onChanged: (value) {
+                        valueProvider.setSelectedDoorWidth(value!);
+                      },
+                      decoration: const InputDecoration(
+                        labelText: 'Ancho de la puerta (mm)',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      'Escoge las puertas del ascensor',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          children: [
+                            Radio<String>(
+                              value: 'Lateral',
+                              groupValue: selectedDoorType,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedDoorType = value!;
+                                });
+                                valueProvider.setSelectedDoorType(value!);
+                              },
+                            ),
+                            const Text('Lateral'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio<String>(
+                              value: 'Central',
+                              groupValue: selectedDoorType,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedDoorType = value!;
+                                });
+                                valueProvider.setSelectedDoorType(value!);
+                              },
+                            ),
+                            const Text('Central'),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          // Validate returns true if the form is valid, or false otherwise.
+                          if (_formKey.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Parametros ingresado con éxito!')),
+                            );
+                            final myUserAuthProvider =
+                                Provider.of<UserAuthProvider>(context,
+                                    listen: false);
+                            String myToken = myUserAuthProvider.getTokenUser();
+
+                            await valueProvider.getDataFromAPI(myToken);
+                            Navigator.pop(
+                              context,
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TraficStudyPage(),
+                              ),
+                            );
+                          }
+                        },
+                        child: const Text('Enviar'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )),
+      ),
     );
   }
 }
