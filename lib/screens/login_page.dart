@@ -99,8 +99,17 @@ class _LoginPageState extends State<LoginPage> {
                                 child: const Text('Continuar'),
                                 onPressed: () async {
                                   String email = _emailController.text.trim();
+
                                   // Verificar si el usuario existe o no
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      });
                                   bool usuarioExiste = await verifyUser(email);
+                                  Navigator.pop(context);
 
                                   if (EmailValidator.validate(
                                       _emailController.text)) {
@@ -187,9 +196,17 @@ class _LoginPageState extends State<LoginPage> {
                                   onPressed: () async {
                                     String password =
                                         _passwordController.text.trim();
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        });
                                     bool isPasswordCorrect =
                                         await valueProvider.verifyLogin(
                                             _emailController.text, password);
+                                    Navigator.pop(context);
                                     if (isPasswordCorrect) {
                                       // Password Correct
 

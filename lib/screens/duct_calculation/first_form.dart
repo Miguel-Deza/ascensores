@@ -419,7 +419,6 @@ class _FirstFormState extends State<FirstForm> {
                                       ? '0'
                                       : unitPerLevelController.text);
                               widget.onNextPagePressed();
-                              valueProvider.printDataDuctFormProvider();
                             }
                           },
                           child: const Text('Continuar'),

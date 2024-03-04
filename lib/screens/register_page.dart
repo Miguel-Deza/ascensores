@@ -42,8 +42,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Consumer<UserAuthProvider>(
@@ -115,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                     return;
                   }
-      
+
                   if (phoneController.text.isEmpty) {
                     setState(() {
                       showMessageIsPhoneEmpty = true;
@@ -123,22 +121,35 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                     return;
                   }
-      
+
                   setState(() {
                     showMessageIsNameEmpty = false;
                     showMessageIsPhoneEmpty = false;
                   });
-      
-                  if (await valueProvider.registerUser(widget.email, widget.password, nameController.text, phoneController.text) ) {
+
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+                  if (await valueProvider.registerUser(
+                      widget.email,
+                      widget.password,
+                      nameController.text,
+                      phoneController.text)) {
                     print("Usuario registrado con éxito");
+                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => VerifyPage(                       
-                        ),
+                        builder: (context) => VerifyPage(),
                       ),
                     );
                   } else {
+                    Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Fallo en el registro')),
                     );

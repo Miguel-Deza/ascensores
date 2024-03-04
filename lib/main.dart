@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
+      theme: ThemeData( 
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'Inicio de sesión',
-      home: HomeScreen(),
+      home: const LoginPage(),
     );
   }
 }

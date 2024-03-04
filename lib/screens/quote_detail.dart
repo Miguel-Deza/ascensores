@@ -61,13 +61,13 @@ class QuoteDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalles de la cotización'),
+        title: Text('Detalles del Estudio'),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,                        
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (var entry in quoteDetailModel.entries)
                 Padding(

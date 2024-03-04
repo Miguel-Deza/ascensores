@@ -145,7 +145,7 @@ class DuctFormProvider with ChangeNotifier {
 
   //API GET CALCULATIONS
   //getDataFromAPI
-  getDataFromAPI(String bearerKey) async {
+  Future<bool> getDataFromAPI(String bearerKey) async {
     Map<String, dynamic> dataToPass = {
       "building_type_id": int.parse(selectedBuildingUse),
       "stops": int.parse(selectedStopsNumber),
@@ -168,12 +168,8 @@ class DuctFormProvider with ChangeNotifier {
             'Content-Type': 'application/json',
           },
           body: jsonEncode(dataToPass));
-      print("Datos enviados");
-      print(dataToPass);
-
       if (response.statusCode == 200) {
         Map<String, dynamic> data = jsonDecode(response.body);
-        print(data);
         index = data["index"].toString();
         floors = data["floors"].toString();
         percentage = data["percentage"].toString();
@@ -183,7 +179,6 @@ class DuctFormProvider with ChangeNotifier {
         probableStops = data["probable_stops"].toString();
         averageJump = data["average_jump"].toString();
         //TIME DATA
-
         travelTimeForPartialStops =
             data["travel_time_for_partial_stops"].toString();
         travelTimeForExpressFloors =
@@ -197,18 +192,15 @@ class DuctFormProvider with ChangeNotifier {
             data["passenger_entry_and_exit_time"].toString();
         recoveryTime = data["recovery_time"].toString();
         totalTime = data["total_time"].toString();
-        print(travelTimeForPartialStops);
-        print(travelTimeForExpressFloors);
-        print(accelerationAndDecelerationTime);
-        print(falseStops);
-        print(doorOpeningAndClosingTime);
-        print(passengerEntryAndExitTime);
-        print(recoveryTime);
-        print(totalTime);
         notifyListeners();
+        return true;
+      } else {
+        print('Error en la petición: ${response.statusCode}');
+        return false;
       }
     } catch (e) {
       print('Error en el getDataFromAPI: $e');
+      return false;
     }
   }
   //API GET CALCULATIONS

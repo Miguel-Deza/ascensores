@@ -74,8 +74,7 @@ class UserAuthProvider with ChangeNotifier {
       request.headers['Content-Type'] = 'application/json';
       request.body = requestBodyJson;
       http.StreamedResponse response = await request.send();
-      if (response.statusCode == 200) {
-        print("Datos actualizos con éxito");
+      if (response.statusCode == 200) {        
         fullNameUser = name;
         phoneUser = phone;
         emailUser = email;

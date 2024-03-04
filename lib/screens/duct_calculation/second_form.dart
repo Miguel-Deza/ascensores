@@ -155,32 +155,42 @@ class _SecondFormState extends State<SecondForm> {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content:
-                                      Text('Parametros ingresado con éxito!')),
-                            );
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                });
                             final myUserAuthProvider =
                                 Provider.of<UserAuthProvider>(context,
                                     listen: false);
                             String myToken = myUserAuthProvider.getTokenUser();
-
-                            await valueProvider.getDataFromAPI(myToken);
-                            Navigator.pop(
-                              context,
-                            );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const TraficStudyPage(),
-                              ),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Uno de los datos son incorrectos o faltantes!')),
-                            );
+                            bool isDataRight =
+                                await valueProvider.getDataFromAPI(myToken);
+                            Navigator.pop(context);
+                            if (isDataRight) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content:
+                                        Text('Datos obtenidos con éxito!')),
+                              );
+                              Navigator.pop(
+                                context,
+                              );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const TraficStudyPage(),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Uno de los datos es incorrecto!')),
+                              );
+                            }
                           }
                         },
                         child: const Text('Enviar'),

@@ -15,6 +15,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+bool isLoading = true;
+
 class _HomeScreenState extends State<HomeScreen> {
   String? fullName;
   String? phone;
@@ -36,6 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await myDuctFormProvider.getDataTable(myUserAuthProvider.getTokenUser());
     await myUserAuthProvider.getInfoUser();
+    setState(() {
+      isLoading = false; // Set loading state to false when data is fetched
+    });
   }
 
   @override
@@ -43,34 +48,39 @@ class _HomeScreenState extends State<HomeScreen> {
     return Consumer2<UserAuthProvider, DuctFormProvider>(
       builder: (context, valueAuthProvider, valueDuctProvider, child) =>
           Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/fondo.jpg"),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.2), BlendMode.dstATop),
-            ),
-          ),
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: ListView(
-                children: buildListTiles(valueDuctProvider, context).isEmpty
-                    ? [
-                        // Widget de imagen que indica que no hay nada
-                        Image.asset(
-                          'images/nodata.png',
-                          width: 500,
-                          height: 500,
-                          fit: BoxFit.contain,
-                        ),
-                      ]
-                    : buildListTiles(valueDuctProvider, context),
+        body: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/fondo.jpg"),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                  ),
+                ),
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: ListView(
+                      children:
+                          buildListTiles(valueDuctProvider, context).isEmpty
+                              ? [
+                                  // Widget de imagen que indica que no hay nada
+                                  Image.asset(
+                                    'images/nodata.png',
+                                    width: 500,
+                                    height: 500,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ]
+                              : buildListTiles(valueDuctProvider, context),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
         appBar: AppBar(
           shadowColor: Colors.blue[900],
           elevation: 5.0,
