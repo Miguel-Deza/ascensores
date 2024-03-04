@@ -71,7 +71,7 @@ class QuoteDetail extends StatelessWidget {
               icon: Icons.info,
               children: [
                 _buildInfoRow('¿Es hospital?',
-                    quoteDetailModel['is_hospital'] == 1 ? 'Sí' : 'No'),
+                    quoteDetailModel['is_hospital'] == true ? 'Sí' : 'No'),
               ],
             ),
           ],

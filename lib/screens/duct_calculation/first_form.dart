@@ -245,8 +245,20 @@ class _FirstFormState extends State<FirstForm> {
                             );
                           }).toList(),
                         ],
-                        onChanged: (value) =>
-                            valueProvider.setSelectedBuildingUse(value!),
+                        onChanged: (value) {
+                          //! Si la opción es hospital tambien debo cambiar el estado de la varaible is_hospital en provider , Corregir, no la identifica como hospital, okey, ya verifica la llamada, pero no responde frente al API, corrigelo, ERROR DE JACK, comunicarselo mañana
+                          if (["7", "8"].contains(value)) {
+                            valueProvider.setIsHospital(true);
+                            print("Hola, llamada desde aqui");
+                            print(valueProvider.isHospital);
+                          } else {
+                            valueProvider.setIsHospital(false);
+                            print(value.runtimeType);
+                            print("No se llamo");
+                          }
+                          print(value);
+                          valueProvider.setSelectedBuildingUse(value!);
+                        },
                         decoration: const InputDecoration(
                           labelText: 'Selecciona el uso del edificio',
                           border: OutlineInputBorder(),
@@ -357,6 +369,7 @@ class _FirstFormState extends State<FirstForm> {
                                       ? '0'
                                       : unitPerLevelController.text);
                               widget.onNextPagePressed();
+                              valueProvider.printDataDuctFormProvider();
                             }
                           },
                           child: const Text('Continuar'),

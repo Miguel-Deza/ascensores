@@ -153,7 +153,7 @@ class DuctFormProvider with ChangeNotifier {
       "surface": double.parse(selectedFloorArea),
       "express_floors": int.parse(selectedExpressZoneFloor),
       "units_per_level_served": int.parse(selectedUnitPerLevel),
-      "is_hospital": false,
+      "is_hospital": isHospital,
       "capacity": int.parse(selectedPassengerCount),
       "velocity": double.parse(selectedElevatorSpeed),
       "safety_margin": 100,
@@ -228,6 +228,13 @@ class DuctFormProvider with ChangeNotifier {
     selectedBuildingUse = value;
     print(selectedBuildingUse);
     notifyListeners(); // Notifica a los widgets que escuchan este provider que el valor ha cambiado
+  }
+
+  //Is hospital
+  bool isHospital = false;
+  setIsHospital(bool value) {
+    isHospital = value;
+    notifyListeners();
   }
 
   //Stops Number selected
@@ -331,5 +338,6 @@ class DuctFormProvider with ChangeNotifier {
     print("selectedElevatorSpeed: $selectedElevatorSpeed");
     print("selectedDoorWidth: $selectedDoorWidth");
     print("selectedDoorType: $selectedDoorType");
+    print("isHospital: $isHospital");
   }
 }
