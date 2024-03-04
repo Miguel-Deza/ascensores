@@ -1,6 +1,6 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
-import 'package:ascensores/screens/home_screen/home_screen.dart';
+// import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(colorSchemeSeed: Colors.blueAccent),
+      theme: ThemeData(
+        colorSchemeSeed: Colors.blueAccent,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.orange[900]),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          ),
+        ),
+      ),
       title: 'Inicio de sesión',
       home: LoginPage(),
     );

@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.orange[900],
           onPressed: () {
             Navigator.push(
               context,
@@ -84,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fetchData(),
                 });
           },
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.add, color: Colors.white),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         drawer: drawerLeft(valueAuthProvider, context),
