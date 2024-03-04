@@ -154,7 +154,6 @@ class _SecondFormState extends State<SecondForm> {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       child: ElevatedButton(
                         onPressed: () async {
-                          // Validate returns true if the form is valid, or false otherwise.
                           if (_formKey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -175,6 +174,12 @@ class _SecondFormState extends State<SecondForm> {
                               MaterialPageRoute(
                                 builder: (context) => const TraficStudyPage(),
                               ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                      'Uno de los datos son incorrectos o faltantes!')),
                             );
                           }
                         },

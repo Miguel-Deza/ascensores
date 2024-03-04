@@ -146,23 +146,6 @@ class DuctFormProvider with ChangeNotifier {
   //API GET CALCULATIONS
   //getDataFromAPI
   getDataFromAPI(String bearerKey) async {
-    //! VALUES TO TEST
-    // Map<String, dynamic> dataToPass = {
-    //   "building_type_id": 6,
-    //   "stops": 12,
-    //   "height": 4,
-    //   "surface": 300, //m2q
-    //   "express_floors": 0,
-    //   "units_per_level_served": 12,
-    //   "is_hospital": false,
-    //   "capacity": 8,
-    //   "velocity": 3.0,
-    //   "safety_margin": 100,
-    //   "door_width": 0.85,
-    //   "door_technology": "lateral"
-    // };
-
-    //!USE THIS VALUES
     Map<String, dynamic> dataToPass = {
       "building_type_id": int.parse(selectedBuildingUse),
       "stops": int.parse(selectedStopsNumber),
@@ -223,9 +206,6 @@ class DuctFormProvider with ChangeNotifier {
         print(recoveryTime);
         print(totalTime);
         notifyListeners();
-      } else {
-        print('Error en la petición: ${response.statusCode}');
-        print('Error en la petición: ${response.body}');
       }
     } catch (e) {
       print('Error en el getDataFromAPI: $e');

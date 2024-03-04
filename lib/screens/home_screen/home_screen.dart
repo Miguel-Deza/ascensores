@@ -56,7 +56,17 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.all(30.0),
               child: ListView(
-                children: buildListTiles(valueDuctProvider, context),
+                children: buildListTiles(valueDuctProvider, context).isEmpty
+                    ? [
+                        // Widget de imagen que indica que no hay nada
+                        Image.asset(
+                          'images/nodata.png',
+                          width: 500,
+                          height: 500,
+                          fit: BoxFit.contain,
+                        ),
+                      ]
+                    : buildListTiles(valueDuctProvider, context),
               ),
             ),
           ),

@@ -53,6 +53,7 @@ class _DuctCalculationPageState extends State<DuctCalculationPage> {
       body: Stack(
         children: [
           PageView(
+            physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,
             onPageChanged: (int page) {
               setState(() {
