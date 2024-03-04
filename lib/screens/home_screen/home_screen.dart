@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<UserAuthProvider>(context, listen: false);
 
     await myDuctFormProvider.getDataTable(myUserAuthProvider.getTokenUser());
+    await myUserAuthProvider.getInfoUser();
   }
 
   @override

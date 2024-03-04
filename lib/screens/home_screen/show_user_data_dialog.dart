@@ -2,14 +2,14 @@ import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void showUserDataDialog(BuildContext context) {
-  var userInfo = context.read<UserAuthProvider>();
+void showUserDataDialog(
+    BuildContext context, UserAuthProvider valueAuthProvider) {
   TextEditingController nameController =
-      TextEditingController(text: userInfo.fullNameUser);
+      TextEditingController(text: valueAuthProvider.fullNameUser);
   TextEditingController phoneController =
-      TextEditingController(text: userInfo.phoneUser);
+      TextEditingController(text: valueAuthProvider.phoneUser);
   TextEditingController emailController =
-      TextEditingController(text: userInfo.emailUser);
+      TextEditingController(text: valueAuthProvider.emailUser);
 
   showDialog(
     context: context,
@@ -42,11 +42,11 @@ void showUserDataDialog(BuildContext context) {
         actions: <Widget>[
           TextButton(
             onPressed: () async {
-              await context.read<UserAuthProvider>().updateInfoUser(
-                    nameController.text,
-                    phoneController.text,
-                    emailController.text,
-                  );
+              await valueAuthProvider.updateInfoUser(
+                nameController.text,
+                phoneController.text,
+                emailController.text,
+              );
               // setState(() {
               //   fullName = nameController.text;
               //   phone = phoneController.text;

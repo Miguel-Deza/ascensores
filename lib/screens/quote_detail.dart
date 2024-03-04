@@ -65,9 +65,9 @@ class QuoteDetail extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,                        
             children: [
               for (var entry in quoteDetailModel.entries)
                 Padding(

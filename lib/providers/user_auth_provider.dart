@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 
 class UserAuthProvider with ChangeNotifier {
   //!ESTOY USANDO UN BEARER KEY POR EL MOMENTO
-  String _tokenUser = "173|m3Nmm8sWJipiYQXWMmJpcFwLLRrwK60AyaflgLxgcadaaa2a";
+  // String _tokenUser = "173|m3Nmm8sWJipiYQXWMmJpcFwLLRrwK60AyaflgLxgcadaaa2a";
+  String _tokenUser = "";
   String fullNameUser = "L";
   String phoneUser = "";
   String emailUser = "";
@@ -102,6 +103,7 @@ class UserAuthProvider with ChangeNotifier {
         phoneUser = userInfo['phone'];
         emailUser = userInfo['email'];
         notifyListeners();
+        
       } else {
         print("Error en la solicitud: ${response.statusCode}");
       }

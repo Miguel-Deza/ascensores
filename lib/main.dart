@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(colorSchemeSeed: Colors.blueAccent),
       title: 'Inicio de sesión',
-      home: HomeScreen(),
+      home: LoginPage(),
     );
   }
 }

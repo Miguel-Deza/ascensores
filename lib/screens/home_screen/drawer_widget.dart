@@ -27,14 +27,19 @@ Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
           leading: Icon(Icons.account_circle),
           title: const Text('Mis Datos'),
           onTap: () {
-            showUserDataDialog(context);
+            showUserDataDialog(context, valueAuthProvider);
           },
         ),
         ListTile(
           leading: Icon(Icons.file_copy),
           title: const Text('Terminos y condiciones'),
           onTap: () {
-            showUserDataDialog(context);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return showTerminosyCondiciones(context);
+              },
+            );
           },
         ),
         ListTile(
@@ -51,5 +56,50 @@ Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
         ),
       ],
     ),
+  );
+}
+
+AlertDialog showTerminosyCondiciones(BuildContext context) {
+  return AlertDialog(
+    title: Text('Términos y Condiciones'),
+    content: SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Estos son los términos y condiciones de uso para esta aplicación:',
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 10),
+          Text(
+            '1. Uso del Servicio\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat vehicula arcu, vel tristique turpis facilisis sit amet. Quisque malesuada est id malesuada suscipit.',
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 10),
+          Text(
+            '2. Propiedad Intelectual\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat vehicula arcu, vel tristique turpis facilisis sit amet. Quisque malesuada est id malesuada suscipit.',
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 10),
+          Text(
+            '3. Limitación de Responsabilidad\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat vehicula arcu, vel tristique turpis facilisis sit amet. Quisque malesuada est id malesuada suscipit.',
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 10),
+          Text(
+            '4. Modificaciones\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat vehicula arcu, vel tristique turpis facilisis sit amet. Quisque malesuada est id malesuada suscipit.',
+            style: TextStyle(fontSize: 16),
+          ),
+        ],
+      ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: Text('Aceptar'),
+      ),
+    ],
   );
 }
