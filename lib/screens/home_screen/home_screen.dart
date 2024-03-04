@@ -71,6 +71,17 @@ class _HomeScreenState extends State<HomeScreen> {
             'Ascensores',
             style: TextStyle(color: Colors.white),
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.notifications_none_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                // do something
+              },
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.orange[900],

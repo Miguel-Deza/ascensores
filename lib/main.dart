@@ -1,5 +1,6 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
+import 'package:ascensores/screens/home_screen/home_screen.dart';
 // import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'Inicio de sesión',
-      home: LoginPage(),
+      home: HomeScreen(),
     );
   }
 }
