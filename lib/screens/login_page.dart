@@ -59,9 +59,11 @@ class _LoginPageState extends State<LoginPage> {
     if (obtainedToken != null) {
       Provider.of<UserAuthProvider>(context, listen: false)
           .setTokenUser(obtainedToken);
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
       );
     }
   }
@@ -187,30 +189,6 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 18.0,
-                                      width: 18.0,
-                                      child: Checkbox(
-                                        side: const BorderSide(),
-                                        value: rememberPassword,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            rememberPassword = newValue!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10.0,
-                                    ),
-                                    const Text("Recordar contraseña"),
-                                  ],
                                 ),
                                 const SizedBox(
                                   height: 20.0,

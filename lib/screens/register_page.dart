@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ascensores/screens/verify_page.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   final String email;
@@ -141,6 +142,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       nameController.text,
                       phoneController.text)) {
                     print("Usuario registrado con éxito");
+                    final SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    sharedPreferences.setString(
+                        'token', valueProvider.getTokenUser());
                     Navigator.pop(context);
                     Navigator.push(
                       context,
