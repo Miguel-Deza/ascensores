@@ -246,7 +246,7 @@ class _FirstFormState extends State<FirstForm> {
                           }).toList(),
                         ],
                         onChanged: (value) {
-                          //! Si la opción es hospital tambien debo cambiar el estado de la varaible is_hospital en provider , Corregir, no la identifica como hospital, okey, ya verifica la llamada, pero no responde frente al API, corrigelo, ERROR DE JACK, comunicarselo mañana
+                          //! ERROR DE JACK, comunicarselo mañana
                           if (["7", "8"].contains(value)) {
                             valueProvider.setIsHospital(true);
                             print("Hola, llamada desde aqui");

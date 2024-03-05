@@ -5,6 +5,7 @@ import 'package:ascensores/screens/register_page.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -209,8 +210,12 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.pop(context);
                                     if (isPasswordCorrect) {
                                       // Password Correct
-
                                       if (verifyEmail()) {
+                                        final SharedPreferences sharedPreferences =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        sharedPreferences.setString('email',_emailController.text);
+
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
