@@ -1,7 +1,7 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/home_screen/info_by_id.dart';
-import 'package:ascensores/screens/quote_detail.dart';
+import 'package:ascensores/screens/home_screen/quote_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

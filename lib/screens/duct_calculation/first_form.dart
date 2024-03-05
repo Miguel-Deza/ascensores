@@ -61,7 +61,7 @@ class _FirstFormState extends State<FirstForm> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     const Text(
-                      'Calculo de ductos',
+                      'Estudio',
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),

@@ -1,6 +1,6 @@
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:ascensores/screens/verify_page.dart';
+import 'package:ascensores/screens/user_auth/verify_page.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

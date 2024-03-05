@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
+
 
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:ascensores/screens/register_page.dart';
+import 'package:ascensores/screens/user_auth/register_page.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
