@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'Inicio de sesión',
-      home: const HomeScreen(),
+      home: const LoginPage(),
     );
   }
 }
