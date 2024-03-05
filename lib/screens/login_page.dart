@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +40,29 @@ class _LoginPageState extends State<LoginPage> {
       return response.statusCode != 200;
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getValidationData();
+    super.initState();
+  }
+
+  Future getValidationData() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    var obtainedToken = sharedPreferences.getString('token');
+    print(obtainedToken);
+
+    if (obtainedToken != null) {
+      Provider.of<UserAuthProvider>(context, listen: false)
+          .setTokenUser(obtainedToken);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
     }
   }
 
@@ -211,11 +237,12 @@ class _LoginPageState extends State<LoginPage> {
                                     if (isPasswordCorrect) {
                                       // Password Correct
                                       if (verifyEmail()) {
-                                        final SharedPreferences sharedPreferences =
+                                        final SharedPreferences
+                                            sharedPreferences =
                                             await SharedPreferences
                                                 .getInstance();
-                                        sharedPreferences.setString('email',_emailController.text);
-
+                                        sharedPreferences.setString('token',
+                                            valueProvider.getTokenUser());
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(

@@ -1,7 +1,6 @@
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:flutter/material.dart';
 
-
 void showUserDataDialog(
     BuildContext context, UserAuthProvider valueAuthProvider) {
   TextEditingController nameController =
@@ -35,7 +34,7 @@ void showUserDataDialog(
                     const InputDecoration(labelText: 'Correo electrónico'),
               ),
               const SizedBox(height: 20),
-              const Text('Correo validado: Sí'),
+              const Text('Correo validado: No'),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'show_user_data_dialog.dart';
 
 Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
@@ -32,7 +33,7 @@ Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
         ),
         ListTile(
           leading: Icon(Icons.file_copy),
-          title: const Text('Terminos y condiciones'),
+          title: const Text('Términos y condiciones'),
           onTap: () {
             showDialog(
               context: context,
@@ -47,6 +48,9 @@ Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
           title: const Text('Salir'),
           onTap: () async {
             await valueAuthProvider.logOutUser();
+            final SharedPreferences sharedPreferences =
+                await SharedPreferences.getInstance();
+            sharedPreferences.remove("token");
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const LoginPage()),
