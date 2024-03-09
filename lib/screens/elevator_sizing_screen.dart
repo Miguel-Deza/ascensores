@@ -1,168 +1,136 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-const List<int> list = <int>[375, 450, 630, 800, 1000];
 
-class ElevatorSizingScreen extends StatefulWidget {
-  const ElevatorSizingScreen({super.key});
-
+class ElevatorForm extends StatefulWidget {
   @override
-  State<ElevatorSizingScreen> createState() => _ElevatorSizingScreenState();
+  _ElevatorFormState createState() => _ElevatorFormState();
 }
 
-class _ElevatorSizingScreenState extends State<ElevatorSizingScreen> {
-  final _formKey = GlobalKey<FormBuilderState>();
+class _ElevatorFormState extends State<ElevatorForm> {
+  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
+  String selectedNominalLoad = '';
+  Map<String, Map<String, dynamic>> data = {
+    '375': {
+      'numPeople': 5,
+      'cabinDimensions': '900x1200',
+      'doorType': {
+        'C2': {'clearance': 700, 'ductDimensions': '1600x1500'},
+        'T2': {'clearance': 800, 'ductDimensions': '1550x1580'},
+      }
+    },
+    '450': {
+      'numPeople': 6,
+      'cabinDimensions': '1000x1250',
+      'doorType': {
+        'T2': {'clearance': 800, 'ductDimensions': '1600x1630'},
+      }
+    },
+    '630': {
+      'numPeople': 8,
+      'cabinDimensions': '1100x1400',
+      'doorType': {
+        'C2': {'clearance': 700, 'ductDimensions': '1700x1780'},
+        'T2': {'clearance': 800, 'ductDimensions': '1700x1780'},
+      }
+    },
+    '800': {
+      'numPeople': 10,
+      'cabinDimensions': '1350x1400',
+      'doorType': {
+        'T2': {'clearance': 900, 'ductDimensions': '1950x1780'},
+      }
+    },
+    '1000': {
+      'numPeople': 13,
+      'cabinDimensions': '',
+      'doorType': {
+        'T2': {
+          '1000': {'ductDimensions': '1650x2480'},
+          '1100': {'ductDimensions': '1850x2480'},
+        },
+        'C2': {
+          '1000': {'ductDimensions': '2700x1400'},
+          '1200': {'ductDimensions': '2700x1400'},
+        },
+        'T2_Unique': {
+          '1000': {'ductDimensions': '2000x1950'},
+        },
+      }
+    },
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dimensionamiento del ascensor'),
-        centerTitle: true,
+        title: Text('Elevator Form'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            FormBuilder(
-              key: _formKey,
-              child: Column(
-                children: [
-                  FormBuilderTextField(
-                    name: 'text',
-                  ),
-                  FormBuilderDropdown(
-                    name: 'ratedLoad',
-                    decoration: const InputDecoration(
-                      labelText: 'Carga Nominal (kg)',
-                    ),
-                    items: list
-                        .map((size) => DropdownMenuItem(
-                              value: size.toString(),
-                              child: Text(size.toString() + ' kg'),
-                            ))
-                        .toList(),
-                  ),
-                  FormBuilderRadioGroup(
-                    name: 'doorType',
-                    initialValue: '2C',
-                    decoration: const InputDecoration(
-                      labelText: 'Tipo de Puerta',
-                    ),
-                    options: [
-                      FormBuilderFieldOption(
-                        value: '2C',
-                        child: Text('2C'),
-                      ),
-                      FormBuilderFieldOption(
-                        value: '2T',
-                        child: Text('2T'),
-                      ),
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Validate and save the form values
-                      _formKey.currentState?.saveAndValidate();
-                      debugPrint(_formKey.currentState?.value.toString());
-                    },
-                    child: const Text('Login'),
-                  ),
-                ],
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: FormBuilder(
+          key: _fbKey,
+          child: Column(
+            children: [
+              FormBuilderDropdown(
+                name: 'Nominal Load',
+                decoration: InputDecoration(labelText: 'Nominal Load'),
+                hint: Text('Select Nominal Load'),
+                items: data.keys
+                    .map((load) => DropdownMenuItem(
+                          value: load,
+                          child: Text(load),
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedNominalLoad = value!;
+                  });
+                },
+                validator: FormBuilderValidators.compose([
+                  FormBuilderValidators.required(context),
+                ]),
               ),
-            ),
-            Center(
-              child: Container(
-                width: 300,
-                height: 380,
-                color: Colors.blue,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              SizedBox(height: 20),
+              if (selectedNominalLoad.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RotatedBox(
-                      quarterTurns: 3,
-                      child: Text("Fondo del ducto: 1550",
-                          style: TextStyle(fontSize: 20, color: Colors.white)),
+                    Text(
+                      'Dimensions:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text("Ancho del ducto: 1550",
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white)),
-                        Container(
-                          width: 220,
-                          height: 250,
-                          color: Colors.red,
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                  width: 50,
-                                  height: 100,
-                                  color: Colors.purple,
-                                ),
-                                Container(
-                                  width: 20,
-                                  height: 50,
-                                  color: Colors.purple,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      width: 100,
-                                      height: 200,
-                                      color: Colors.brown,
-                                      child: Row(
-                                        children: [
-                                          RotatedBox(
-                                            quarterTurns: 3,
-                                            child: Text("1350",
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.white)),
-                                          ),
-                                          Column(
-                                            children: [
-                                              Text("1350",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.white))
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 100,
-                                      height: 5,
-                                      color: Colors.green,
-                                    ),
-                                    Container(
-                                      width: 100,
-                                      height: 5,
-                                      color: Colors.orange,
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  width: 20,
-                                  height: 50,
-                                  color: Colors.purple,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ), // Separación entre los dos cuadrados
-                      ],
-                    ),
+                    SizedBox(height: 10),
+                    Text('Number of People: ${data[selectedNominalLoad]?['numPeople']}'),
+                    Text('Cabin Dimensions: ${data[selectedNominalLoad]?['cabinDimensions']}'),
+                    Text('Door Types:'),
+                    SizedBox(height: 5),
+                    ...(data[selectedNominalLoad]['doorType'] as Map<String, dynamic>).entries.map((entry) {
+                      if (entry.key == 'T2_Unique') {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('T2 (Unique)'),
+                            SizedBox(height: 5),
+                            Text('Clearance: ${entry.value['1000']['ductDimensions']}'),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('${entry.key}'),
+                            SizedBox(height: 5),
+                            Text('Clearance: ${entry.value['clearance']}'),
+                            Text('Duct Dimensions: ${entry.value['ductDimensions']}'),
+                          ],
+                        );
+                      }
+                    }),
                   ],
                 ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
