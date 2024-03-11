@@ -1,138 +1,242 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-
-class ElevatorForm extends StatefulWidget {
-  @override
-  _ElevatorFormState createState() => _ElevatorFormState();
+void main() {
+  runApp(MyApp());
 }
 
-class _ElevatorFormState extends State<ElevatorForm> {
-  final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
-  String selectedNominalLoad = '';
-  Map<String, Map<String, dynamic>> data = {
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Formulario Flutter',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MyForm(),
+    );
+  }
+}
+
+class MyForm extends StatefulWidget {
+  @override
+  _MyFormState createState() => _MyFormState();
+}
+
+class _MyFormState extends State<MyForm> {
+  final _formKey = GlobalKey<FormBuilderState>();
+  String _cargaNominal = '';
+  List<String> _tipoPuertaOptions = [];
+  String _selectedTipoPuerta = '';
+  String _numeroPersonas = '';
+  String _dimensionesCabina = '';
+  String _pasoLibre = '';
+  String _ducto = '';
+  final Map<String, Map<String, dynamic>> _formData = {
     '375': {
-      'numPeople': 5,
-      'cabinDimensions': '900x1200',
-      'doorType': {
-        'C2': {'clearance': 700, 'ductDimensions': '1600x1500'},
-        'T2': {'clearance': 800, 'ductDimensions': '1550x1580'},
+      'numeroPersonas': '5',
+      'cabina': '900x1200',
+      'tipoPuertaOptions': ['C2', 'T2'],
+      'puertasData': {
+        'C2': {'pasoLibre': '700', 'ducto': '1600x1500'},
+        'T2': {'pasoLibre': '800', 'ducto': '1550x1580'}
       }
     },
     '450': {
-      'numPeople': 6,
-      'cabinDimensions': '1000x1250',
-      'doorType': {
-        'T2': {'clearance': 800, 'ductDimensions': '1600x1630'},
+      'numeroPersonas': '6',
+      'cabina': '1000x1250',
+      'tipoPuertaOptions': ['T2'],
+      'puertasData': {
+        'T2': {'pasoLibre': '800', 'ducto': '1600x1630'}
       }
     },
     '630': {
-      'numPeople': 8,
-      'cabinDimensions': '1100x1400',
-      'doorType': {
-        'C2': {'clearance': 700, 'ductDimensions': '1700x1780'},
-        'T2': {'clearance': 800, 'ductDimensions': '1700x1780'},
+      'numeroPersonas': '8',
+      'cabina': '1100x1400',
+      'tipoPuertaOptions': ['C2', 'T2'],
+      'puertasData': {
+        'C2': {'pasoLibre': '700', 'ducto': '1700x1780'},
+        'T2': {'pasoLibre': '800', 'ducto': '1700x1780'}
       }
     },
     '800': {
-      'numPeople': 10,
-      'cabinDimensions': '1350x1400',
-      'doorType': {
-        'T2': {'clearance': 900, 'ductDimensions': '1950x1780'},
+      'numeroPersonas': '10',
+      'cabina': '1350x1400',
+      'tipoPuertaOptions': ['T2'],
+      'puertasData': {
+        'T2': {'pasoLibre': '900', 'ducto': '1950x1780'}
       }
     },
     '1000': {
-      'numPeople': 13,
-      'cabinDimensions': '',
-      'doorType': {
-        'T2': {
-          '1000': {'ductDimensions': '1650x2480'},
-          '1100': {'ductDimensions': '1850x2480'},
+      'numeroPersonas': '13',
+      'cabina': 'Multiple',
+      'cabinaData': [
+        {
+          'dimensiones': '1100x2100',
+          'tipoPuerta': 'T2',
+          'pasoLibreOptions': ['900', '1000'],
+          'ducto': {'900': '1650x2480', '1000': '1850x2480'}
         },
-        'C2': {
-          '1000': {'ductDimensions': '2700x1400'},
-          '1200': {'ductDimensions': '2700x1400'},
+        {
+          'dimensiones': '2100x1100',
+          'tipoPuerta': 'C2',
+          'pasoLibreOptions': ['1000', '1200'],
+          'ducto': {'1000': '2700x1400', '1200': '2700x1400'}
         },
-        'T2_Unique': {
-          '1000': {'ductDimensions': '2000x1950'},
-        },
-      }
-    },
+        {
+          'dimensiones': '1400x1600',
+          'tipoPuerta': 'T2',
+          'pasoLibre': '1000',
+          'ducto': '2000x1950'
+        }
+      ]
+    }
   };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Elevator Form'),
+        title: Text('Formulario Flutter'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: FormBuilder(
-          key: _fbKey,
-          child: Column(
-            children: [
-              FormBuilderDropdown(
-                name: 'Nominal Load',
-                decoration: InputDecoration(labelText: 'Nominal Load'),
-                hint: Text('Select Nominal Load'),
-                items: data.keys
-                    .map((load) => DropdownMenuItem(
-                          value: load,
-                          child: Text(load),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedNominalLoad = value!;
-                  });
-                },
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(context),
-                ]),
-              ),
-              SizedBox(height: 20),
-              if (selectedNominalLoad.isNotEmpty)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Dimensions:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    Text('Number of People: ${data[selectedNominalLoad]?['numPeople']}'),
-                    Text('Cabin Dimensions: ${data[selectedNominalLoad]?['cabinDimensions']}'),
-                    Text('Door Types:'),
-                    SizedBox(height: 5),
-                    ...(data[selectedNominalLoad]['doorType'] as Map<String, dynamic>).entries.map((entry) {
-                      if (entry.key == 'T2_Unique') {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('T2 (Unique)'),
-                            SizedBox(height: 5),
-                            Text('Clearance: ${entry.value['1000']['ductDimensions']}'),
-                          ],
-                        );
-                      } else {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('${entry.key}'),
-                            SizedBox(height: 5),
-                            Text('Clearance: ${entry.value['clearance']}'),
-                            Text('Duct Dimensions: ${entry.value['ductDimensions']}'),
-                          ],
-                        );
-                      }
-                    }),
-                  ],
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: FormBuilder(
+            key: _formKey,
+            child: Column(
+              children: [
+                FormBuilderDropdown(
+                  name: 'cargaNominal',
+                  decoration: InputDecoration(labelText: 'Carga Nominal'),
+                  items: _formData.keys
+                      .map((cargaNominal) => DropdownMenuItem(
+                            value: cargaNominal,
+                            child: Text(cargaNominal),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _cargaNominal = value.toString();
+                      _tipoPuertaOptions =
+                          _formData[_cargaNominal]?['tipoPuertaOptions'];
+                      _selectedTipoPuerta = '';
+                      _numeroPersonas =
+                          _formData[_cargaNominal]?['numeroPersonas'];
+                      _dimensionesCabina = _formData[_cargaNominal]?['cabina'];
+                      _pasoLibre = '';
+                      _ducto = '';
+                    });
+                  },
                 ),
-            ],
+                SizedBox(height: 10),
+                if (_tipoPuertaOptions.isNotEmpty)
+                  FormBuilderDropdown(
+                    name: 'tipoPuerta',
+                    decoration: InputDecoration(labelText: 'Tipo de Puerta'),
+                    items: _tipoPuertaOptions
+                        .map((tipoPuerta) => DropdownMenuItem(
+                              value: tipoPuerta,
+                              child: Text(tipoPuerta),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedTipoPuerta = value.toString();
+                        final puertasData =
+                            _formData[_cargaNominal]?['puertasData'];
+                        _pasoLibre =
+                            puertasData[_selectedTipoPuerta]['pasoLibre'];
+                        _ducto = puertasData[_selectedTipoPuerta]['ducto'];
+                      });
+                    },
+                  ),
+                SizedBox(height: 10),
+                if (_cargaNominal.isNotEmpty && _selectedTipoPuerta.isNotEmpty)
+                  ..._buildFormFields(),
+                SizedBox(height: 10),
+                if (_cargaNominal.isNotEmpty && _selectedTipoPuerta.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Número de Personas: $_numeroPersonas'),
+                      Text('Medida de la Cabina: $_dimensionesCabina'),
+                      Text('Paso Libre: $_pasoLibre'),
+                      Text('Ducto: $_ducto'),
+                    ],
+                  ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.saveAndValidate()) {
+                      final formData = _formKey.currentState!.value;
+                      print(formData);
+                    }
+                  },
+                  child: Text('Guardar'),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> _buildFormFields() {
+    final List<Widget> formFields = [];
+    if (_cargaNominal != '1000') {
+      final Map<String, dynamic> puertasData =
+          _formData[_cargaNominal]?['puertasData'][_selectedTipoPuerta];
+      puertasData.forEach((key, value) {
+        formFields.add(FormBuilderTextField(
+          name: key,
+          decoration: InputDecoration(labelText: key),
+          initialValue: value.toString(),
+          readOnly: true,
+        ));
+      });
+    } else {
+      final List<Map<String, dynamic>> cabinasData =
+          _formData[_cargaNominal]?['cabinaData'];
+      cabinasData.forEach((cabina) {
+        formFields.add(FormBuilderTextField(
+          name: 'dimensiones_${cabina['dimensiones']}',
+          decoration: InputDecoration(
+              labelText: 'Dimensiones: ${cabina['dimensiones']}'),
+          initialValue: cabina['dimensiones'],
+          readOnly: true,
+        ));
+        if (cabina['tipoPuerta'] == _selectedTipoPuerta) {
+          String? selectedPasoLibreValue;
+          if (cabina.containsKey('pasoLibre')) {
+            formFields.add(FormBuilderDropdown(
+              name: 'pasoLibre_${cabina['dimensiones']}',
+              decoration: InputDecoration(labelText: 'Paso libre'),
+              initialValue: selectedPasoLibreValue,
+              items: cabina['pasoLibreOptions']
+                  .map((pasoLibre) => DropdownMenuItem(
+                        value: pasoLibre,
+                        child: Text(pasoLibre),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedPasoLibreValue = value.toString();
+                });
+              },
+            ));
+          }
+          formFields.add(FormBuilderTextField(
+            name: 'ducto_${cabina['dimensiones']}',
+            decoration: InputDecoration(labelText: 'Ducto'),
+            initialValue: cabina['ducto'].toString(),
+            readOnly: true,
+          ));
+        }
+      });
+    }
+    return formFields;
   }
 }
