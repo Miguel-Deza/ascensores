@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Formulario Flutter',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyForm(),
-    );
-  }
-}
+import 'package:ascensores/screens/form_data.dart';
 
 class MyForm extends StatefulWidget {
   @override
@@ -33,72 +17,20 @@ class _MyFormState extends State<MyForm> {
   String _dimensionesCabina = '';
   String _pasoLibre = '';
   String _ducto = '';
-  final Map<String, Map<String, dynamic>> _formData = {
-    '375': {
-      'numeroPersonas': '5',
-      'cabina': '900x1200',
-      'tipoPuertaOptions': ['C2', 'T2'],
-      'puertasData': {
-        'C2': {'pasoLibre': '700', 'ducto': '1600x1500'},
-        'T2': {'pasoLibre': '800', 'ducto': '1550x1580'}
-      }
-    },
-    '450': {
-      'numeroPersonas': '6',
-      'cabina': '1000x1250',
-      'tipoPuertaOptions': ['T2'],
-      'puertasData': {
-        'T2': {'pasoLibre': '800', 'ducto': '1600x1630'}
-      }
-    },
-    '630': {
-      'numeroPersonas': '8',
-      'cabina': '1100x1400',
-      'tipoPuertaOptions': ['C2', 'T2'],
-      'puertasData': {
-        'C2': {'pasoLibre': '700', 'ducto': '1700x1780'},
-        'T2': {'pasoLibre': '800', 'ducto': '1700x1780'}
-      }
-    },
-    '800': {
-      'numeroPersonas': '10',
-      'cabina': '1350x1400',
-      'tipoPuertaOptions': ['T2'],
-      'puertasData': {
-        'T2': {'pasoLibre': '900', 'ducto': '1950x1780'}
-      }
-    },
-    '1000': {
-      'numeroPersonas': '13',
-      'cabina': 'Multiple',
-      'cabinaData': [
-        {
-          'dimensiones': '1100x2100',
-          'tipoPuerta': 'T2',
-          'pasoLibreOptions': ['900', '1000'],
-          'ducto': {'900': '1650x2480', '1000': '1850x2480'}
-        },
-        {
-          'dimensiones': '2100x1100',
-          'tipoPuerta': 'C2',
-          'pasoLibreOptions': ['1000', '1200'],
-          'ducto': {'1000': '2700x1400', '1200': '2700x1400'}
-        },
-        {
-          'dimensiones': '1400x1600',
-          'tipoPuerta': 'T2',
-          'pasoLibre': '1000',
-          'ducto': '2000x1950'
-        }
-      ]
-    }
-  };
+
+  String fondoDucto = "";
+  String anchoDucto = "";
+  String fondoCabina = "";
+  String anchoCabina = "";
+
+  Map<String, Map<String, dynamic>> _formData = formData;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Formulario Flutter'),
+        title: Text('Dimencionamiento del Ascensor'),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -153,90 +85,154 @@ class _MyFormState extends State<MyForm> {
                     },
                   ),
                 SizedBox(height: 10),
-                if (_cargaNominal.isNotEmpty && _selectedTipoPuerta.isNotEmpty)
-                  ..._buildFormFields(),
+                // if (_cargaNominal.isNotEmpty && _selectedTipoPuerta.isNotEmpty)
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text('Número de Personas: $_numeroPersonas'),
+                //     Text('Medida de la Cabina: $_dimensionesCabina'),
+                //     Text('Paso Libre: $_pasoLibre'),
+                //     Text('Ducto: $_ducto'),
+                //   ],
+                // ),
                 SizedBox(height: 10),
-                if (_cargaNominal.isNotEmpty && _selectedTipoPuerta.isNotEmpty)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Número de Personas: $_numeroPersonas'),
-                      Text('Medida de la Cabina: $_dimensionesCabina'),
-                      Text('Paso Libre: $_pasoLibre'),
-                      Text('Ducto: $_ducto'),
-                    ],
+                Center(
+                  child: Container(
+                    width: 300,
+                    height: 380,
+                    color: Colors.blue,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        RotatedBox(
+                          quarterTurns: 3,
+                          child: Text(
+                              "F.D: ${_ducto != "" ? _ducto.split('x')[1] : ""}",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white)),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text("A.D: ${_ducto.split('x')[0]}",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white)),
+                            Container(
+                              width: 220,
+                              height: 250,
+                              color: Colors.red,
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: 100,
+                                      color: Colors.purple,
+                                    ),
+                                    Container(
+                                      width: 20,
+                                      height: 50,
+                                      color: Colors.purple,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          width: 100,
+                                          height: 200,
+                                          color: Colors.brown,
+                                          child: Row(
+                                            children: [
+                                              RotatedBox(
+                                                quarterTurns: 3,
+                                                child: Text(
+                                                    "F.C: ${_dimensionesCabina != "" ? _dimensionesCabina.split('x')[1] : ""}",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white)),
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "${_dimensionesCabina.split('x')[0]}",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text("P.L:${_pasoLibre}",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.white))
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 100,
+                                          height: 5,
+                                          color: Colors.green,
+                                        ),
+                                        Container(
+                                          width: 100,
+                                          height: 5,
+                                          color: Colors.orange,
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      width: 20,
+                                      height: 50,
+                                      color: Colors.purple,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ), // Separación entre los dos cuadrados
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.saveAndValidate()) {
-                      final formData = _formKey.currentState!.value;
-                      print(formData);
-                    }
-                  },
-                  child: Text('Guardar'),
-                )
+                ),
+                if (_cargaNominal.isNotEmpty && _selectedTipoPuerta.isNotEmpty)
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.saveAndValidate()) {
+                          Map<String, dynamic> formData =
+                              Map.from(_formKey.currentState!.value);
+                          formData['pasoLibre'] = _pasoLibre;
+                          formData['ducto'] = _ducto;
+                          formData['numeroPersonas'] = _numeroPersonas;
+                          formData['cabina'] = _dimensionesCabina;
+
+                          setState(() {
+                            if (_selectedTipoPuerta != "") {
+                              fondoDucto = formData['ducto'].split('x')[0];
+                              anchoDucto = formData['ducto'].split('x')[1];
+                              fondoCabina = _dimensionesCabina.split('x')[0];
+                              anchoCabina = _dimensionesCabina.split('x')[1];
+                            }
+                            print(formData);
+                          });
+                        }
+                      },
+                      child: Text('Guardar'),
+                    ),
+                  ),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  List<Widget> _buildFormFields() {
-    final List<Widget> formFields = [];
-    if (_cargaNominal != '1000') {
-      final Map<String, dynamic> puertasData =
-          _formData[_cargaNominal]?['puertasData'][_selectedTipoPuerta];
-      puertasData.forEach((key, value) {
-        formFields.add(FormBuilderTextField(
-          name: key,
-          decoration: InputDecoration(labelText: key),
-          initialValue: value.toString(),
-          readOnly: true,
-        ));
-      });
-    } else {
-      final List<Map<String, dynamic>> cabinasData =
-          _formData[_cargaNominal]?['cabinaData'];
-      cabinasData.forEach((cabina) {
-        formFields.add(FormBuilderTextField(
-          name: 'dimensiones_${cabina['dimensiones']}',
-          decoration: InputDecoration(
-              labelText: 'Dimensiones: ${cabina['dimensiones']}'),
-          initialValue: cabina['dimensiones'],
-          readOnly: true,
-        ));
-        if (cabina['tipoPuerta'] == _selectedTipoPuerta) {
-          String? selectedPasoLibreValue;
-          if (cabina.containsKey('pasoLibre')) {
-            formFields.add(FormBuilderDropdown(
-              name: 'pasoLibre_${cabina['dimensiones']}',
-              decoration: InputDecoration(labelText: 'Paso libre'),
-              initialValue: selectedPasoLibreValue,
-              items: cabina['pasoLibreOptions']
-                  .map((pasoLibre) => DropdownMenuItem(
-                        value: pasoLibre,
-                        child: Text(pasoLibre),
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  selectedPasoLibreValue = value.toString();
-                });
-              },
-            ));
-          }
-          formFields.add(FormBuilderTextField(
-            name: 'ducto_${cabina['dimensiones']}',
-            decoration: InputDecoration(labelText: 'Ducto'),
-            initialValue: cabina['ducto'].toString(),
-            readOnly: true,
-          ));
-        }
-      });
-    }
-    return formFields;
   }
 }
