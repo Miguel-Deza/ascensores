@@ -1,39 +1,39 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:ascensores/screens/form_data.dart';
 import 'package:ascensores/screens/graphic.dart';
 
 class SelectDimensionsScreen extends StatefulWidget {
+  const SelectDimensionsScreen({super.key});
   @override
-  _SelectDimensionsScreenState createState() => _SelectDimensionsScreenState();
+  State<SelectDimensionsScreen> createState() => _SelectDimensionsScreenState();
 }
 
 class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   List<String> _tipoPuertaOptions = [];
+  List<String> pasosLibresIn1000Case = [];
 
+  //* Core datos
   String _cargaNominal = '';
-  String _selectedTipoPuerta = '';
   String _numeroPersonas = '';
   String _dimensionesCabina = '';
+  String _selectedTipoPuerta = '';
   String _pasoLibre = '';
-  String _ducto = '';
+  String _dimensionesDucto = '';
 
+  //* Extra datos
   String fondoDucto = "";
   String anchoDucto = "";
   String fondoCabina = "";
   String anchoCabina = "";
 
   Map<String, Map<String, dynamic>> _formData = formData;
-  List<String> pasosLibres = [];
 
   @override
   Widget build(BuildContext context) {
     List<String> cabinasKeys = _formData["1000"]?["cabinas"].keys.toList();
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -44,7 +44,7 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
         backgroundColor: Colors.blue[900],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(26.0),
         child: FormBuilder(
           key: _formKey,
           child: Column(
@@ -54,12 +54,14 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                   Expanded(
                     child: FormBuilderDropdown(
                       name: 'cargaNominal',
-                      decoration: InputDecoration(labelText: 'Carga Nominal'),
+                      decoration: InputDecoration(labelText: 'Carga nominal'),
                       items: _formData.keys
-                          .map((cargaNominal) => DropdownMenuItem(
-                                value: cargaNominal,
-                                child: Text(cargaNominal),
-                              ))
+                          .map(
+                            (cargaNominal) => DropdownMenuItem(
+                              value: cargaNominal,
+                              child: Text(cargaNominal),
+                            ),
+                          )
                           .toList(),
                       onChanged: (value) {
                         setState(() {
@@ -67,13 +69,16 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                           if (_cargaNominal != "1000") {
                             _tipoPuertaOptions =
                                 _formData[_cargaNominal]?['tipoPuertaOptions'];
-                            _selectedTipoPuerta = '';
                             _numeroPersonas =
                                 _formData[_cargaNominal]?['numeroPersonas'];
                             _dimensionesCabina =
                                 _formData[_cargaNominal]?['cabina'];
+
+                            //Elimino datos para que al seleccionar otra carga nominal
+                            //no se muestren datos anteriores
+                            _selectedTipoPuerta = '';
                             _pasoLibre = '';
-                            _ducto = '';
+                            _dimensionesDucto = '';
                           }
                         });
                       },
@@ -101,14 +106,14 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                                       _formData[_cargaNominal]?['puertasData'];
                                   _pasoLibre = puertasData[_selectedTipoPuerta]
                                       ['pasoLibre'];
-                                  _ducto =
+                                  _dimensionesDucto =
                                       puertasData[_selectedTipoPuerta]['ducto'];
                                 });
                               },
                             ),
                           )
                         : FormBuilderDropdown(
-                            name: 'medidaCabina',
+                            name: 'cabina',
                             decoration:
                                 InputDecoration(labelText: 'Medida de cabina'),
                             items: cabinasKeys
@@ -119,7 +124,7 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                                 .toList(),
                             onChanged: (value) {
                               setState(() {
-                                pasosLibres = _formData[_cargaNominal]
+                                pasosLibresIn1000Case = _formData[_cargaNominal]
                                         ?["cabinas"][value]["pasosLibres"]
                                     .keys
                                     .toList();
@@ -132,12 +137,13 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
               ),
               //!Actualizar los datos correctamente
               Visibility(
-                visible: pasosLibres.isNotEmpty && _cargaNominal == "1000",
+                visible:
+                    pasosLibresIn1000Case.isNotEmpty && _cargaNominal == "1000",
                 child: FormBuilderDropdown(
                     name: 'pasoLibre',
                     decoration:
                         InputDecoration(labelText: 'Selecciona paso libre'),
-                    items: pasosLibres
+                    items: pasosLibresIn1000Case
                         .map((key) => DropdownMenuItem(
                               value: key,
                               child: Text(key),
@@ -146,22 +152,23 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                     onChanged: (value) {
                       setState(() {
                         _pasoLibre = value.toString();
-                        _ducto = _formData[_cargaNominal]?["cabinas"]
+                        _dimensionesDucto = _formData[_cargaNominal]?["cabinas"]
                             [_dimensionesCabina]["pasosLibres"][value]["ducto"];
                         _selectedTipoPuerta = _formData[_cargaNominal]
                             ?["cabinas"][_dimensionesCabina]["tipoPuerta"];
-                        print(_selectedTipoPuerta);
-                        print(_pasoLibre);
-                        print(_ducto);
+                        _numeroPersonas =
+                            _formData[_cargaNominal]?["numeroPersonas"];
+                        _selectedTipoPuerta = _formData[_cargaNominal]
+                            ?["cabinas"][_dimensionesCabina]["tipoPuerta"];
                       });
                     }),
-              ),             
+              ),
               SizedBox(
                 height: 20,
               ),
               Expanded(
                 child: Graphic(
-                    ducto: _ducto,
+                    ducto: _dimensionesDucto,
                     dimensionesCabina: _dimensionesCabina,
                     pasoLibre: _pasoLibre),
               ),
@@ -175,16 +182,17 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                             Map<String, dynamic> formData =
                                 Map.from(_formKey.currentState!.value);
                             formData['pasoLibre'] = _pasoLibre;
-                            formData['ducto'] = _ducto;
+                            formData['ducto'] = _dimensionesDucto;
                             formData['numeroPersonas'] = _numeroPersonas;
                             formData['cabina'] = _dimensionesCabina;
+                            formData['tipoPuerta'] = _selectedTipoPuerta;
 
                             setState(() {
                               if (_selectedTipoPuerta != "") {
                                 fondoDucto = formData['ducto'].split('x')[0];
                                 anchoDucto = formData['ducto'].split('x')[1];
-                                fondoCabina = _dimensionesCabina.split('x')[0];
-                                anchoCabina = _dimensionesCabina.split('x')[1];
+                                fondoCabina = formData['cabina'].split('x')[0];
+                                anchoCabina = formData['cabina'].split('x')[0];
                               }
                               print(formData);
                             });
