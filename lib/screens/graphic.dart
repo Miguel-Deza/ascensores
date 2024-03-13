@@ -82,7 +82,7 @@ class Graphic extends StatelessWidget {
                                       style: TextStyle(
                                           fontSize: 20, color: Colors.white),
                                     ),
-                                    Text("P.L:${_pasoLibre}",
+                                    Text("${_pasoLibre}",
                                         style: TextStyle(
                                             fontSize: 20, color: Colors.white))
                                   ],
