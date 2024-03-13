@@ -64,9 +64,9 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                           )
                           .toList(),
                       onChanged: (value) {
-                        setState(() {
-                          _cargaNominal = value.toString();
-                          if (_cargaNominal != "1000") {
+                        _cargaNominal = value.toString();
+                        if (_cargaNominal != "1000") {
+                          setState(() {
                             _tipoPuertaOptions =
                                 _formData[_cargaNominal]?['tipoPuertaOptions'];
                             _numeroPersonas =
@@ -79,8 +79,14 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                             _selectedTipoPuerta = '';
                             _pasoLibre = '';
                             _dimensionesDucto = '';
-                          }
-                        });
+                          });
+                        } else {
+                          setState(() {
+                            _dimensionesCabina = "";
+                            _pasoLibre = "";
+                            pasosLibresIn1000Case = [];                            
+                          });
+                        }
                       },
                     ),
                   ),
@@ -135,22 +141,22 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                   ),
                 ],
               ),
-              //!Actualizar los datos correctamente
               Visibility(
                 visible:
                     pasosLibresIn1000Case.isNotEmpty && _cargaNominal == "1000",
                 child: FormBuilderDropdown(
-                    name: 'pasoLibre',
-                    decoration:
-                        InputDecoration(labelText: 'Selecciona paso libre'),
-                    items: pasosLibresIn1000Case
-                        .map((key) => DropdownMenuItem(
-                              value: key,
-                              child: Text(key),
-                            ))
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
+                  name: 'pasoLibre',
+                  decoration:
+                      InputDecoration(labelText: 'Selecciona paso libre'),
+                  items: pasosLibresIn1000Case
+                      .map((key) => DropdownMenuItem(
+                            value: key,
+                            child: Text(key),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(
+                      () {
                         _pasoLibre = value.toString();
                         _dimensionesDucto = _formData[_cargaNominal]?["cabinas"]
                             [_dimensionesCabina]["pasosLibres"][value]["ducto"];
@@ -160,8 +166,10 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                             _formData[_cargaNominal]?["numeroPersonas"];
                         _selectedTipoPuerta = _formData[_cargaNominal]
                             ?["cabinas"][_dimensionesCabina]["tipoPuerta"];
-                      });
-                    }),
+                      },
+                    );
+                  },
+                ),
               ),
               SizedBox(
                 height: 20,
