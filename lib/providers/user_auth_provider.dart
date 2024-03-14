@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class UserAuthProvider with ChangeNotifier {
   //!ESTOY USANDO UN BEARER KEY POR EL MOMENTO
-  String _tokenUser = "233|KQ9wecCUwhz7UMsGXeYqxMxidJ7sqflSruj6O0iT11863496";
+  String _tokenUser = "236|36sVm1hzmQJbMW9CLOERq1QXBDhRSJbkNUlCAYli2d847f2b";
   // String _tokenUser = "";
   String fullNameUser = "L";
   String phoneUser = "";

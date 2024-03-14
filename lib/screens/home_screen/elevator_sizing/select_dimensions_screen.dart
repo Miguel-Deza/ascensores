@@ -1,7 +1,8 @@
+import 'package:ascensores/screens/duct_calculation/duct_calculation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:ascensores/screens/form_data.dart';
-import 'package:ascensores/screens/graphic.dart';
+import 'package:ascensores/screens/home_screen/elevator_sizing/form_data.dart';
+import 'package:ascensores/screens/home_screen/elevator_sizing/graphic.dart';
 
 class SelectDimensionsScreen extends StatefulWidget {
   const SelectDimensionsScreen({super.key});
@@ -266,6 +267,13 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                         print(formData);
                       });
                     }
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DuctCalculationPage(),
+                      ),
+                    );
                   },
                   child: Text('Continuar'),
                 ),

@@ -1,5 +1,6 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
+import 'package:ascensores/screens/home_screen/elevator_sizing/select_dimensions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/duct_calculation/duct_calculation_page.dart';
 import 'package:provider/provider.dart';
@@ -98,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const DuctCalculationPage(),
+                builder: (context) => SelectDimensionsScreen(),
               ),
             ).then((value) => {
                   "LLamando a fetch data",
