@@ -189,6 +189,15 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                                     .toList();
                                 _dimensionesCabina = value.toString();
                                 _pasoLibre = pasosLibresIn1000Case[0];
+                                _dimensionesDucto = _formData[_cargaNominal]
+                                        ?["cabinas"][value]["pasosLibres"]
+                                    [_pasoLibre]["ducto"];
+                                // Cambia tipo de puerta
+                                if (_dimensionesCabina == "2100x1100") {
+                                  _selectedTipoPuerta = "C2";
+                                } else {
+                                  _selectedTipoPuerta = "T2";
+                                }
                               });
                             },
                           ),
