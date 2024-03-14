@@ -1,8 +1,8 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
-import 'package:ascensores/screens/home_screen/elevator_sizing/select_dimensions_screen.dart';
+import 'package:ascensores/screens/duct_calculation/elevator_sizing/select_dimensions_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:ascensores/screens/duct_calculation/duct_calculation_page.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'drawer_widget.dart';
 import 'build_list_tiles.dart';
@@ -93,22 +93,54 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: SpeedDial(
+          icon: Icons.add,
+          activeIcon: Icons.close,
           backgroundColor: Colors.orange[900],
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SelectDimensionsScreen(),
+          overlayColor: Colors.black87,
+          iconTheme: const IconThemeData(color: Colors.white),
+          shape: CircleBorder(),
+          children: [
+            SpeedDialChild(
+              backgroundColor: Colors.orange[900],
+              child: Icon(
+                Icons.description,
+                color: Colors.white,
               ),
-            ).then((value) => {
-                  "LLamando a fetch data",
-                  fetchData(),
-                });
-          },
-          child: const Icon(Icons.add, color: Colors.white),
+              label: "Generar cotización",
+              onTap: () {
+                print("hello");
+              },
+            ),
+            SpeedDialChild(
+              backgroundColor: Colors.orange[900],
+              child: Icon(
+                Icons.analytics,
+                color: Colors.white,
+              ),
+              label: "Generar estudio de tráfico",
+              onTap: () {
+                print("hello");
+              },
+            ),
+          ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // floatingActionButton: FloatingActionButton(
+        //   backgroundColor: Colors.orange[900],
+        //   onPressed: () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => SelectDimensionsScreen(),
+        //       ),
+        //     ).then((value) => {
+        //           "LLamando a fetch data",
+        //           fetchData(),
+        //         });
+        //   },
+        //   child: const Icon(Icons.add, color: Colors.white),
+        // ),
+
         drawer: drawerLeft(valueAuthProvider, context),
       ),
     );

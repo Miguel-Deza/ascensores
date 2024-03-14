@@ -1,7 +1,7 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/home_screen/home_screen.dart';
-import 'package:ascensores/screens/home_screen/elevator_sizing/select_dimensions_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // import 'package:ascensores/screens/home_screen.dart';
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: HomeScreen(),
       theme: ThemeData(
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -33,8 +34,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      title: 'Inicio de sesión',
-      home: HomeScreen(),
     );
   }
 }
