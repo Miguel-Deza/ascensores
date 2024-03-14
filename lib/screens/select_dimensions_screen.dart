@@ -12,22 +12,22 @@ class SelectDimensionsScreen extends StatefulWidget {
 class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
 
-  List<String> _tipoPuertaOptions = [];
+  List<String> _tipoPuertaOptions = ["C2", "T2"];
   List<String> pasosLibresIn1000Case = [];
 
   //* Core datos
-  String _cargaNominal = '';
-  String _numeroPersonas = '';
-  String _dimensionesCabina = '';
-  String _selectedTipoPuerta = '';
-  String _pasoLibre = '';
-  String _dimensionesDucto = '';
+  String _cargaNominal = '375';
+  String _numeroPersonas = '5';
+  String _dimensionesCabina = '900x1200';
+  String _selectedTipoPuerta = 'C2';
+  String _pasoLibre = '700';
+  String _dimensionesDucto = '1600x1500';
 
   //* Extra datos
-  String fondoDucto = "";
-  String anchoDucto = "";
-  String fondoCabina = "";
-  String anchoCabina = "";
+  String fondoDucto = "1500";
+  String anchoDucto = "1600";
+  String fondoCabina = "1200";
+  String anchoCabina = "900";
 
   Map<String, Map<String, dynamic>> _formData = formData;
 
@@ -55,6 +55,7 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                     child: FormBuilderDropdown(
                       name: 'cargaNominal',
                       decoration: InputDecoration(labelText: 'Carga nominal'),
+                      initialValue: _cargaNominal,
                       items: _formData.keys
                           .map(
                             (cargaNominal) => DropdownMenuItem(
@@ -66,26 +67,67 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                       onChanged: (value) {
                         _cargaNominal = value.toString();
                         if (_cargaNominal != "1000") {
-                          setState(() {
-                            _tipoPuertaOptions =
-                                _formData[_cargaNominal]?['tipoPuertaOptions'];
-                            _numeroPersonas =
-                                _formData[_cargaNominal]?['numeroPersonas'];
-                            _dimensionesCabina =
-                                _formData[_cargaNominal]?['cabina'];
-
-                            //Elimino datos para que al seleccionar otra carga nominal
-                            //no se muestren datos anteriores
-                            _selectedTipoPuerta = '';
-                            _pasoLibre = '';
-                            _dimensionesDucto = '';
-                          });
-                        } else {
-                          setState(() {
-                            _dimensionesCabina = "";
-                            _pasoLibre = "";
-                            pasosLibresIn1000Case = [];                            
-                          });
+                          _tipoPuertaOptions =
+                              _formData[_cargaNominal]?['tipoPuertaOptions'];
+                          if (_tipoPuertaOptions.length == 1) {
+                            if (_cargaNominal == "450") {
+                              setState(() {
+                                _selectedTipoPuerta = _tipoPuertaOptions[0];
+                                _numeroPersonas = "6";
+                                _dimensionesCabina =
+                                    _formData[_cargaNominal]?['cabina'];
+                                _pasoLibre = _formData[_cargaNominal]
+                                        ?['puertasData'][_selectedTipoPuerta]
+                                    ['pasoLibre'];
+                                _dimensionesDucto = _formData[_cargaNominal]
+                                        ?['puertasData'][_selectedTipoPuerta]
+                                    ['ducto'];
+                              });
+                            }
+                            if (_cargaNominal == "800") {
+                              setState(() {
+                                _selectedTipoPuerta = _tipoPuertaOptions[0];
+                                _numeroPersonas = "10";
+                                _dimensionesCabina =
+                                    _formData[_cargaNominal]?['cabina'];
+                                _pasoLibre = _formData[_cargaNominal]
+                                        ?['puertasData'][_selectedTipoPuerta]
+                                    ['pasoLibre'];
+                                _dimensionesDucto = _formData[_cargaNominal]
+                                        ?['puertasData'][_selectedTipoPuerta]
+                                    ['ducto'];
+                              });
+                            }
+                          } else {
+                            if (_cargaNominal == "375") {
+                              setState(() {
+                                _numeroPersonas = "5";
+                                _dimensionesCabina =
+                                    _formData[_cargaNominal]?['cabina'];
+                                _pasoLibre = _formData[_cargaNominal]
+                                        ?['puertasData'][_selectedTipoPuerta]
+                                    ['pasoLibre'];
+                                _dimensionesDucto = _formData[_cargaNominal]
+                                        ?['puertasData'][_selectedTipoPuerta]
+                                    ['ducto'];
+                              });
+                              print(_selectedTipoPuerta);
+                            }
+                            if (_cargaNominal == "630") {
+                              setState(() {
+                                _numeroPersonas = "8";
+                                _dimensionesCabina =
+                                    _formData[_cargaNominal]?['cabina'];
+                                _pasoLibre = _formData[_cargaNominal]
+                                        ?['puertasData'][_selectedTipoPuerta]
+                                    ['pasoLibre'];
+                                _dimensionesDucto = _formData[_cargaNominal]
+                                        ?['puertasData'][_selectedTipoPuerta]
+                                    ['ducto'];
+                              });
+                              print(_selectedTipoPuerta);
+                            }
+                          }
                         }
                       },
                     ),
@@ -94,9 +136,10 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                   Expanded(
                     child: _cargaNominal != '1000'
                         ? Visibility(
-                            visible: _tipoPuertaOptions.isNotEmpty,
+                            visible: true,
                             child: FormBuilderDropdown(
                               name: 'tipoPuerta',
+                              initialValue: _selectedTipoPuerta,
                               decoration:
                                   InputDecoration(labelText: 'Tipo de Puerta'),
                               items: _tipoPuertaOptions
@@ -115,6 +158,7 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                                   _dimensionesDucto =
                                       puertasData[_selectedTipoPuerta]['ducto'];
                                 });
+                                print(_selectedTipoPuerta);
                               },
                             ),
                           )
@@ -183,39 +227,28 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _cargaNominal.isNotEmpty &&
-                          _selectedTipoPuerta.isNotEmpty
-                      ? () {
-                          if (_formKey.currentState!.saveAndValidate()) {
-                            Map<String, dynamic> formData =
-                                Map.from(_formKey.currentState!.value);
-                            formData['pasoLibre'] = _pasoLibre;
-                            formData['ducto'] = _dimensionesDucto;
-                            formData['numeroPersonas'] = _numeroPersonas;
-                            formData['cabina'] = _dimensionesCabina;
-                            formData['tipoPuerta'] = _selectedTipoPuerta;
+                  onPressed: () {
+                    if (_formKey.currentState!.saveAndValidate()) {
+                      Map<String, dynamic> formData =
+                          Map.from(_formKey.currentState!.value);
+                      formData['pasoLibre'] = _pasoLibre;
+                      formData['ducto'] = _dimensionesDucto;
+                      formData['numeroPersonas'] = _numeroPersonas;
+                      formData['cabina'] = _dimensionesCabina;
+                      formData['tipoPuerta'] = _selectedTipoPuerta;
 
-                            setState(() {
-                              if (_selectedTipoPuerta != "") {
-                                fondoDucto = formData['ducto'].split('x')[0];
-                                anchoDucto = formData['ducto'].split('x')[1];
-                                fondoCabina = formData['cabina'].split('x')[0];
-                                anchoCabina = formData['cabina'].split('x')[0];
-                              }
-                              print(formData);
-                            });
-                          }
+                      setState(() {
+                        if (_selectedTipoPuerta != "") {
+                          fondoDucto = formData['ducto'].split('x')[0];
+                          anchoDucto = formData['ducto'].split('x')[1];
+                          fondoCabina = formData['cabina'].split('x')[1];
+                          anchoCabina = formData['cabina'].split('x')[0];
                         }
-                      : null, // Assign null to disable the button
+                        print(formData);
+                      });
+                    }
+                  },
                   child: Text('Continuar'),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      _cargaNominal.isNotEmpty && _selectedTipoPuerta.isNotEmpty
-                          ? Colors.orange.shade900 // color habilitado
-                          : Colors.grey, // color deshabilitado
-                    ),
-                    // Aquí puedes añadir más estilos según tus necesidades
-                  ),
                 ),
               ),
             ],

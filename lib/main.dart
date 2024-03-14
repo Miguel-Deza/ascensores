@@ -1,7 +1,6 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
-import 'package:ascensores/screens/duct_calculation/duct_calculation_page.dart';
-import 'package:ascensores/screens/home_screen/home_screen.dart';
+
 import 'package:ascensores/screens/select_dimensions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
