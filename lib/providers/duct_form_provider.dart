@@ -15,7 +15,6 @@ class DuctFormProvider with ChangeNotifier {
           Uri.parse('https://dev.ktel.pe/api/elevator-calculations'),
           headers: {'Authorization': 'Bearer $bearerKey'});
       if (response.statusCode == 200) {
-        print(response.body); // Imprime el cuerpo de la respuesta
         dataTabla = jsonDecode(response.body);
         notifyListeners();
       } else {

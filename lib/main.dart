@@ -1,6 +1,10 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/home_screen/home_screen.dart';
+import 'package:ascensores/screens/quotes_screen/details_cabin_3.dart';
+import 'package:ascensores/screens/quotes_screen/details_door_2.dart';
+import 'package:ascensores/screens/quotes_screen/details_elevator_1.dart';
+import 'package:ascensores/screens/quotes_screen/quotes_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: const QuotesScreen(),
       theme: ThemeData(
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(

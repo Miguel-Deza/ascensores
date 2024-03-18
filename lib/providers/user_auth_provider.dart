@@ -97,7 +97,7 @@ class UserAuthProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         String responseBody = await response.stream.bytesToString();
         Map<String, dynamic> userInfo = jsonDecode(responseBody);
-        print(userInfo);
+        // print(userInfo);
         fullNameUser = userInfo['name'];
         phoneUser = userInfo['phone'];
         emailUser = userInfo['email'];

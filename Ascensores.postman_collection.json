@@ -1,0 +1,592 @@
+{
+	"info": {
+		"_postman_id": "94f1b5a3-d77b-461b-98c0-b6994dd463ad",
+		"name": "Ascensores",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33061990"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Auth Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jane Doe\",\r\n    \"email\": \"qwerty@example.com\",\r\n    \"password\": \"HOLA MUNDO\",\r\n    \"password_confirmation\": \"HOLA MUNDO\",\r\n    \"phone\": \"987654321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkIfEmailExists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jack@ktel.pe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/check-email",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"check-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"john@example.com\",\r\n    \"password\": \"HOLA MUNDO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "8|OCEFrY9wPDug1zXgbYXv1RJpCTZnIbgbDq096BcE3915fc66",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/logout",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "87|cHavj0tEJvu1gs68nhFUhdJt5dVrIHisdyREOaOl5c7c8727",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hola\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.ktel.pe/api/update-user-info",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"ktel",
+								"pe"
+							],
+							"path": [
+								"api",
+								"update-user-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "12|VaN7FplRSnytz6MOkIfz9K10knAuhodI5Md1KSmFeaa015b4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/user-info",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user-info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quotes",
+			"item": [
+				{
+					"name": "Quotes Show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 2|jZm0kMODm1vPVDa37wrJqYECTJiI3aqLUrf3qZIt6f5134cf",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/quotes/9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"quotes",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quotes Destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 2|jZm0kMODm1vPVDa37wrJqYECTJiI3aqLUrf3qZIt6f5134cf",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/quotes/9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"quotes",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quotes Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 2|jZm0kMODm1vPVDa37wrJqYECTJiI3aqLUrf3qZIt6f5134cf",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project\": \"Great 1\",\r\n    \"description\": \"---\",\r\n    \"brand\": \"Kleemann\",\r\n    \"model\": \"1\",\r\n    \"usage\": \"residential\",\r\n    \"velocity\": \"1.6\",\r\n    \"stops\": \"1\",\r\n    \"double_access\": \"1\",\r\n    \"panoramic_faces\": \"1\",\r\n    \"door_width\": \"1\",\r\n    \"height\": \"1\",\r\n    \"cabin_material\": \"1\",\r\n    \"cabin_type\": \"1\",\r\n    \"cabin_floor\": \"1\",\r\n    \"cabin_ceiling\": \"1\",\r\n    \"cabin_handrail\": \"1\",\r\n    \"cabin_dimensions\": \"1000x2000x3000\",\r\n    \"shipments\": \"1 Simple\",\r\n    \"door_frame_controller\": \"1\",\r\n    \"automatic_marker\": \"1\",\r\n    \"voice_synthesizer\": \"1\",\r\n    \"gong\": \"1\",\r\n    \"firefighters_cop\": \"1\",\r\n    \"firefighters_lop\": \"1\",\r\n    \"fans\": \"1\",\r\n    \"seismic_sensor\": \"1\",\r\n    \"transformer\": \"1\",\r\n    \"extra_cable\": \"1\",\r\n    \"wireless_card_reader\": \"1\",\r\n    \"wireless_cards\": \"1\",\r\n    \"tft_cabin\": \"1\",\r\n    \"tft_floor\": \"1\",\r\n    \"key_lock_system\": \"1\",\r\n    \"lcd_cabin\": \"1\",\r\n    \"lcd_floor\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/quotes",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"quotes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quotes Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 2|jZm0kMODm1vPVDa37wrJqYECTJiI3aqLUrf3qZIt6f5134cf",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project\": \"The Great 1\",\r\n    \"description\": \"Development of the Great Project\",\r\n    \"brand\": \"Ares lift\",\r\n    \"model\": \"1\",\r\n    \"usage\": \"commercial\",\r\n    \"velocity\": \"1.6\",\r\n    \"stops\": \"1\",\r\n    \"double_access\": \"1\",\r\n    \"panoramic_faces\": \"1\",\r\n    \"door_width\": \"1\",\r\n    \"height\": \"1\",\r\n    \"cabin_material\": \"1\",\r\n    \"cabin_type\": \"1\",\r\n    \"cabin_floor\": \"1\",\r\n    \"cabin_ceiling\": \"1\",\r\n    \"cabin_handrail\": \"1\",\r\n    \"cabin_dimensions\": \"3000x2000x1000\",\r\n    \"shipments\": \"1 Complejo\",\r\n    \"door_frame_controller\": \"1\",\r\n    \"automatic_marker\": \"1\",\r\n    \"voice_synthesizer\": \"1\",\r\n    \"gong\": \"1\",\r\n    \"firefighters_cop\": \"1\",\r\n    \"firefighters_lop\": \"1\",\r\n    \"fans\": \"1\",\r\n    \"seismic_sensor\": \"1\",\r\n    \"transformer\": \"1\",\r\n    \"extra_cable\": \"1\",\r\n    \"wireless_card_reader\": \"1\",\r\n    \"wireless_cards\": \"1\",\r\n    \"tft_cabin\": \"1\",\r\n    \"tft_floor\": \"1\",\r\n    \"key_lock_system\": \"1\",\r\n    \"lcd_cabin\": \"1\",\r\n    \"lcd_floor\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/quotes/9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"quotes",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quotes Index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "128|Ai7qfOyIwNtboI2eD72Upn7JlKLnUm8tkrLTtzwdacaff9b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://dev.ktel.pe/api/quotes",
+							"protocol": "http",
+							"host": [
+								"dev",
+								"ktel",
+								"pe"
+							],
+							"path": [
+								"api",
+								"quotes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Elevator",
+			"item": [
+				{
+					"name": "Traffic Study Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14|stXnsdmb615CbSX9YX9mdLgkzBqEkIE253EpsGvuf94199b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"building_type_id\": 6,\r\n    \"stops\": 12,\r\n    \"height\": 4,\r\n    \"surface\": 300,\r\n    \"express_floors\": 0,\r\n    \"units_per_level_served\": 12,\r\n    \"is_hospital\": false,\r\n    \"capacity\": 8,\r\n    \"velocity\": 3.0,\r\n    \"safety_margin\": 100,\r\n    \"door_width\": 0.85,\r\n    \"door_technology\": \"lateral\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/elevator-calculations",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"elevator-calculations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traffic Study Index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14|stXnsdmb615CbSX9YX9mdLgkzBqEkIE253EpsGvuf94199b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/elevator-calculations",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"elevator-calculations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traffic Study Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14|stXnsdmb615CbSX9YX9mdLgkzBqEkIE253EpsGvuf94199b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/elevator-calculations/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"elevator-calculations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traffic Study Show",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "14|stXnsdmb615CbSX9YX9mdLgkzBqEkIE253EpsGvuf94199b6",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/elevator-calculations/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"elevator-calculations",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

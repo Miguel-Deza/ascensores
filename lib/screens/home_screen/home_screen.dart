@@ -1,6 +1,7 @@
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/duct_calculation/elevator_sizing/select_dimensions_screen.dart';
+import 'package:ascensores/screens/quotes_screen/quotes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
@@ -109,7 +110,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               label: "Generar cotización",
               onTap: () {
-                print("hello");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => QuotesScreen(),
+                  ),
+                ).then((value) => {
+                      "LLamando a fetch data",
+                      fetchData(),
+                    });
               },
             ),
             SpeedDialChild(
@@ -120,7 +129,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               label: "Generar estudio de tráfico",
               onTap: () {
-                print("hello");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SelectDimensionsScreen(),
+                  ),
+                ).then((value) => {
+                      "LLamando a fetch data",
+                      fetchData(),
+                    });
               },
             ),
           ],
