@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class QuoteDetails extends StatefulWidget {
   final int quoteId;
@@ -12,20 +14,11 @@ class QuoteDetails extends StatefulWidget {
 class _QuoteDetailsState extends State<QuoteDetails> {
   dynamic dataQuote = {};
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    // Llamando a setState aquí para reconstruir el widget cada vez que aparece en pantalla
-    setState(() {
-      dataQuote;
-    });
-  }
-
   void getQuoteDetails() async {
     final String apiUrl = 'https://dev.ktel.pe/api/quotes/${widget.quoteId}';
-    final String bearerToken =
-        '240|O7LUruF2hT9FB42DguqQYT2hTIhG5shADUzvR4z212e46f37';
+    final myUserAuthProvider =
+        Provider.of<UserAuthProvider>(context, listen: false);
+    String bearerToken = myUserAuthProvider.getTokenUser();
     try {
       final response = await http.get(
         Uri.parse(apiUrl),
@@ -40,22 +33,16 @@ class _QuoteDetailsState extends State<QuoteDetails> {
         setState(() {
           dataQuote = jsonDecode(response.body);
         });
-        // Ahora dataQuote es un mapa de Dart
-        print(dataQuote);
-        print(dataQuote.runtimeType);
       } else {
-        // Si la respuesta no fue exitosa, mostrar el código de estado
-        print('Error: ${response.statusCode}');
+        debugPrint('Error: ${response.statusCode}');
       }
     } catch (e) {
-      // Capturar y mostrar cualquier excepción que ocurra durante la solicitud
-      print('Excepción: $e');
+      debugPrint('Excepción: $e');
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     getQuoteDetails();
     super.initState();
   }
@@ -64,12 +51,12 @@ class _QuoteDetailsState extends State<QuoteDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalles de la cotización'),
+        title: const Text('Detalles de la cotización'),
       ),
       body: SingleChildScrollView(
         child: Column(children: [
           if (dataQuote.isEmpty)
-            Center(child: CircularProgressIndicator())
+            const Center(child: CircularProgressIndicator())
           else
             _buildInfoCard(
               title: 'Información General del Proyecto',
@@ -82,7 +69,7 @@ class _QuoteDetailsState extends State<QuoteDetails> {
                 _buildInfoRow('Estado', dataQuote['status']),
               ],
             ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _buildInfoCard(
             title: 'Detalles del Elevador',
             icon: Icons.elevator,
@@ -109,7 +96,7 @@ class _QuoteDetailsState extends State<QuoteDetails> {
                   'Dimensiones de la cabina', dataQuote['cabin_dimensions']),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _buildInfoCard(
             title: 'Características Adicionales del Elevador',
             icon: Icons.add,
@@ -139,7 +126,7 @@ class _QuoteDetailsState extends State<QuoteDetails> {
               _buildInfoRow('LCD en piso', dataQuote['lcd_floor']),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _buildInfoCard(
             title: 'Costos y Gastos',
             icon: Icons.attach_money,
@@ -173,7 +160,7 @@ class _QuoteDetailsState extends State<QuoteDetails> {
               _buildInfoRow('Margen', dataQuote['margin'] ?? 'Null'),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _buildInfoCard(
             title: 'Información de Vendedor/Usuario',
             icon: Icons.person,
@@ -186,7 +173,7 @@ class _QuoteDetailsState extends State<QuoteDetails> {
                       : 'Null'),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ]),
       ),
     );
@@ -201,24 +188,25 @@ Widget _buildInfoCard(
     elevation: 4,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     child: Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Icon(icon, color: Colors.blue),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Flexible(
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           ...children,
         ],
       ),
@@ -228,17 +216,17 @@ Widget _buildInfoCard(
 
 Widget _buildInfoRow(String label, dynamic value) {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 4),
+    padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         Text(
           value.toString(),
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
       ],
     ),

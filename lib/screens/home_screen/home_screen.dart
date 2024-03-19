@@ -1,16 +1,14 @@
 import 'dart:convert';
-
 import 'package:ascensores/providers/duct_form_provider.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/duct_calculation/elevator_sizing/select_dimensions_screen.dart';
-import 'package:ascensores/screens/home_screen/quote_detail.dart';
 import 'package:ascensores/screens/home_screen/quote_details.dart';
 import 'package:ascensores/screens/projects_page/projects_page_screen.dart';
 import 'package:ascensores/screens/quotes_screen/quotes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
-import 'drawer_widget.dart';
+import 'drawer/drawer_widget.dart';
 import 'package:http/http.dart' as http;
 import 'build_list_tiles.dart';
 
@@ -55,9 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> deleteQuote(String id) async {
+    final myUserAuthProvider =
+        Provider.of<UserAuthProvider>(context, listen: false);
+    String bearerToken = myUserAuthProvider.getTokenUser();
     final String apiUrl = 'https://dev.ktel.pe/api/quotes/$id';
-    final String bearerToken =
-        '240|O7LUruF2hT9FB42DguqQYT2hTIhG5shADUzvR4z212e46f37';
     try {
       final response = await http.delete(
         Uri.parse(apiUrl),
@@ -65,25 +64,23 @@ class _HomeScreenState extends State<HomeScreen> {
           'Authorization': 'Bearer $bearerToken',
           'Content-Type': 'application/json',
         },
-      );
-      // Verificar si la respuesta fue exitosa (código de estado 200)
+      );      
       if (response.statusCode == 200) {
         // Mostrar el cuerpo de la respuesta
-        print("Quote deleted");
-      } else {
-        // Si la respuesta no fue exitosa, mostrar el código de estado
-        print('Error: ${response.statusCode}');
+        debugPrint("Cotización eliminada");
+      } else {        
+        debugPrint('Error al eliminar cotización: ${response.statusCode}');
       }
-    } catch (e) {
-      // Capturar y mostrar cualquier excepción que ocurra durante la solicitud
-      print('Excepción: $e');
+    } catch (e) {      
+      debugPrint('Excepción: $e');
     }
   }
 
   void fetchQuotes() async {
+    final myUserAuthProvider =
+        Provider.of<UserAuthProvider>(context, listen: false);
+    String bearerToken = myUserAuthProvider.getTokenUser();
     final String apiUrl = 'https://dev.ktel.pe/api/quotes';
-    final String bearerToken =
-        '240|O7LUruF2hT9FB42DguqQYT2hTIhG5shADUzvR4z212e46f37';
 
     try {
       final response = await http.get(
@@ -149,13 +146,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: buildListTiles(valueDuctProvider, context)
                                     .isEmpty
                                 ? [
-                                    // Widget de imagen que indica que no hay nada
-                                    Image.asset(
-                                      'images/nodata.png',
-                                      width: 500,
-                                      height: 500,
-                                      fit: BoxFit.contain,
+                                    Column(
+                                      children: [
+                                        Image.asset(
+                                          'images/isotipo.png',
+                                          width: 170,
+                                          height: 170,
+                                          fit: BoxFit.contain,
+                                        ),
+                                        Text(
+                                          "Aun no hay estudios de tráfico",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ),
+                                        )
+                                      ],
                                     ),
+                                    // Widget de imagen que indica que no hay nada
                                   ]
                                 : buildListTiles(valueDuctProvider, context),
                           ),

@@ -2,7 +2,7 @@ import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/user_auth/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'show_user_data_dialog.dart';
+import '../show_user_data_dialog.dart';
 
 Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
   return Drawer(
@@ -12,27 +12,26 @@ Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
         UserAccountsDrawerHeader(
           decoration: const BoxDecoration(
             color: Color.fromRGBO(13, 71, 161, 1),
-            image: DecorationImage(
-              image: AssetImage('images/ascensor_background_image.jpg'),
-              fit: BoxFit.cover,
-            ),
+            // image: DecorationImage(
+            //   image: AssetImage('images/ascensor_background_image.jpg'),
+            //   fit: BoxFit.cover,
+            // ),
           ),
           accountName: Text(valueAuthProvider.fullNameUser),
           accountEmail: Text(valueAuthProvider.emailUser),
           currentAccountPicture: CircleAvatar(
-            //TODO, at the beginning the user is null so it produces an error, fix it in auth provider
             child: Text(valueAuthProvider.fullNameUser[0].toUpperCase()),
           ),
         ),
         ListTile(
-          leading: Icon(Icons.account_circle),
+          leading: const Icon(Icons.account_circle),
           title: const Text('Mis Datos'),
           onTap: () {
             showUserDataDialog(context, valueAuthProvider);
           },
         ),
         ListTile(
-          leading: Icon(Icons.file_copy),
+          leading: const Icon(Icons.file_copy),
           title: const Text('Términos y condiciones'),
           onTap: () {
             showDialog(
@@ -44,18 +43,20 @@ Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
           },
         ),
         ListTile(
-          leading: Icon(Icons.logout),
+          leading: const Icon(Icons.logout),
           title: const Text('Salir'),
           onTap: () async {
             await valueAuthProvider.logOutUser();
             final SharedPreferences sharedPreferences =
                 await SharedPreferences.getInstance();
             sharedPreferences.remove("token");
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
-              (Route<dynamic> route) => false,
-            );
+            if (context.mounted) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                (Route<dynamic> route) => false,
+              );
+            }
           },
         ),
       ],
@@ -65,8 +66,8 @@ Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
 
 AlertDialog showTerminosyCondiciones(BuildContext context) {
   return AlertDialog(
-    title: Text('Términos y Condiciones'),
-    content: SingleChildScrollView(
+    title: const Text('Términos y Condiciones'),
+    content: const SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -102,7 +103,7 @@ AlertDialog showTerminosyCondiciones(BuildContext context) {
         onPressed: () {
           Navigator.of(context).pop();
         },
-        child: Text('Aceptar'),
+        child: const Text('Aceptar'),
       ),
     ],
   );

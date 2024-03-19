@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/quotes_screen/details_cabin_3.dart';
 import 'package:ascensores/screens/quotes_screen/details_door_2.dart';
 import 'package:ascensores/screens/quotes_screen/details_elevator_1.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +23,9 @@ class _QuotesScreenState extends State<QuotesScreen> {
   final DetailsCabin3 detailsCabin3 = DetailsCabin3();
 
   Future<void> quoteCreate() async {
+    final myUserAuthProvider =
+        Provider.of<UserAuthProvider>(context, listen: false);
+    String accessToken = myUserAuthProvider.getTokenUser();
     showDialog(
         context: context,
         builder: (context) {
@@ -29,7 +34,6 @@ class _QuotesScreenState extends State<QuotesScreen> {
           );
         });
     String apiUrl = 'https://dev.ktel.pe/api/quotes';
-    String accessToken = '239|ca0aRbNaRpXwkZgup9k4AhibzNSwGacJUlDOGs1h1cf9209b';
 
     var currentStateForm1 = detailsElevator1.getCurrentFormState().value;
     var currentStateForm2 = detailsDoor2.getCurrentFormState().value;
@@ -123,7 +127,6 @@ class _QuotesScreenState extends State<QuotesScreen> {
           color: Colors.orange[900],
         )
       ],
-      
     ).show();
   }
 
@@ -174,7 +177,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
               if (isLastStep) {
                 print('Completed');
                 await quoteCreate();
-                
+
                 // await quoteCreate();
               } else {
                 setState(() {
