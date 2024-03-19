@@ -1,6 +1,4 @@
 import 'dart:async';
-
-
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   bool isNewUser = false;
   bool showErrorMessageEmail = false;
   bool isNewCreatedPasswordGreatherThanEight = false;
-  //
 
-// Email of user exist?
+  // Email of user exist?
   Future<bool> verifyUser(String email) async {
     try {
       final http.Response response = await http.post(
@@ -45,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getValidationData();
     super.initState();
   }
@@ -54,9 +50,8 @@ class _LoginPageState extends State<LoginPage> {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     var obtainedToken = sharedPreferences.getString('token');
-    print(obtainedToken);
 
-    if (obtainedToken != null) {
+    if (obtainedToken != null && mounted) {
       Provider.of<UserAuthProvider>(context, listen: false)
           .setTokenUser(obtainedToken);
       Navigator.pushReplacement(
@@ -68,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-// Logic for verify if user verify his email
+  // Logic for verify if user verify his email
   bool verifyEmail() {
     return true;
   }
@@ -128,18 +123,18 @@ class _LoginPageState extends State<LoginPage> {
                                 child: const Text('Continuar'),
                                 onPressed: () async {
                                   String email = _emailController.text.trim();
-
                                   // Verificar si el usuario existe o no
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return Center(
+                                        return const Center(
                                           child: CircularProgressIndicator(),
                                         );
                                       });
                                   bool usuarioExiste = await verifyUser(email);
-                                  Navigator.pop(context);
-
+                                  if (context.mounted) {
+                                    Navigator.pop(context);
+                                  }
                                   if (EmailValidator.validate(
                                       _emailController.text)) {
                                     if (usuarioExiste) {
@@ -156,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
                                       });
                                     }
                                   } else {
-                                    print("El email no es valido");
+                                    debugPrint("El email no es valido");
                                     setState(() {
                                       showErrorMessageEmail = true;
                                     });
@@ -204,14 +199,14 @@ class _LoginPageState extends State<LoginPage> {
                                     showDialog(
                                         context: context,
                                         builder: (context) {
-                                          return Center(
+                                          return const Center(
                                             child: CircularProgressIndicator(),
                                           );
                                         });
                                     bool isPasswordCorrect =
                                         await valueProvider.verifyLogin(
                                             _emailController.text, password);
-                                    Navigator.pop(context);
+                                    if (context.mounted) Navigator.pop(context);
                                     if (isPasswordCorrect) {
                                       // Password Correct
                                       if (verifyEmail()) {
@@ -221,12 +216,15 @@ class _LoginPageState extends State<LoginPage> {
                                                 .getInstance();
                                         sharedPreferences.setString('token',
                                             valueProvider.getTokenUser());
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => HomeScreen(),
-                                          ),
-                                        );
+                                        if (context.mounted) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomeScreen(),
+                                            ),
+                                          );
+                                        }
                                       } else {
                                         //=============================
                                         //Logica Email Not Verified
@@ -234,23 +232,25 @@ class _LoginPageState extends State<LoginPage> {
                                       }
                                     } else {
                                       // Password Incorrect
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                            content: Text(
-                                                'Contraseña incorrecta, intentalo nuevamente!')),
-                                      );
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content: Text(
+                                                  'Contraseña incorrecta, intentalo nuevamente!')),
+                                        );
+                                      }
                                     }
                                   },
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    // Lógica para manejar el evento de "¿Olvidaste tu contraseña?"
-                                  },
-                                  child: const Text(
-                                    '¿Olvidaste tu contraseña?',
-                                  ),
-                                ),
+                                // TextButton(
+                                //   onPressed: () {
+                                //     // Lógica para manejar el evento de "¿Olvidaste tu contraseña?"
+                                //   },
+                                //   child: const Text(
+                                //     '¿Olvidaste tu contraseña?',
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -353,7 +353,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //Metodos
-
   Padding newMethod() {
     return const Padding(
       padding: EdgeInsets.all(4.0),

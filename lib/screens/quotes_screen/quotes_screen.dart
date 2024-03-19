@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:ascensores/screens/quotes_screen/details_cabin_3.dart';
 import 'package:ascensores/screens/quotes_screen/details_door_2.dart';
 import 'package:ascensores/screens/quotes_screen/details_elevator_1.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -105,6 +106,25 @@ class _QuotesScreenState extends State<QuotesScreen> {
       print('Error al realizar la solicitud POST: $e');
     }
     Navigator.pop(context);
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: "Cotización realizada",
+      desc:
+          "Cotización realizada con éxito. Nos pondremos en contacto con usted a la brevedad posible.",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Aceptar",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 120,
+          color: Colors.orange[900],
+        )
+      ],
+      
+    ).show();
   }
 
   List<Step> stepList() => <Step>[
@@ -154,6 +174,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
               if (isLastStep) {
                 print('Completed');
                 await quoteCreate();
+                
                 // await quoteCreate();
               } else {
                 setState(() {

@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 class UserAuthProvider with ChangeNotifier {
   //!ESTOY USANDO UN BEARER KEY POR EL MOMENTO
   String _tokenUser = "238|vh9b5B2GJfY11hoIhSKOSwfWQO0o7u7RRd5DY4bie0e85b11";
-  // String _tokenUser = "";
   String fullNameUser = "L";
   String phoneUser = "";
   String emailUser = "";
@@ -42,21 +41,15 @@ class UserAuthProvider with ChangeNotifier {
     }
   }
 
-  //logout
   Future<void> logOutUser() async {
     const String apiUrl = 'https://dev.ktel.pe/api/logout';
     try {
       http.Request request = http.Request('POST', Uri.parse(apiUrl));
       request.headers['Authorization'] = 'Bearer $_tokenUser';
-      http.StreamedResponse response = await request.send();
+      await request.send();
       notifyListeners();
-      if (response.statusCode == 200) {
-        print('Logout exitoso');
-      } else {
-        print('Error en el logout: ${response.statusCode}');
-      }
     } catch (e) {
-      print('Error en el logout: $e');
+      debugPrint('Error en el logout: $e');
     }
   }
 
@@ -79,11 +72,9 @@ class UserAuthProvider with ChangeNotifier {
         phoneUser = phone;
         emailUser = email;
         notifyListeners();
-      } else {
-        print("Error en la solicitud: ${response.statusCode}");
       }
     } catch (e) {
-      print("Error en la solicitud aqui: $e");
+      debugPrint("Error al actualizar al usuario: $e");
     }
   }
 
@@ -91,29 +82,24 @@ class UserAuthProvider with ChangeNotifier {
     const String apiUrl = 'https://dev.ktel.pe/api/user-info';
     try {
       http.Request request = http.Request('POST', Uri.parse(apiUrl));
-      request.headers['Authorization'] = 'Bearer ${_tokenUser}';
+      request.headers['Authorization'] = 'Bearer $_tokenUser';
       http.StreamedResponse response = await request.send();
-
       if (response.statusCode == 200) {
         String responseBody = await response.stream.bytesToString();
         Map<String, dynamic> userInfo = jsonDecode(responseBody);
-        // print(userInfo);
         fullNameUser = userInfo['name'];
         phoneUser = userInfo['phone'];
         emailUser = userInfo['email'];
         notifyListeners();
-      } else {
-        print("Error en la solicitud: ${response.statusCode}");
       }
     } catch (e) {
-      print("Error en la solicitud aqui: $e");
+      debugPrint("Error al obtener información del usuario: $e");
     }
   }
 
   Future<bool> registerUser(
       String email, String password, String fullName, String phone) async {
     const String apiUrl = 'https://dev.ktel.pe/api/register';
-
     final Map<String, String> data = {
       "name": fullName,
       "email": email,
@@ -134,7 +120,7 @@ class UserAuthProvider with ChangeNotifier {
         return false;
       }
     } catch (e) {
-      print("error $e");
+      debugPrint('Error en el registro: $e');
       return false;
     }
   }
