@@ -1,16 +1,17 @@
-import 'package:ascensores/screens/duct_calculation/duct_calculation_page.dart';
+import 'package:ascensores/screens/trafic_study/elevator_sizing/select_dimensions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:ascensores/screens/duct_calculation/elevator_sizing/form_data.dart';
-import 'package:ascensores/screens/duct_calculation/elevator_sizing/graphic.dart';
+import 'package:ascensores/screens/trafic_study/elevator_sizing/form_data.dart';
+import 'package:ascensores/screens/trafic_study/elevator_sizing/graphic.dart';
 
-class SelectDimensionsScreen extends StatefulWidget {
-  const SelectDimensionsScreen({super.key});
+class DimencionamientoScreen1 extends StatefulWidget {
+  const DimencionamientoScreen1({super.key});
   @override
-  State<SelectDimensionsScreen> createState() => _SelectDimensionsScreenState();
+  State<DimencionamientoScreen1> createState() =>
+      _DimencionamientoScreen1State();
 }
 
-class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
+class _DimencionamientoScreen1State extends State<DimencionamientoScreen1> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   List<String> _tipoPuertaOptions = ["C2", "T2"];
@@ -271,7 +272,7 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DuctCalculationPage(),
+                        builder: (context) => SelectDimensionsScreen(),
                       ),
                     );
                   },

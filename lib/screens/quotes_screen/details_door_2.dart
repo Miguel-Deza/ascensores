@@ -125,21 +125,7 @@ class DetailsDoor2 extends StatelessWidget {
                         child: Text("Big Vision"),
                       ),
                     ],
-                  ),
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: ElevatedButton(
-                //     onPressed: () {
-                //       if (keyForm.currentState!.saveAndValidate()) {
-                //         print(keyForm.currentState!.value);
-                //       } else {
-                //         print(keyForm.currentState!.value);
-                //         print("validation failed");
-                //       }
-                //     },
-                //     child: const Text('Continuar'),
-                //   ),
-                // ),
+                  ),                
               ],
             ),
           ),

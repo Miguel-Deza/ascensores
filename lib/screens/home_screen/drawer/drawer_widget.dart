@@ -2,7 +2,7 @@ import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/user_auth/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../show_user_data_dialog.dart';
+import 'show_user_data_dialog.dart';
 
 Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
   return Drawer(

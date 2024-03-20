@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ascensores/providers/user_auth_provider.dart';
+import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:ascensores/screens/quotes_screen/details_cabin_3.dart';
 import 'package:ascensores/screens/quotes_screen/details_door_2.dart';
 import 'package:ascensores/screens/quotes_screen/details_elevator_1.dart';
@@ -29,7 +30,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
     showDialog(
         context: context,
         builder: (context) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         });
@@ -99,35 +100,41 @@ class _QuotesScreenState extends State<QuotesScreen> {
       );
 
       if (response.statusCode == 201) {
-        print('Solicitud POST exitosa');
-        print('Respuesta: ${response.body}');
+        debugPrint('Cotización realizada con éxito. Código de estado: 201');
+        debugPrint('Respuesta: ${response.body}');
       } else {
-        print(
-            'Error en la solicitud POST. Código de estado: ${response.statusCode}');
-        print('Mensaje de error: ${response.body}');
+        debugPrint('Mensaje de error: ${response.body}');
       }
     } catch (e) {
-      print('Error al realizar la solicitud POST: $e');
+      debugPrint('Error al realizar la solicitud POST: $e');
     }
-    Navigator.pop(context);
-    Alert(
-      context: context,
-      type: AlertType.success,
-      title: "Cotización realizada",
-      desc:
-          "Cotización realizada con éxito. Nos pondremos en contacto con usted a la brevedad posible.",
-      buttons: [
-        DialogButton(
-          child: Text(
-            "Aceptar",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => Navigator.pop(context),
-          width: 120,
-          color: Colors.orange[900],
-        )
-      ],
-    ).show();
+    if (mounted) {
+      Navigator.pop(context);
+      Alert(
+        context: context,
+        type: AlertType.success,
+        title: "Cotización realizada",
+        desc:
+            "Cotización realizada con éxito. Nos pondremos en contacto con usted a la brevedad posible.",
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                (route) => false, // Elimina todas las rutas existentes
+              );
+            },
+            width: 120,
+            color: Colors.orange[900],
+            child: const Text(
+              "Aceptar",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          )
+        ],
+      ).show();
+    }
   }
 
   List<Step> stepList() => <Step>[
@@ -175,7 +182,7 @@ class _QuotesScreenState extends State<QuotesScreen> {
             onStepContinue: () async {
               final isLastStep = _index == stepList().length - 1;
               if (isLastStep) {
-                print('Completed');
+                debugPrint('Completed');
                 await quoteCreate();
 
                 // await quoteCreate();
