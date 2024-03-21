@@ -18,18 +18,16 @@ class QuoteDetails extends StatelessWidget {
               icon: Icons.home,
               children: [
                 ListTile(
-                  title: Text(
+                  title: const Text(
                     'Nombre del proyecto',
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(dataQuote['project']),
                 ),
                 ListTile(
-                  title: Text(
+                  title: const Text(
                     'Descripción del proyecto',
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(dataQuote['description']),
                 ),

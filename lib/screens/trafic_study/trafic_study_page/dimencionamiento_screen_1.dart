@@ -12,7 +12,7 @@ class DimencionamientoScreen1 extends StatefulWidget {
 }
 
 class _DimencionamientoScreen1State extends State<DimencionamientoScreen1> {
-  final _formKey = GlobalKey<FormBuilderState>();
+  final formKey = GlobalKey<FormBuilderState>();
 
   List<String> _tipoPuertaOptions = ["C2", "T2"];
   List<String> pasosLibresIn1000Case = [];
@@ -48,7 +48,7 @@ class _DimencionamientoScreen1State extends State<DimencionamientoScreen1> {
       body: Padding(
         padding: const EdgeInsets.all(26.0),
         child: FormBuilder(
-          key: _formKey,
+          key: formKey,
           child: Column(
             children: [
               Row(
@@ -249,9 +249,9 @@ class _DimencionamientoScreen1State extends State<DimencionamientoScreen1> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.saveAndValidate()) {
+                    if (formKey.currentState!.saveAndValidate()) {
                       Map<String, dynamic> formData =
-                          Map.from(_formKey.currentState!.value);
+                          Map.from(formKey.currentState!.value);
                       formData['pasoLibre'] = _pasoLibre;
                       formData['ducto'] = _dimensionesDucto;
                       formData['numeroPersonas'] = _numeroPersonas;
@@ -269,12 +269,19 @@ class _DimencionamientoScreen1State extends State<DimencionamientoScreen1> {
                       });
                     }
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SelectDimensionsScreen(),
-                      ),
-                    );
+                    if (formKey.currentState!.saveAndValidate()) {
+                      debugPrint(formKey.currentState!.value.toString());
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SelectDimensionsScreen(),
+                          //formKey.currentState
+                        ),
+                      );
+                    } else {
+                      debugPrint(formKey.currentState!.value.toString());
+                      debugPrint("validation failed");
+                    }
                   },
                   child: Text('Continuar'),
                 ),

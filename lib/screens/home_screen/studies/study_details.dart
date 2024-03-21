@@ -32,21 +32,30 @@ class StudyDetails extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildInfoCard(
               title: 'Información del edificio',
               icon: Icons.home,
               children: [
-                _buildInfoRow(
-                  'Tipo de edificio',
-                  testBuildingUseDropdownList.entries
-                      .firstWhere(
-                          (entry) =>
-                              entry.value ==
-                              studyData['building_type_id'].toString(),
-                          orElse: () => const MapEntry('', ''))
-                      .key,
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Tipo de edificio',
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text(
+                        testBuildingUseDropdownList.entries
+                            .firstWhere(
+                                (entry) =>
+                                    entry.value ==
+                                    studyData['building_type_id'].toString(),
+                                orElse: () => const MapEntry('', ''))
+                            .key,
+                        style: const TextStyle(fontSize: 16),
+                      )
+                    ],
+                  ),
                 ),
                 _buildInfoRow('Número de pisos', studyData['floors']),
                 _buildInfoRow('Número total de paradas', studyData['stops']),

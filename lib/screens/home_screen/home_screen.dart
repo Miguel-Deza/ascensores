@@ -4,7 +4,7 @@ import 'package:ascensores/screens/home_screen/quotes/quote_details.dart';
 
 import 'package:ascensores/screens/quotes_screen/quotes_screen.dart';
 import 'package:ascensores/screens/home_screen/studies/study_details.dart';
-import 'package:ascensores/screens/trafic_study/trafic_study_page/trafic_study_screen.dart';
+import 'package:ascensores/screens/trafic_study/elevator_sizing/select_dimensions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
@@ -514,7 +514,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TraficStudyScreen(),
+                      builder: (context) => const SelectDimensionsScreen(),
                     ),
                   ).then((value) => {
                         "LLamando a fetch data",

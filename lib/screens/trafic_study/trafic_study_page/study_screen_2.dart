@@ -54,7 +54,7 @@ class StudyScreen2 extends StatelessWidget {
               FormBuilderDropdown(
                 name: "usoEdificio",
                 decoration: const InputDecoration(
-                  labelText: "Uso del Edificio",
+                  labelText: "USO DEL EDIFICIO",
                 ),
                 items: testBuildingUseDropdownList.entries.map((entry) {
                   return DropdownMenuItem(

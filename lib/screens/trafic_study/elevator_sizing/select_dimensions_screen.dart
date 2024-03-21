@@ -1,11 +1,14 @@
-
+import 'package:ascensores/screens/trafic_study/trafic_study_page/trafic_study_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:ascensores/screens/trafic_study/elevator_sizing/form_data.dart';
 import 'package:ascensores/screens/trafic_study/elevator_sizing/graphic.dart';
 
 class SelectDimensionsScreen extends StatefulWidget {
-  const SelectDimensionsScreen({super.key});
+  const SelectDimensionsScreen({
+    Key? key, // Asegúrate de especificar Key correctamente
+  }) : super(key: key);
+
   @override
   State<SelectDimensionsScreen> createState() => _SelectDimensionsScreenState();
 }
@@ -30,14 +33,14 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
   String fondoCabina = "1200";
   String anchoCabina = "900";
 
-  Map<String, Map<String, dynamic>> _formData = formData;
+  final Map<String, Map<String, dynamic>> _formData = formData;
 
   @override
   Widget build(BuildContext context) {
     List<String> cabinasKeys = _formData["1000"]?["cabinas"].keys.toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Dimencionamiento del Ascensor',
           style: TextStyle(color: Colors.white),
         ),
@@ -55,7 +58,8 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                   Expanded(
                     child: FormBuilderDropdown(
                       name: 'cargaNominal',
-                      decoration: InputDecoration(labelText: 'Carga nominal'),
+                      decoration:
+                          const InputDecoration(labelText: 'Carga nominal'),
                       initialValue: _cargaNominal,
                       items: _formData.keys
                           .map(
@@ -142,7 +146,7 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                       },
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: _cargaNominal != '1000'
                         ? Visibility(
@@ -150,8 +154,8 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                             child: FormBuilderDropdown(
                               name: 'tipoPuerta',
                               initialValue: _selectedTipoPuerta,
-                              decoration:
-                                  InputDecoration(labelText: 'Tipo de Puerta'),
+                              decoration: const InputDecoration(
+                                  labelText: 'Tipo de Puerta'),
                               items: _tipoPuertaOptions
                                   .map((tipoPuerta) => DropdownMenuItem(
                                         value: tipoPuerta,
@@ -174,8 +178,8 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                         : FormBuilderDropdown(
                             name: 'cabina',
                             initialValue: _dimensionesCabina,
-                            decoration:
-                                InputDecoration(labelText: 'Medida de cabina'),
+                            decoration: const InputDecoration(
+                                labelText: 'Medida de cabina'),
                             items: cabinasKeys
                                 .map((key) => DropdownMenuItem(
                                       value: key,
@@ -210,7 +214,7 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                 child: FormBuilderDropdown(
                   name: 'pasoLibre',
                   decoration:
-                      InputDecoration(labelText: 'Selecciona paso libre'),
+                      const InputDecoration(labelText: 'Selecciona paso libre'),
                   initialValue: _pasoLibre,
                   items: pasosLibresIn1000Case
                       .map((key) => DropdownMenuItem(
@@ -235,7 +239,7 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
@@ -264,18 +268,19 @@ class _SelectDimensionsScreenState extends State<SelectDimensionsScreen> {
                           fondoCabina = formData['cabina'].split('x')[1];
                           anchoCabina = formData['cabina'].split('x')[0];
                         }
-                        print(formData);
+                        // print(formData);
                       });
-                    }
 
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => DuctCalculationPage(),
-                    //   ),
-                    // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TraficStudyScreen(
+                              dimentionsSelectedForm: formData),
+                        ),
+                      );
+                    }
                   },
-                  child: Text('Continuar'),
+                  child: const Text('Continuar'),
                 ),
               ),
             ],

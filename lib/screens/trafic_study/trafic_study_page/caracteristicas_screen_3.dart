@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class CaracteristicasTecnicas3 extends StatelessWidget {
-  
-  CaracteristicasTecnicas3({super.key});
+  final dimentionsSelectedForm;
+  CaracteristicasTecnicas3({super.key, required this.dimentionsSelectedForm});
   final dynamic keyForm = GlobalKey<FormBuilderState>();
 
   dynamic getCurrentFormState() {
@@ -52,11 +52,13 @@ class CaracteristicasTecnicas3 extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return FormBuilder(
       key: keyForm,
       autovalidateMode: AutovalidateMode.always,
-      initialValue: const {
+      initialValue: {      
+        // Esta fuincionando excelente pere el error esta en el API por ahora lo dejare 8
+        // 'cantidadPasajeros': '${dimentionsSelectedForm["numeroPersonas"]}',
         'cantidadPasajeros': '8',
         'velocidadAscensor': '3.0',
         'anchoPuerta': '850',

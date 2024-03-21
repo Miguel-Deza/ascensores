@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class TraficStudyScreen extends StatefulWidget {
-  const TraficStudyScreen({super.key});
+  final dimentionsSelectedForm;
+  const TraficStudyScreen({super.key, required this.dimentionsSelectedForm});
   @override
   State<TraficStudyScreen> createState() => _TraficStudyScreenState();
 }
@@ -16,21 +17,28 @@ class TraficStudyScreen extends StatefulWidget {
 class _TraficStudyScreenState extends State<TraficStudyScreen> {
   int _index = 0;
   final StudyScreen2 studyScreen2 = StudyScreen2();
-  final CaracteristicasTecnicas3 caracteristicasTecnicas3 =
-      CaracteristicasTecnicas3();
+
+  late CaracteristicasTecnicas3 caracteristicasTecnicas3;
+  @override
+  void initState() {
+    super.initState();
+    // Inicializa caracteristicasTecnicas3 dentro de initState
+    caracteristicasTecnicas3 = CaracteristicasTecnicas3(
+        dimentionsSelectedForm: widget.dimentionsSelectedForm);
+  }
 
   List<Step> stepList() => <Step>[
         Step(
           state: _index <= 0 ? StepState.editing : StepState.complete,
           isActive: _index >= 0,
-          title: const Text('Step 1 title'),
+          title: const Text('Estudio'),
           content: studyScreen2,
           // DetailsElevator1(),
         ),
         Step(
           state: _index <= 1 ? StepState.editing : StepState.complete,
           isActive: _index >= 1,
-          title: const Text('Step 2 title'),
+          title: const Text('Características'),
           content: caracteristicasTecnicas3,
         ),
       ];
@@ -99,6 +107,8 @@ class _TraficStudyScreenState extends State<TraficStudyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("Impresión desde trafic_study_screen");
+    print(widget.dimentionsSelectedForm);
     return Scaffold(
       body: SafeArea(
         child: Theme(
