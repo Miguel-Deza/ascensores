@@ -18,9 +18,6 @@ class Graphic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(30),
-        ),
         color: Colors.blueGrey[300],
       ),
       width: double.infinity,

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: InputSelectDimentions(),
+      home: HomeScreen(),
       theme: ThemeData(
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(

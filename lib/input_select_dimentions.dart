@@ -179,6 +179,9 @@ class _InputSelectDimentionsState extends State<InputSelectDimentions> {
                       }).toList() ??
                       [],
                 ),
+                Text(
+                  'CONFIGURACIÓN DE LA CABINA',
+                ),
                 ElevatedButton(
                   onPressed: () {
                     // set value programmatically
