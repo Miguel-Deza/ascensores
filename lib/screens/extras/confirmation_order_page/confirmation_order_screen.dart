@@ -1,6 +1,6 @@
-import 'package:ascensores/screens/projects_page/admin_page/components/my_timeline_tile.dart';
-import 'package:ascensores/screens/projects_page/admin_page/pdf/pdf_api.dart';
-import 'package:ascensores/screens/projects_page/admin_page/pdf/pdf_viewer_page.dart';
+import 'package:ascensores/screens/extras/admin_page/components/my_timeline_tile.dart';
+import 'package:ascensores/screens/extras/admin_page/pdf/pdf_api.dart';
+import 'package:ascensores/screens/extras/admin_page/pdf/pdf_viewer_page.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';

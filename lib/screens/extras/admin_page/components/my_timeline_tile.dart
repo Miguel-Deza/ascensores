@@ -1,4 +1,4 @@
-import 'package:ascensores/screens/projects_page/admin_page/components/event_card.dart';
+import 'package:ascensores/screens/extras/admin_page/components/event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 

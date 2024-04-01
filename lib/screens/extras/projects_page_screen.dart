@@ -1,6 +1,6 @@
-import 'package:ascensores/screens/projects_page/admin_page/admin_screen.dart';
-import 'package:ascensores/screens/projects_page/confirmation_order_page/confirmation_order_screen.dart';
-import 'package:ascensores/screens/projects_page/init_end_page/init_end_screen.dart';
+import 'package:ascensores/screens/extras/admin_page/admin_screen.dart';
+import 'package:ascensores/screens/extras/confirmation_order_page/confirmation_order_screen.dart';
+import 'package:ascensores/screens/extras/init_end_page/init_end_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProjectsPageScreen extends StatelessWidget {

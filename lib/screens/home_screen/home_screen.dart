@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ascensores/providers/user_auth_provider.dart';
+import 'package:ascensores/screens/create_project_page/get_general_data_screen.dart';
 import 'package:ascensores/screens/home_screen/quotes/quote_details.dart';
 
 import 'package:ascensores/screens/quotes_screen/quotes_screen.dart';
@@ -459,10 +460,10 @@ class _HomeScreenState extends State<HomeScreen> {
               indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  text: "Estudios de tráfico",
+                  text: "PROYECTOS",
                 ),
                 Tab(
-                  text: "Cotizaciones",
+                  text: "COTIZACIONES",
                 ),
               ],
             ),
@@ -472,7 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.blue[900],
             centerTitle: true,
             title: const Text(
-              'Ascensores',
+              'ASCENSORES',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -490,7 +491,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.description,
                   color: Colors.white,
                 ),
-                label: "Generar cotización",
+                label: "NUEVA COTIZACIÓN",
                 onTap: () {
                   Navigator.push(
                     context,
@@ -509,12 +510,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.analytics,
                   color: Colors.white,
                 ),
-                label: "Generar estudio de tráfico",
+                label: "NUEVO PROYECTO",
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SelectDimensionsScreen(),
+                      builder: (context) => GetGeneralDataScreen(),
                     ),
                   ).then((value) => {
                         "LLamando a fetch data",

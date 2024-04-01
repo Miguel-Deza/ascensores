@@ -1,5 +1,7 @@
 import 'package:ascensores/input_select_dimentions.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
+import 'package:ascensores/screens/create_project_page/duct_design_screen.dart';
+import 'package:ascensores/screens/create_project_page/get_general_data_screen.dart';
 import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: DuctDesignScreen(),
       theme: ThemeData(
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
