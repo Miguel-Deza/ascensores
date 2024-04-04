@@ -9,6 +9,8 @@ import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:ascensores/screens/trafic_study/trafic_study_page/study_screen_2.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 // import 'package:ascensores/screens/home_screen.dart';
 
 void main() {
@@ -28,7 +30,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DuctDesignScreen(),
+      supportedLocales: [
+        const Locale('es', 'ES'),
+      ],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        FormBuilderLocalizations.delegate,
+      ],
+      home: GetGeneralDataScreen(),
       theme: ThemeData(
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(

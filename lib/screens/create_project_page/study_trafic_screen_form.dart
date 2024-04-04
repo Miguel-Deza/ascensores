@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/create_project_page/results_study_screen.dart';
-import 'package:ascensores/screens/trafic_study/results_getted/results_study.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ascensores/screens/create_project_page/situational_analysis_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -118,7 +116,7 @@ class _StudyTraficScreenFormState extends State<StudyTraficScreenForm> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ResultsStudyScreen(
+                builder: (context) => SituationalAnalysisScreen(
                       data: data,
                     )),
           );
@@ -137,6 +135,17 @@ class _StudyTraficScreenFormState extends State<StudyTraficScreenForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        shadowColor: Colors.blue[900],
+        elevation: 5.0,
+        backgroundColor: Colors.blue[900],
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          'Estudio de tráfico',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: FormBuilder(
         key: keyForm,
         autovalidateMode: AutovalidateMode.always,
@@ -155,135 +164,145 @@ class _StudyTraficScreenFormState extends State<StudyTraficScreenForm> {
         },
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(30.0),
+            padding: const EdgeInsets.all(20.0),
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const Text("Estudio", style: TextStyle(fontSize: 25)),
-                  FormBuilderDropdown(
-                    name: "usoEdificio",
-                    decoration: const InputDecoration(
-                      labelText: "USO DEL EDIFICIO",
-                    ),
-                    items: testBuildingUseDropdownList.entries.map((entry) {
-                      return DropdownMenuItem(
-                        value: entry.value,
-                        child: Text(entry.key),
-                      );
-                    }).toList(),
-                  ),
-                  Row(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
                     children: [
-                      Expanded(
-                        flex: 1,
-                        child: FormBuilderTextField(
-                          name: 'numeroParadas',
-                          decoration: const InputDecoration(
-                            labelText: 'NÚMERO DE PARADAS',
+                      FormBuilderDropdown(
+                        name: "usoEdificio",
+                        decoration: const InputDecoration(
+                          labelText: "Uso del edificio",
+                        ),
+                        items: testBuildingUseDropdownList.entries.map((entry) {
+                          return DropdownMenuItem(
+                            value: entry.value,
+                            child: Text(entry.key),
+                          );
+                        }).toList(),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: FormBuilderTextField(
+                              name: 'numeroParadas',
+                              decoration: const InputDecoration(
+                                labelText: 'Número de paradas',
+                              ),
+                            ),
                           ),
+                          Expanded(
+                            flex: 1,
+                            child: FormBuilderTextField(
+                              name: 'alturaEdificio',
+                              decoration: const InputDecoration(
+                                labelText: 'Altura del edificio (m)',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: FormBuilderTextField(
+                              name: 'superficiePlanta',
+                              decoration: const InputDecoration(
+                                labelText: 'Superficie por planta (m2)',
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: FormBuilderTextField(
+                              name: 'pisosExpress',
+                              decoration: const InputDecoration(
+                                labelText: 'Pisos en zona express',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      FormBuilderTextField(
+                        name: 'numeroUnidadNivelServido',
+                        decoration: const InputDecoration(
+                          labelText: 'Número de unidades por nivel servido',
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: FormBuilderTextField(
-                          name: 'alturaEdificio',
-                          decoration: const InputDecoration(
-                            labelText: 'ALTURA DEL EDIFICIO (m)',
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 18.0),
+                        child: Text("Características Técnicas",
+                            style: TextStyle(fontSize: 25)),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: FormBuilderDropdown(
+                              name: "cantidadPasajeros",
+                              decoration: const InputDecoration(
+                                labelText: "Cantidad de Pasajeros",
+                              ),
+                              items: passengerCountDropdownList.map((count) {
+                                return DropdownMenuItem(
+                                  value: count,
+                                  child: Text(count),
+                                );
+                              }).toList(),
+                            ),
                           ),
+                          Expanded(
+                            flex: 1,
+                            child: FormBuilderDropdown(
+                              name: "velocidadAscensor",
+                              decoration: const InputDecoration(
+                                labelText: "Velocidad del Ascensor",
+                              ),
+                              items: elevatorSpeedDropdownList.map((speed) {
+                                return DropdownMenuItem(
+                                  value: speed,
+                                  child: Text(speed),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                      FormBuilderTextField(
+                        enabled: false,
+                        name: "anchoPuerta",
+                        decoration: const InputDecoration(
+                            labelText: "Ancho de puerta (mm)"),
+                      ),
+                      FormBuilderRadioGroup(
+                        enabled: false,
+                        name: "puertasAscensor",
+                        decoration: const InputDecoration(
+                            labelText: "Puertas del Ascensor escogidas"),
+                        options: const [
+                          FormBuilderFieldOption(
+                              value: "L2", child: Text("Lateral")),
+                          FormBuilderFieldOption(
+                              value: "C2", child: Text("Central")),
+                        ],
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            var data = getCurrentFormState();
+                            await storeStudy(data);
+                          },
+                          child: const Text("Continuar"),
                         ),
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: FormBuilderTextField(
-                          name: 'superficiePlanta',
-                          decoration: const InputDecoration(
-                            labelText: 'SUPERFICIE POR PLANTA (M2)',
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: FormBuilderTextField(
-                          name: 'pisosExpress',
-                          decoration: const InputDecoration(
-                            labelText: 'PISOS EN ZONA EXPRESS',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  FormBuilderTextField(
-                    name: 'numeroUnidadNivelServido',
-                    decoration: const InputDecoration(
-                      labelText: 'NÚMERO DE UNIDAD POR NIVEL SERVIDO',
-                    ),
-                  ),
-                  const Text("Características Técnicas",
-                      style: TextStyle(fontSize: 25)),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: FormBuilderDropdown(
-                          name: "cantidadPasajeros",
-                          decoration: const InputDecoration(
-                            labelText: "Cantidad de Pasajeros",
-                          ),
-                          items: passengerCountDropdownList.map((count) {
-                            return DropdownMenuItem(
-                              value: count,
-                              child: Text(count),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: FormBuilderDropdown(
-                          name: "velocidadAscensor",
-                          decoration: const InputDecoration(
-                            labelText: "Velocidad del Ascensor",
-                          ),
-                          items: elevatorSpeedDropdownList.map((speed) {
-                            return DropdownMenuItem(
-                              value: speed,
-                              child: Text(speed),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  FormBuilderTextField(
-                    enabled: false,
-                    name: "anchoPuerta",
-                    decoration: const InputDecoration(
-                        labelText: "Ancho de puerta (mm)"),
-                  ),
-                  FormBuilderRadioGroup(
-                    enabled: false,
-                    name: "puertasAscensor",
-                    decoration: const InputDecoration(
-                        labelText: "PUERTAS DEL ASCENSOR ESCOGIDAS"),
-                    options: const [
-                      FormBuilderFieldOption(
-                          value: "L2", child: Text("Lateral")),
-                      FormBuilderFieldOption(
-                          value: "C2", child: Text("Central")),
-                    ],
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      var data = getCurrentFormState();
-                      await storeStudy(data);
-                    },
-                    child: const Text("Continuar"),
-                  ),
-                ],
+                ),
               ),
             ),
           ),

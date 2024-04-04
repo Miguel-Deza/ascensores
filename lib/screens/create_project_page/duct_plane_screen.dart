@@ -73,57 +73,68 @@ class _DuctPlaneScreenState extends State<DuctPlaneScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Plano generado'),
+        shadowColor: Colors.blue[900],
+        elevation: 5.0,
+        backgroundColor: Colors.blue[900],
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          'Plano generado',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Screenshot(
-            controller: screenshotController,
-            child: Graphic(
-              ducto:
-                  "${widget.dataForm['anchoDucto']}x${widget.dataForm['fondoDucto']}",
-              dimensionesCabina:
-                  "${widget.dataForm['anchoCabina']}x${widget.dataForm['fondoCabina']}",
-              pasoLibre: "${widget.dataForm['anchoPuerta']}",
-            ),
-          ),
-          capturedImage != null
-              ? Image.file(capturedImage!, fit: BoxFit.cover)
-              : Container(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => printDoc(),
-                  child: const Text("PDF"),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Screenshot(
+              controller: screenshotController,
+              child: Graphic(
+                ducto:
+                    "${widget.dataForm['anchoDucto']}x${widget.dataForm['fondoDucto']}",
+                dimensionesCabina:
+                    "${widget.dataForm['anchoCabina']}x${widget.dataForm['fondoCabina']}",
+                pasoLibre: "${widget.dataForm['anchoPuerta']}",
               ),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text("Link"),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => StudyTraficScreenForm(
-                            dataForm: widget.dataForm,
-                          )),
-                );
-              },
-              child: const Text("Estudio de tráfico"),
             ),
-          )
-        ],
+            capturedImage != null
+                ? Image.file(capturedImage!, fit: BoxFit.cover)
+                : Container(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => printDoc(),
+                    child: const Text("PDF"),
+                  ),
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text("Link"),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StudyTraficScreenForm(
+                              dataForm: widget.dataForm,
+                            )),
+                  );
+                },
+                child: const Text("Estudio de tráfico"),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
