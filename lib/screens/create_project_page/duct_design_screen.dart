@@ -329,17 +329,11 @@ class _DuctDesignScreenState extends State<DuctDesignScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DuctPlaneScreen(),
+                              builder: (context) => DuctPlaneScreen(
+                                  dataForm: _formKey.currentState!.value),
                             ),
                           );
                         }
-
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => DuctDesignScreen(),
-                        //   ),
-                        // );
                       },
                       child: const Text('Continuar'),
                     ),

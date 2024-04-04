@@ -11,7 +11,8 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class StudyTraficScreenForm extends StatefulWidget {
-  StudyTraficScreenForm({super.key});
+  final dynamic dataForm;
+  StudyTraficScreenForm({required this.dataForm, super.key});
 
   @override
   State<StudyTraficScreenForm> createState() => _StudyTraficScreenFormState();
@@ -139,7 +140,7 @@ class _StudyTraficScreenFormState extends State<StudyTraficScreenForm> {
       body: FormBuilder(
         key: keyForm,
         autovalidateMode: AutovalidateMode.always,
-        initialValue: const {
+        initialValue: {
           'usoEdificio': '1', // 'Oficinas céntricas
           'numeroParadas': '12',
           'alturaEdificio': '4',
@@ -149,8 +150,8 @@ class _StudyTraficScreenFormState extends State<StudyTraficScreenForm> {
 
           'cantidadPasajeros': '8',
           'velocidadAscensor': '3.0',
-          'anchoPuerta': '850',
-          'puertasAscensor': 'lateral',
+          'anchoPuerta': widget.dataForm['anchoPuerta'],
+          'puertasAscensor': widget.dataForm['tipoPuerta'],
         },
         child: SafeArea(
           child: Padding(
@@ -257,27 +258,22 @@ class _StudyTraficScreenFormState extends State<StudyTraficScreenForm> {
                       ),
                     ],
                   ),
-                  FormBuilderDropdown(
+                  FormBuilderTextField(
+                    enabled: false,
                     name: "anchoPuerta",
                     decoration: const InputDecoration(
-                      labelText: "Ancho de la Puerta",
-                    ),
-                    items: doorWidthDropdownList.map((width) {
-                      return DropdownMenuItem(
-                        value: width,
-                        child: Text(width),
-                      );
-                    }).toList(),
+                        labelText: "Ancho de puerta (mm)"),
                   ),
                   FormBuilderRadioGroup(
+                    enabled: false,
                     name: "puertasAscensor",
                     decoration: const InputDecoration(
                         labelText: "PUERTAS DEL ASCENSOR ESCOGIDAS"),
                     options: const [
                       FormBuilderFieldOption(
-                          value: "lateral", child: Text("Lateral")),
+                          value: "L2", child: Text("Lateral")),
                       FormBuilderFieldOption(
-                          value: "central", child: Text("Central")),
+                          value: "C2", child: Text("Central")),
                     ],
                   ),
                   ElevatedButton(

@@ -11,7 +11,17 @@ import 'package:printing/printing.dart';
 import 'package:screenshot/screenshot.dart';
 
 class DuctPlaneScreen extends StatefulWidget {
-  const DuctPlaneScreen({super.key});
+  final dataForm;
+  final ducto;
+  final dimensionesCabina;
+  final pasoLibre;
+
+  const DuctPlaneScreen(
+      {super.key,
+      required Map<String, dynamic> this.dataForm,
+      this.ducto,
+      this.dimensionesCabina,
+      this.pasoLibre});
 
   @override
   State<DuctPlaneScreen> createState() => _DuctPlaneScreenState();
@@ -70,10 +80,12 @@ class _DuctPlaneScreenState extends State<DuctPlaneScreen> {
         children: [
           Screenshot(
             controller: screenshotController,
-            child: const Graphic(
-              ducto: "100x200",
-              dimensionesCabina: "100x200",
-              pasoLibre: "100",
+            child: Graphic(
+              ducto:
+                  "${widget.dataForm['anchoDucto']}x${widget.dataForm['fondoDucto']}",
+              dimensionesCabina:
+                  "${widget.dataForm['anchoCabina']}x${widget.dataForm['fondoCabina']}",
+              pasoLibre: "${widget.dataForm['anchoPuerta']}",
             ),
           ),
           capturedImage != null
@@ -103,7 +115,9 @@ class _DuctPlaneScreenState extends State<DuctPlaneScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => StudyTraficScreenForm()),
+                      builder: (context) => StudyTraficScreenForm(
+                            dataForm: widget.dataForm,
+                          )),
                 );
               },
               child: const Text("Estudio de tráfico"),
