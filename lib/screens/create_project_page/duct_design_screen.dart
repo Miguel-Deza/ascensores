@@ -1,3 +1,4 @@
+import 'package:ascensores/screens/create_project_page/duct_plane_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -89,9 +90,14 @@ class _DuctDesignScreenState extends State<DuctDesignScreen> {
                                 keyboardType: TextInputType.number,
                                 controller: _anchoDuctoController,
                                 onChanged: (value) {
-                                  if (prioridadDucto) {
-                                    _anchoCabinaController.text =
-                                        (double.parse(value!) - 550).toString();
+                                  if (value!.isNotEmpty) {
+                                    if (prioridadDucto) {
+                                      _anchoCabinaController.text =
+                                          (double.parse(value!) - 550)
+                                              .toString();
+                                    } else {
+                                      _anchoCabinaController.text = "0";
+                                    }
                                   } else {
                                     _anchoCabinaController.text = "0";
                                   }
@@ -112,9 +118,14 @@ class _DuctDesignScreenState extends State<DuctDesignScreen> {
                                     border: OutlineInputBorder(),
                                     label: Text("FONDO")),
                                 onChanged: (value) {
-                                  if (prioridadDucto) {
-                                    _fondoCabinaController.text =
-                                        (double.parse(value!) - 350).toString();
+                                  if (value!.isNotEmpty) {
+                                    if (prioridadDucto) {
+                                      _fondoCabinaController.text =
+                                          (double.parse(value!) - 350)
+                                              .toString();
+                                    } else {
+                                      _fondoCabinaController.text = "0";
+                                    }
                                   } else {
                                     _fondoCabinaController.text = "0";
                                   }
@@ -314,14 +325,13 @@ class _DuctDesignScreenState extends State<DuctDesignScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.saveAndValidate()) {
-                          _formKey.currentState?.patchValue({
-                            'age': '50',
-                            'slider': 6.7,
-                            'filter_chip': ['Test 1'],
-                            'choice_chip': 'Test 2',
-                            'rate': 4,
-                          });
                           print(_formKey.currentState!.value);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DuctPlaneScreen(),
+                            ),
+                          );
                         }
 
                         // Navigator.push(

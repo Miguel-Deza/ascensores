@@ -39,7 +39,15 @@ class Graphic extends StatelessWidget {
               Container(
                 width: 260,
                 height: 300,
-                color: Colors.blue[200],
+                decoration: BoxDecoration(
+                  border: const Border(
+                    top: BorderSide(width: 6.0, color: Colors.black),
+                    left: BorderSide(width: 6.0, color: Colors.black),
+                    right: BorderSide(width: 6.0, color: Colors.black),
+                    bottom: BorderSide.none, // No bottom border
+                  ),
+                  color: Colors.blue[200],
+                ),
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
