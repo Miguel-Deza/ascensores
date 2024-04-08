@@ -7,6 +7,7 @@ import 'package:ascensores/screens/create_project_page/study_trafic_screen_form.
 import 'package:ascensores/screens/extras/projects_page_screen.dart';
 import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:ascensores/screens/trafic_study/trafic_study_page/study_screen_2.dart';
+import 'package:ascensores/test_graphic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         FormBuilderLocalizations.delegate,
       ],
-      home: GetGeneralDataScreen(),
+      home: TestGraphic(),
       theme: ThemeData(
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(

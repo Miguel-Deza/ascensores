@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Graphic extends StatelessWidget {
   const Graphic({
@@ -16,110 +18,137 @@ class Graphic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blueGrey[300],
-      ),
-      width: double.infinity,
-      height: 380,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          RotatedBox(
-            quarterTurns: 3,
-            child: Text("F.D: ${_ducto != "" ? _ducto.split('x')[1] : ""}",
-                style: TextStyle(fontSize: 20, color: Colors.white)),
+    return Row(
+      children: [
+        
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 4),
+                color: Colors.white,
+              ),
+              height: 40,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 15),
+                color: Colors.blueGrey[300],
+              ),
+              height: 380,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class CustomDraw extends CustomPainter {
+  late Paint painter;
+  late double radius;
+  late double textWidth;
+
+  CustomDraw(Color color, this.textWidth, {this.radius = 0}) {
+    painter = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..color = color;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var path = Path();
+
+    path.moveTo(size.width - ((size.width - textWidth) / 2), 0);
+
+    path.lineTo(size.width - radius, 0);
+    path.cubicTo(size.width - radius, 0, size.width, 0, size.width, radius);
+    path.lineTo(size.width, size.height - radius);
+    path.cubicTo(size.width, size.height - radius, size.width, size.height,
+        size.width - radius, size.height);
+
+    path.lineTo(radius, size.height);
+    path.cubicTo(radius, size.height, 0, size.height, 0, size.height - radius);
+
+    path.lineTo(0, radius);
+    path.cubicTo(0, radius, 0, 0, radius, 0);
+    path.lineTo(((size.width - textWidth) / 2), 0);
+
+    canvas.drawPath(path, painter);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class CustomTitleWidget extends StatefulWidget {
+  final double height;
+  final double width;
+  final double? radius;
+  final String title;
+  const CustomTitleWidget(
+      {Key? key,
+      required this.height,
+      required this.width,
+      required this.title,
+      this.radius})
+      : super(key: key);
+
+  @override
+  State<CustomTitleWidget> createState() => _CustomTitleWidgetState();
+}
+
+class _CustomTitleWidgetState extends State<CustomTitleWidget> {
+  GlobalKey textKey = GlobalKey();
+  double textHeight = 0.0;
+  double textWidth = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        final textKeyContext = textKey.currentContext;
+        if (textKeyContext != null) {
+          final box = textKeyContext.findRenderObject() as RenderBox;
+          textHeight = box.size.height;
+          textWidth = box.size.width;
+        }
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.topCenter,
+      children: [
+        CustomPaint(
+          child: Container(
+            height: widget.height,
+            width: widget.width,
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text("A.D: ${_ducto.split('x')[0]}",
-                  style: TextStyle(fontSize: 20, color: Colors.white)),
-              Container(
-                width: 260,
-                height: 300,
-                decoration: BoxDecoration(
-                  border: const Border(
-                    top: BorderSide(width: 6.0, color: Colors.black),
-                    left: BorderSide(width: 6.0, color: Colors.black),
-                    right: BorderSide(width: 6.0, color: Colors.black),
-                    bottom: BorderSide.none, // No bottom border
-                  ),
-                  color: Colors.blue[200],
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 150,
-                        color: Colors.blue[900],
-                      ),
-                      Container(
-                        width: 20,
-                        height: 50,
-                        color: Colors.blue[900],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: 100,
-                            height: 240,
-                            color: Colors.blue[800],
-                            child: Row(
-                              children: [
-                                RotatedBox(
-                                  quarterTurns: 3,
-                                  child: Text(
-                                      "F.C: ${_dimensionesCabina != "" ? _dimensionesCabina.split('x')[1] : ""}",
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white)),
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${_dimensionesCabina.split('x')[0]}",
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.white),
-                                    ),
-                                    Text("${_pasoLibre}",
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.white))
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 100,
-                            height: 5,
-                            color: Colors.lightBlue,
-                          ),
-                          Container(
-                            width: 100,
-                            height: 5,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: 20,
-                        height: 50,
-                        color: Colors.blue[900],
-                      ),
-                    ],
-                  ),
-                ),
-              ), // Separación entre los dos cuadrados
-            ],
+          painter: CustomDraw(
+            Colors.red,
+            textWidth,
+            radius: widget.radius ?? 0,
           ),
-        ],
-      ),
+        ),
+        Positioned(
+          top: -textHeight / 2,
+          child: Padding(
+            key: textKey,
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              widget.title,
+            ),
+          ),
+        )
+      ],
     );
   }
 }

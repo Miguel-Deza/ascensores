@@ -1,6 +1,7 @@
 import 'package:ascensores/screens/create_project_page/duct_design_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class GetGeneralDataScreen extends StatefulWidget {
   const GetGeneralDataScreen({super.key});
@@ -33,58 +34,75 @@ class _GetGeneralDataScreenState extends State<GetGeneralDataScreen> {
       ),
       body: FormBuilder(
         key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: SingleChildScrollView(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: [
-                    const Text("Ingrese los siguientes datos"),
-                    FormBuilderTextField(
-                      name: 'nombre',
-                      decoration: const InputDecoration(
-                        labelText: 'Nombre del proyecto',
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height -
+                  (MediaQuery.of(context).padding.top + kToolbarHeight),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Column(
+                        children: [
+                          const Text("Ingrese los siguientes datos"),
+                          FormBuilderTextField(
+                            name: 'nombre',
+                            decoration: const InputDecoration(
+                              labelText: 'Nombre del proyecto',
+                            ),
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                          ),
+                          FormBuilderTextField(
+                            name: 'ruc',
+                            decoration: const InputDecoration(
+                              labelText: 'RUC (opcional)',
+                            ),
+                          ),
+                          FormBuilderTextField(
+                            name: 'direccion',
+                            decoration: const InputDecoration(
+                              labelText: 'Dirección',
+                            ),
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                            ]),
+                          ),
+                          FormBuilderTextField(
+                            name: 'observaciones',
+                            decoration: const InputDecoration(
+                              labelText: 'Observaciones (opcional)',
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    FormBuilderTextField(
-                      name: 'ruc',
-                      decoration: const InputDecoration(
-                        labelText: 'RUC',
-                      ),
-                    ),
-                    FormBuilderTextField(
-                      name: 'direccion',
-                      decoration: const InputDecoration(
-                        labelText: 'Dirección',
-                      ),
-                    ),
-                    FormBuilderTextField(
-                      name: 'observaciones',
-                      decoration: const InputDecoration(
-                        labelText: 'Observaciones',
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.saveAndValidate()) {
-                            print(_formKey.currentState!.value);
-                          }
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.saveAndValidate()) {
+                          print(_formKey.currentState!.value);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const DuctDesignScreen(),
                             ),
                           );
-                        },
-                        child: const Text('Continuar'),
-                      ),
+                        }
+                      },
+                      child: const Text('Continuar'),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
