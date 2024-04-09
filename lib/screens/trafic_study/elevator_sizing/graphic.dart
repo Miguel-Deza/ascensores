@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Graphic extends StatelessWidget {
   const Graphic({
@@ -20,7 +18,6 @@ class Graphic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

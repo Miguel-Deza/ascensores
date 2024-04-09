@@ -1,4 +1,4 @@
-import 'package:ascensores/screens/create_project_page/duct_plane_screen.dart';
+import 'package:ascensores/duct_plane_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -394,7 +394,7 @@ class _DuctDesignScreenState extends State<DuctDesignScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DuctPlaneScreen(
+                              builder: (context) => DuctPlaneTest(
                                   dataForm: _formKey.currentState!.value),
                             ),
                           );

@@ -1,13 +1,8 @@
-import 'package:ascensores/input_select_dimentions.dart';
+import 'package:ascensores/duct_plane_test.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/create_project_page/duct_design_screen.dart';
-import 'package:ascensores/screens/create_project_page/duct_plane_screen.dart';
 import 'package:ascensores/screens/create_project_page/get_general_data_screen.dart';
-import 'package:ascensores/screens/create_project_page/study_trafic_screen_form.dart';
-import 'package:ascensores/screens/extras/projects_page_screen.dart';
-import 'package:ascensores/screens/home_screen/home_screen.dart';
-import 'package:ascensores/screens/trafic_study/trafic_study_page/study_screen_2.dart';
-import 'package:ascensores/test_graphic.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -40,7 +35,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         FormBuilderLocalizations.delegate,
       ],
-      home: TestGraphic(),
+      home: DuctDesignScreen(),
       theme: ThemeData(
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
