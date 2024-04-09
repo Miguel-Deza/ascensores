@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Consumer<UserAuthProvider>(
       builder: (context, valueProvider, child) => Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(60.0),
+          padding: const EdgeInsets.all(30.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -114,70 +114,68 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        child: const Text('Registrarse'),
-                        onPressed: () async {
-                          if (nameController.text.isEmpty) {
-                            setState(() {
-                              showMessageIsNameEmpty = true;
-                            });
-                            return;
-                          }
-
-                          if (phoneController.text.isEmpty) {
-                            setState(() {
-                              showMessageIsPhoneEmpty = true;
-                              showMessageIsNameEmpty = false;
-                            });
-                            return;
-                          }
-
-                          setState(() {
-                            showMessageIsNameEmpty = false;
-                            showMessageIsPhoneEmpty = false;
-                          });
-
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
-                          );
-                          if (await valueProvider.registerUser(
-                              widget.email,
-                              widget.password,
-                              nameController.text,
-                              phoneController.text)) {
-                            debugPrint("Usuario registrado con éxito");
-                            final SharedPreferences sharedPreferences =
-                                await SharedPreferences.getInstance();
-                            sharedPreferences.setString(
-                                'token', valueProvider.getTokenUser());
-                            if (context.mounted) {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const HomeScreen(),
-                                ),
-                              );
-                            }
-                          } else {
-                            if (context.mounted) {
-                              Navigator.pop(context);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Fallo en el registro')),
-                              );
-                            }
-                          }
-                        },
-                      ),
                     ],
                   ),
                 ),
+              ),
+              ElevatedButton(
+                child: const Text('Registrarse'),
+                onPressed: () async {
+                  if (nameController.text.isEmpty) {
+                    setState(() {
+                      showMessageIsNameEmpty = true;
+                    });
+                    return;
+                  }
+
+                  if (phoneController.text.isEmpty) {
+                    setState(() {
+                      showMessageIsPhoneEmpty = true;
+                      showMessageIsNameEmpty = false;
+                    });
+                    return;
+                  }
+
+                  setState(() {
+                    showMessageIsNameEmpty = false;
+                    showMessageIsPhoneEmpty = false;
+                  });
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+                  if (await valueProvider.registerUser(
+                      widget.email,
+                      widget.password,
+                      nameController.text,
+                      phoneController.text)) {
+                    debugPrint("Usuario registrado con éxito");
+                    final SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    sharedPreferences.setString(
+                        'token', valueProvider.getTokenUser());
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                      );
+                    }
+                  } else {
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Fallo en el registro')),
+                      );
+                    }
+                  }
+                },
               ),
             ],
           ),

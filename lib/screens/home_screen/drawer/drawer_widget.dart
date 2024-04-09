@@ -25,7 +25,7 @@ Drawer drawerLeft(UserAuthProvider valueAuthProvider, BuildContext context) {
         ),
         ListTile(
           leading: const Icon(Icons.account_circle),
-          title: const Text('Mis Datos'),
+          title: const Text('Mis datos'),
           onTap: () {
             showUserDataDialog(context, valueAuthProvider);
           },

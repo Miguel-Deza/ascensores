@@ -36,23 +36,24 @@ class DetailsElevator1 extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Datos Generales", style: TextStyle(fontSize: 25)),
+              const Text("Datos generales", style: TextStyle(fontSize: 25)),
               FormBuilderTextField(
                   name: 'nombreProyecto',
                   decoration: const InputDecoration(
-                    labelText: 'PROYECTO',
+                    labelText: 'Proyecto',
                   )),
               FormBuilderTextField(
                 name: 'descripcionProyecto',
                 decoration: const InputDecoration(
-                  labelText: 'DESCRIPCIÓN',
+                  labelText: 'Descripción',
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.all(5.0),
                 child: Text(
-                  "Detalles del Ascensor",
+                  "Detalles del ascensor",
                   style: TextStyle(fontSize: 25),
                 ),
               ),
@@ -62,7 +63,7 @@ class DetailsElevator1 extends StatelessWidget {
                     child: FormBuilderDropdown(
                         name: "marcaAscensor",
                         decoration: const InputDecoration(
-                            labelText: "MARCA DEL ASCENSOR"),
+                            labelText: "Marca del ascensor"),
                         items: const [
                           DropdownMenuItem(
                               value: "Kleemann", child: Text("Kleemann")),
@@ -75,7 +76,7 @@ class DetailsElevator1 extends StatelessWidget {
                   Expanded(
                     child: FormBuilderDropdown(
                         decoration: const InputDecoration(
-                            labelText: "MODELO DEL ASCENSOR"),
+                            labelText: "Modelo del ascensor"),
                         name: "modeloAscensor",
                         items: const [
                           DropdownMenuItem(
@@ -132,12 +133,11 @@ class DetailsElevator1 extends StatelessWidget {
                   Expanded(
                     child: FormBuilderDropdown(
                         decoration: const InputDecoration(
-                            labelText: "USO DEL ASCENSOR"),
+                            labelText: "Uso del ascensor"),
                         name: "usoAscensor",
                         items: const [
                           DropdownMenuItem(
-                              value: "residential",
-                              child: Text("Residencial")),
+                              value: "residential", child: Text("Residencial")),
                           DropdownMenuItem(
                               value: "commercial", child: Text("Comercial")),
                         ]),
@@ -145,7 +145,7 @@ class DetailsElevator1 extends StatelessWidget {
                   Expanded(
                     child: FormBuilderDropdown(
                         decoration: const InputDecoration(
-                            labelText: "VELOCIDAD DEL ASCENSOR"),
+                            labelText: "Velocidad del ascensor"),
                         name: "velocidadAscensor",
                         items: const [
                           DropdownMenuItem(value: "1", child: Text("1 m/s")),
@@ -162,7 +162,7 @@ class DetailsElevator1 extends StatelessWidget {
                 max: 16,
                 divisions: 14,
                 decoration: const InputDecoration(
-                  labelText: 'PARADAS DEL ASCENSOR',
+                  labelText: 'Paradas del ascensor',
                 ),
               ),
               Row(
@@ -171,14 +171,11 @@ class DetailsElevator1 extends StatelessWidget {
                     child: FormBuilderDropdown(
                         name: "anchoPuertas",
                         decoration: const InputDecoration(
-                            labelText: "ANCHO DE PUERTAS"),
+                            labelText: "Ancho de puertas"),
                         items: const [
-                          DropdownMenuItem(
-                              value: "800", child: Text("800 mm")),
-                          DropdownMenuItem(
-                              value: "850", child: Text("850 mm")),
-                          DropdownMenuItem(
-                              value: "900", child: Text("900 mm")),
+                          DropdownMenuItem(value: "800", child: Text("800 mm")),
+                          DropdownMenuItem(value: "850", child: Text("850 mm")),
+                          DropdownMenuItem(value: "900", child: Text("900 mm")),
                           DropdownMenuItem(
                               value: "1000", child: Text("1000 mm")),
                         ]),
@@ -187,10 +184,9 @@ class DetailsElevator1 extends StatelessWidget {
                     child: FormBuilderDropdown(
                         name: "cantidadCarasPanoramicas",
                         decoration: const InputDecoration(
-                            labelText: "CARAS PANORAMICAS"),
+                            labelText: "Caras panorámicas"),
                         items: const [
-                          DropdownMenuItem(
-                              value: "0", child: Text("Ninguna")),
+                          DropdownMenuItem(value: "0", child: Text("Ninguna")),
                           DropdownMenuItem(value: "1", child: Text("1 cara")),
                           DropdownMenuItem(value: "2", child: Text("2 cara")),
                           DropdownMenuItem(value: "3", child: Text("3 cara")),
@@ -200,13 +196,13 @@ class DetailsElevator1 extends StatelessWidget {
               ),
               FormBuilderRadioGroup(
                 name: "requiereDobleAcceso",
-                decoration: const InputDecoration(
-                    labelText: "¿REQUIERE DOBLE ACCESO?"),
+                decoration:
+                    const InputDecoration(labelText: "¿Requiere doble acceso?"),
                 options: const [
                   FormBuilderFieldOption(value: "1", child: Text("Si")),
                   FormBuilderFieldOption(value: "0", child: Text("No")),
                 ],
-              ),              
+              ),
             ],
           ),
         ),

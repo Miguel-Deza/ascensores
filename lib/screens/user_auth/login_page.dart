@@ -4,6 +4,7 @@ import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ascensores/screens/user_auth/register_page.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -75,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(60.0),
+              padding: const EdgeInsets.all(30.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,257 +86,261 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 30.0,
                   ),
-
                   //All the logic of login
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30.0, vertical: 20.0),
-                      child: Column(
-                        children: [
-                          TextField(
-                            controller: _emailController,
-                            decoration: const InputDecoration(
-                              labelText: 'Ingresa tu correo electrónico',
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 4.0,
-                          ),
-                          Visibility(
-                            visible: showErrorMessageEmail,
-                            child: const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Ingresa un correo válido.',
-                                style: TextStyle(
-                                  color: Color(0xFF782732),
-                                  fontSize: 14.0,
+                  Column(
+                    children: [
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30.0, vertical: 20.0),
+                          child: Column(
+                            children: [
+                              TextField(
+                                controller: _emailController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Ingresa tu correo electrónico',
                                 ),
                               ),
-                            ),
+                              const SizedBox(
+                                height: 4.0,
+                              ),
+                              Visibility(
+                                visible: showErrorMessageEmail,
+                                child: const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Ingresa un correo válido.',
+                                    style: TextStyle(
+                                      color: Color(0xFF782732),
+                                      fontSize: 14.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              Visibility(
+                                visible: showPasswordInput,
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    TextField(
+                                      controller: _passwordController,
+                                      obscureText: !showPassword,
+                                      decoration: InputDecoration(
+                                        labelText: 'Ingresa tu contraseña',
+                                        suffixIcon: IconButton(
+                                          color: Colors.blueGrey,
+                                          icon: Icon(
+                                            showPassword
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              showPassword = !showPassword;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    //=============================
+                                    //Logica Login user
+                                    //=============================
+
+                                    // TextButton(
+                                    //   onPressed: () {
+                                    //     // Lógica para manejar el evento de "¿Olvidaste tu contraseña?"
+                                    //   },
+                                    //   child: const Text(
+                                    //     '¿Olvidaste tu contraseña?',
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                              ),
+
+                              //=============================
+                              //Registro de usuario
+                              //=============================
+                              Visibility(
+                                visible: isNewUser,
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      controller: _newPasswordController,
+                                      obscureText: !showNewCreatedPassword,
+                                      decoration: InputDecoration(
+                                        labelText: 'Crea una contraseña',
+                                        suffixIcon: IconButton(
+                                          color: Colors.blueGrey,
+                                          icon: Icon(
+                                            showNewCreatedPassword
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              showNewCreatedPassword =
+                                                  !showNewCreatedPassword;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible:
+                                          isNewCreatedPasswordGreatherThanEight,
+                                      child: const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Mínimo 8 caracteres',
+                                          style: TextStyle(
+                                            color: Color(0xFF782732),
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
                           ),
-                          Visibility(
-                            visible: !showPasswordInput && !isNewUser,
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                child: const Text('Continuar'),
-                                onPressed: () async {
-                                  String email = _emailController.text.trim();
-                                  // Verificar si el usuario existe o no
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      });
-                                  bool usuarioExiste = await verifyUser(email);
+                        ),
+                      ),
+                      Visibility(
+                        visible: isNewUser,
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            child: const Text('Registrarme'),
+                            onPressed: () {
+                              String email = _emailController.text;
+                              String password = _newPasswordController.text;
+
+                              if (password.length > 7) {
+                                setState(() {
+                                  isNewCreatedPasswordGreatherThanEight = false;
+                                });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => RegisterPage(
+                                        email: email, password: password),
+                                  ),
+                                );
+                              } else {
+                                setState(() {
+                                  isNewCreatedPasswordGreatherThanEight = true;
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: showPasswordInput,
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            child: const Text('Ingresar'),
+                            onPressed: () async {
+                              String password = _passwordController.text.trim();
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  });
+                              bool isPasswordCorrect = await valueProvider
+                                  .verifyLogin(_emailController.text, password);
+                              if (context.mounted) Navigator.pop(context);
+                              if (isPasswordCorrect) {
+                                // Password Correct
+                                if (verifyEmail()) {
+                                  final SharedPreferences sharedPreferences =
+                                      await SharedPreferences.getInstance();
+                                  sharedPreferences.setString(
+                                      'token', valueProvider.getTokenUser());
                                   if (context.mounted) {
-                                    Navigator.pop(context);
-                                  }
-                                  if (EmailValidator.validate(
-                                      _emailController.text)) {
-                                    if (usuarioExiste) {
-                                      // Usuario existe, mostrar campo de contraseña
-                                      setState(() {
-                                        showPasswordInput = true;
-                                        showErrorMessageEmail = false;
-                                      });
-                                    } else {
-                                      //Usuario crea su contraseña
-                                      setState(() {
-                                        isNewUser = true;
-                                        showErrorMessageEmail = false;
-                                      });
-                                    }
-                                  } else {
-                                    debugPrint("El email no es valido");
-                                    setState(() {
-                                      showErrorMessageEmail = true;
-                                    });
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            visible: showPasswordInput,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                TextField(
-                                  controller: _passwordController,
-                                  obscureText: !showPassword,
-                                  decoration: InputDecoration(
-                                    labelText: 'Ingresa tu contraseña',
-                                    suffixIcon: IconButton(
-                                      color: Colors.blueGrey,
-                                      icon: Icon(
-                                        showPassword
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          showPassword = !showPassword;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
-                                //=============================
-                                //Logica Login user
-                                //=============================
-                                ElevatedButton(
-                                  child: const Text('Ingresar'),
-                                  onPressed: () async {
-                                    String password =
-                                        _passwordController.text.trim();
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        });
-                                    bool isPasswordCorrect =
-                                        await valueProvider.verifyLogin(
-                                            _emailController.text, password);
-                                    if (context.mounted) Navigator.pop(context);
-                                    if (isPasswordCorrect) {
-                                      // Password Correct
-                                      if (verifyEmail()) {
-                                        final SharedPreferences
-                                            sharedPreferences =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        sharedPreferences.setString('token',
-                                            valueProvider.getTokenUser());
-                                        if (context.mounted) {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomeScreen(),
-                                            ),
-                                          );
-                                        }
-                                      } else {
-                                        //=============================
-                                        //Logica Email Not Verified
-                                        //=============================
-                                      }
-                                    } else {
-                                      // Password Incorrect
-                                      if (context.mounted) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content: Text(
-                                                  'Contraseña incorrecta, intentalo nuevamente!')),
-                                        );
-                                      }
-                                    }
-                                  },
-                                ),
-                                // TextButton(
-                                //   onPressed: () {
-                                //     // Lógica para manejar el evento de "¿Olvidaste tu contraseña?"
-                                //   },
-                                //   child: const Text(
-                                //     '¿Olvidaste tu contraseña?',
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                          ),
-
-                          //=============================
-                          //Registro de usuario
-                          //=============================
-                          Visibility(
-                            visible: isNewUser,
-                            child: Column(
-                              children: [
-                                TextField(
-                                  controller: _newPasswordController,
-                                  obscureText: !showNewCreatedPassword,
-                                  decoration: InputDecoration(
-                                    labelText: 'Crea una contraseña',
-                                    suffixIcon: IconButton(
-                                      color: Colors.blueGrey,
-                                      icon: Icon(
-                                        showNewCreatedPassword
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          showNewCreatedPassword =
-                                              !showNewCreatedPassword;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Visibility(
-                                  visible:
-                                      isNewCreatedPasswordGreatherThanEight,
-                                  child: const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'Mínimo 8 caracteres',
-                                      style: TextStyle(
-                                        color: Color(0xFF782732),
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Visibility(
-                            visible: isNewUser,
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                child: const Text('Registrarme'),
-                                onPressed: () {
-                                  String email = _emailController.text;
-                                  String password = _newPasswordController.text;
-
-                                  if (password.length > 7) {
-                                    setState(() {
-                                      isNewCreatedPasswordGreatherThanEight =
-                                          false;
-                                    });
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => RegisterPage(
-                                            email: email, password: password),
+                                        builder: (context) =>
+                                            const HomeScreen(),
                                       ),
                                     );
-                                  } else {
-                                    setState(() {
-                                      isNewCreatedPasswordGreatherThanEight =
-                                          true;
-                                    });
                                   }
-                                },
-                              ),
-                            ),
+                                } else {
+                                  //=============================
+                                  //Logica Email Not Verified
+                                  //=============================
+                                }
+                              } else {
+                                // Password Incorrect
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            'Contraseña incorrecta, intentalo nuevamente!')),
+                                  );
+                                }
+                              }
+                            },
                           ),
-                        ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Visibility(
+                    visible: !showPasswordInput && !isNewUser,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        child: const Text('Continuar'),
+                        onPressed: () async {
+                          String email = _emailController.text.trim();
+                          // Verificar si el usuario existe o no
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              });
+                          bool usuarioExiste = await verifyUser(email);
+                          if (context.mounted) {
+                            Navigator.pop(context);
+                          }
+                          if (EmailValidator.validate(_emailController.text)) {
+                            if (usuarioExiste) {
+                              // Usuario existe, mostrar campo de contraseña
+                              setState(() {
+                                showPasswordInput = true;
+                                showErrorMessageEmail = false;
+                              });
+                            } else {
+                              //Usuario crea su contraseña
+                              setState(() {
+                                isNewUser = true;
+                                showErrorMessageEmail = false;
+                              });
+                            }
+                          } else {
+                            debugPrint("El email no es valido");
+                            setState(() {
+                              showErrorMessageEmail = true;
+                            });
+                          }
+                        },
                       ),
                     ),
                   ),

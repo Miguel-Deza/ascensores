@@ -5,6 +5,7 @@ import 'package:ascensores/screens/home_screen/home_screen.dart';
 import 'package:ascensores/screens/quotes_screen/details_cabin_3.dart';
 import 'package:ascensores/screens/quotes_screen/details_door_2.dart';
 import 'package:ascensores/screens/quotes_screen/details_elevator_1.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
@@ -141,20 +142,20 @@ class _QuotesScreenState extends State<QuotesScreen> {
         Step(
           state: _index <= 0 ? StepState.editing : StepState.complete,
           isActive: _index >= 0,
-          title: const Text('Step 1 title'),
+          title: const Text('Paso 1'),
           content: detailsElevator1,
           // DetailsElevator1(),
         ),
         Step(
           state: _index <= 1 ? StepState.editing : StepState.complete,
           isActive: _index >= 1,
-          title: const Text('Step 2 title'),
+          title: const Text('Paso 2'),
           content: detailsDoor2,
         ),
         Step(
           state: StepState.editing,
           isActive: _index >= 2,
-          title: const Text('Step 2 title'),
+          title: const Text('Paso 3'),
           content: detailsCabin3,
         ),
       ];
@@ -170,6 +171,31 @@ class _QuotesScreenState extends State<QuotesScreen> {
                 ),
           ),
           child: Stepper(
+            controlsBuilder: (context, details) {
+              return Container(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: Row(
+                  children: [
+                    if (_index > 0)
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: details.onStepCancel,
+                          child: const Text('Anterior'),
+                        ),
+                      ),
+                    const SizedBox(width: 10.0),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: details.onStepContinue,
+                        child: _index == stepList().length - 1
+                            ? const Text('Finalizar')
+                            : const Text('Siguiente'),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
             type: StepperType.horizontal,
             currentStep: _index,
             onStepCancel: () {

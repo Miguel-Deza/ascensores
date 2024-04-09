@@ -165,145 +165,149 @@ class _StudyTraficScreenFormState extends State<StudyTraficScreenForm> {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: SingleChildScrollView(
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      FormBuilderDropdown(
-                        name: "usoEdificio",
-                        decoration: const InputDecoration(
-                          labelText: "Uso del edificio",
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        FormBuilderDropdown(
+                          name: "usoEdificio",
+                          decoration: const InputDecoration(
+                            labelText: "Uso del edificio",
+                          ),
+                          items:
+                              testBuildingUseDropdownList.entries.map((entry) {
+                            return DropdownMenuItem(
+                              value: entry.value,
+                              child: Text(entry.key),
+                            );
+                          }).toList(),
                         ),
-                        items: testBuildingUseDropdownList.entries.map((entry) {
-                          return DropdownMenuItem(
-                            value: entry.value,
-                            child: Text(entry.key),
-                          );
-                        }).toList(),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: FormBuilderTextField(
-                              name: 'numeroParadas',
-                              decoration: const InputDecoration(
-                                labelText: 'Número de paradas',
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: FormBuilderTextField(
+                                name: 'numeroParadas',
+                                decoration: const InputDecoration(
+                                  labelText: 'Número de paradas',
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: FormBuilderTextField(
-                              name: 'alturaEdificio',
-                              decoration: const InputDecoration(
-                                labelText: 'Altura del edificio (m)',
+                            Expanded(
+                              flex: 1,
+                              child: FormBuilderTextField(
+                                name: 'alturaEdificio',
+                                decoration: const InputDecoration(
+                                  labelText: 'Altura del edificio (m)',
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: FormBuilderTextField(
-                              name: 'superficiePlanta',
-                              decoration: const InputDecoration(
-                                labelText: 'Superficie por planta (m2)',
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: FormBuilderTextField(
-                              name: 'pisosExpress',
-                              decoration: const InputDecoration(
-                                labelText: 'Pisos en zona express',
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      FormBuilderTextField(
-                        name: 'numeroUnidadNivelServido',
-                        decoration: const InputDecoration(
-                          labelText: 'Número de unidades por nivel servido',
+                          ],
                         ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 18.0),
-                        child: Text("Características Técnicas",
-                            style: TextStyle(fontSize: 25)),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: FormBuilderDropdown(
-                              name: "cantidadPasajeros",
-                              decoration: const InputDecoration(
-                                labelText: "Cantidad de Pasajeros",
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: FormBuilderTextField(
+                                name: 'superficiePlanta',
+                                decoration: const InputDecoration(
+                                  labelText: 'Superficie por planta (m2)',
+                                ),
                               ),
-                              items: passengerCountDropdownList.map((count) {
-                                return DropdownMenuItem(
-                                  value: count,
-                                  child: Text(count),
-                                );
-                              }).toList(),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: FormBuilderDropdown(
-                              name: "velocidadAscensor",
-                              decoration: const InputDecoration(
-                                labelText: "Velocidad del Ascensor",
+                            Expanded(
+                              flex: 1,
+                              child: FormBuilderTextField(
+                                name: 'pisosExpress',
+                                decoration: const InputDecoration(
+                                  labelText: 'Pisos en zona express',
+                                ),
                               ),
-                              items: elevatorSpeedDropdownList.map((speed) {
-                                return DropdownMenuItem(
-                                  value: speed,
-                                  child: Text(speed),
-                                );
-                              }).toList(),
                             ),
-                          ),
-                        ],
-                      ),
-                      FormBuilderTextField(
-                        enabled: false,
-                        name: "anchoPuerta",
-                        decoration: const InputDecoration(
-                            labelText: "Ancho de puerta (mm)"),
-                      ),
-                      FormBuilderRadioGroup(
-                        enabled: false,
-                        name: "puertasAscensor",
-                        decoration: const InputDecoration(
-                            labelText: "Puertas del Ascensor escogidas"),
-                        options: const [
-                          FormBuilderFieldOption(
-                              value: "L2", child: Text("Lateral")),
-                          FormBuilderFieldOption(
-                              value: "C2", child: Text("Central")),
-                        ],
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            var data = getCurrentFormState();
-                            await storeStudy(data);
-                          },
-                          child: const Text("Continuar"),
+                          ],
                         ),
-                      ),
-                    ],
+                        FormBuilderTextField(
+                          name: 'numeroUnidadNivelServido',
+                          decoration: const InputDecoration(
+                            labelText: 'Número de unidades por nivel servido',
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.0),
+                          child: Text("Características Técnicas",
+                              style: TextStyle(fontSize: 25)),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: FormBuilderDropdown(
+                                name: "cantidadPasajeros",
+                                decoration: const InputDecoration(
+                                  labelText: "Cantidad de Pasajeros",
+                                ),
+                                items: passengerCountDropdownList.map((count) {
+                                  return DropdownMenuItem(
+                                    value: count,
+                                    child: Text(count),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: FormBuilderDropdown(
+                                name: "velocidadAscensor",
+                                decoration: const InputDecoration(
+                                  labelText: "Velocidad del Ascensor",
+                                ),
+                                items: elevatorSpeedDropdownList.map((speed) {
+                                  return DropdownMenuItem(
+                                    value: speed,
+                                    child: Text(speed),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        FormBuilderTextField(
+                          enabled: false,
+                          name: "anchoPuerta",
+                          decoration: const InputDecoration(
+                              labelText: "Ancho de puerta (mm)"),
+                        ),
+                        FormBuilderRadioGroup(
+                          enabled: false,
+                          name: "puertasAscensor",
+                          decoration: const InputDecoration(
+                              labelText: "Puertas del Ascensor escogidas"),
+                          options: const [
+                            FormBuilderFieldOption(
+                                value: "L2", child: Text("Lateral")),
+                            FormBuilderFieldOption(
+                                value: "C2", child: Text("Central")),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      var data = getCurrentFormState();
+                      await storeStudy(data);
+                    },
+                    child: const Text("Continuar"),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

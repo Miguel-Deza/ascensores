@@ -41,7 +41,7 @@ class _GetGeneralDataScreenState extends State<GetGeneralDataScreen> {
                   (MediaQuery.of(context).padding.top + kToolbarHeight),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

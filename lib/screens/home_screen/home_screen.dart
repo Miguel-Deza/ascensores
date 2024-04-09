@@ -460,10 +460,10 @@ class _HomeScreenState extends State<HomeScreen> {
               indicatorColor: Colors.white,
               tabs: <Widget>[
                 Tab(
-                  text: "PROYECTOS",
+                  text: "Proyectos",
                 ),
                 Tab(
-                  text: "COTIZACIONES",
+                  text: "Cotizaciones",
                 ),
               ],
             ),
@@ -473,7 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.blue[900],
             centerTitle: true,
             title: const Text(
-              'ASCENSORES',
+              'Ascensores',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -491,7 +491,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.description,
                   color: Colors.white,
                 ),
-                label: "NUEVA COTIZACIÓN",
+                label: "Nueva cotización",
                 onTap: () {
                   Navigator.push(
                     context,
@@ -510,7 +510,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.analytics,
                   color: Colors.white,
                 ),
-                label: "NUEVO PROYECTO",
+                label: "Nuevo proyecto",
                 onTap: () {
                   Navigator.push(
                     context,

@@ -27,7 +27,7 @@ class StudyDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Detalles del Estudio'),
+        title: const Text('Detalles del estudio'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

@@ -38,7 +38,7 @@ class DetailsDoor2 extends StatelessWidget {
                 FormBuilderTextField(
                   name: 'alturaPuertas',
                   decoration: const InputDecoration(
-                    labelText: 'ALTURA DE LAS PUERTAS (MM)',
+                    labelText: 'Altura de las puertas (mm)',
                   ),
                 ),
                 Row(
@@ -47,24 +47,24 @@ class DetailsDoor2 extends StatelessWidget {
                       child: FormBuilderDropdown(
                         name: "cabina",
                         decoration: const InputDecoration(
-                          label: Text("Cabina - Ancho #900mm"),
+                          label: Text("Cabina - ancho #900mm"),
                         ),
                         items: const [
                           DropdownMenuItem(
                             value: "1",
-                            child: Text("Acero Inox"),
+                            child: Text("Acero inox"),
                           ),
                           DropdownMenuItem(
                             value: "2",
-                            child: Text("Pintura Epóxica"),
+                            child: Text("Pintura epóxica"),
                           ),
                           DropdownMenuItem(
                             value: "3",
-                            child: Text("Full Glass"),
+                            child: Text("Full glass"),
                           ),
                           DropdownMenuItem(
                             value: "4",
-                            child: Text("Big Vision"),
+                            child: Text("Big vision"),
                           ),
                         ],
                       ),
@@ -73,24 +73,24 @@ class DetailsDoor2 extends StatelessWidget {
                       child: FormBuilderDropdown(
                           name: "puertaAcceso",
                           decoration: const InputDecoration(
-                            label: Text("P. Acceso - Ancho #900mm"),
+                            label: Text("P. Acceso - ancho #900mm"),
                           ),
                           items: const [
                             DropdownMenuItem(
                               value: "1",
-                              child: Text("Acero Inox"),
+                              child: Text("Acero inox"),
                             ),
                             DropdownMenuItem(
                               value: "2",
-                              child: Text("Pintura Epóxica"),
+                              child: Text("Pintura epóxica"),
                             ),
                             DropdownMenuItem(
                               value: "3",
-                              child: Text("Full Glass"),
+                              child: Text("Full glass"),
                             ),
                             DropdownMenuItem(
                               value: "4",
-                              child: Text("Big Vision"),
+                              child: Text("Big vision"),
                             ),
                           ]),
                     ),
@@ -105,27 +105,27 @@ class DetailsDoor2 extends StatelessWidget {
                     name: 'parada${i + 1}',
                     initialValue: "Acero Inox",
                     decoration: InputDecoration(
-                      label: Text("Parada ${i + 1} Ancho #900mm"),
+                      label: Text("Parada ${i + 1} ancho #900mm"),
                     ),
                     items: const [
                       DropdownMenuItem(
                         value: "Acero Inox",
-                        child: Text("Acero Inox"),
+                        child: Text("Acero inox"),
                       ),
                       DropdownMenuItem(
                         value: "Pintura Epóxica",
-                        child: Text("Pintura Epóxica"),
+                        child: Text("Pintura epóxica"),
                       ),
                       DropdownMenuItem(
                         value: "Full Glass",
-                        child: Text("Full Glass"),
+                        child: Text("Full glass"),
                       ),
                       DropdownMenuItem(
                         value: "Big Vision",
-                        child: Text("Big Vision"),
+                        child: Text("Big vision"),
                       ),
                     ],
-                  ),                
+                  ),
               ],
             ),
           ),

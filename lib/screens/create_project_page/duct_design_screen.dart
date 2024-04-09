@@ -1,6 +1,7 @@
 import 'package:ascensores/duct_plane_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -33,7 +34,8 @@ class _DuctDesignScreenState extends State<DuctDesignScreen> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: SingleChildScrollView(
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height,
           child: FormBuilder(
             key: _formKey,
             initialValue: const {
@@ -41,8 +43,9 @@ class _DuctDesignScreenState extends State<DuctDesignScreen> {
               'tipoPuerta': 'L2',
             },
             child: Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Card(
                     child: Padding(

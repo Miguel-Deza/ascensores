@@ -126,6 +126,9 @@ class _DuctPlaneTestState extends State<DuctPlaneTest> {
                   ),
                 ),
                 SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {

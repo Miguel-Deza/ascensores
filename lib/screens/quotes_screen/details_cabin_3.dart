@@ -27,7 +27,6 @@ class DetailsCabin3 extends StatelessWidget {
         'pasamanosCabina': '1',
         'dimensionesInternas': 'Anchura x Altura x Profundidad',
         'embarques': '1',
-        
       },
       child: SafeArea(
         child: Padding(
@@ -35,13 +34,13 @@ class DetailsCabin3 extends StatelessWidget {
           child: Column(
             children: [
               const Text(
-                "Detalles de las Cabina",
+                "Detalles de las cabina",
                 style: TextStyle(fontSize: 25),
               ),
               FormBuilderDropdown(
                 name: "tipoCabina",
                 decoration: const InputDecoration(
-                  label: Text("TIPO DE CABINA"),
+                  label: Text("Tipo de cabina"),
                 ),
                 items: const [
                   DropdownMenuItem(
@@ -105,7 +104,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderDropdown(
                 name: "pisoCabina",
                 decoration: const InputDecoration(
-                  label: Text("PISO DE CABINA"),
+                  label: Text("Piso de cabina"),
                 ),
                 items: const [
                   DropdownMenuItem(
@@ -133,7 +132,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderDropdown(
                 name: "techoCabina",
                 decoration: const InputDecoration(
-                  label: Text("TECHO DE CABINA"),
+                  label: Text("Techo de cabina"),
                 ),
                 items: const [
                   DropdownMenuItem(
@@ -189,7 +188,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderDropdown(
                 name: "pasamanosCabina",
                 decoration: const InputDecoration(
-                  label: Text("PASAMANOS DE CABINA"),
+                  label: Text("Pasamanos de cabina"),
                 ),
                 items: const [
                   DropdownMenuItem(
@@ -205,13 +204,13 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTextField(
                 name: "dimensionesInternas",
                 decoration: const InputDecoration(
-                  labelText: 'DIMENSIONES INTERNAS (ANCHO X ALTO X PROFUNDO)',
+                  labelText: 'Dimensiones internas (ancho X alto X profundo)',
                 ),
               ),
               FormBuilderTextField(
                 name: "embarques",
                 decoration: const InputDecoration(
-                  labelText: 'EMBARQUES',
+                  labelText: 'Embarques',
                 ),
               ),
               const Text(
@@ -221,7 +220,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "controladorMarcoPuerta",
                 decoration: const InputDecoration(
-                  labelText: 'Controlador de Marco de Puerta',
+                  labelText: 'Controlador de marco de puerta',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -231,7 +230,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "marcadorAutomatico",
                 decoration: const InputDecoration(
-                  labelText: 'Marcador Automático',
+                  labelText: 'Marcador automático',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -241,7 +240,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "sintetizadorVoz",
                 decoration: const InputDecoration(
-                  labelText: 'Sintetizador de Voz',
+                  labelText: 'Sintetizador de voz',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -261,7 +260,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "interruptorBomberosCOP",
                 decoration: const InputDecoration(
-                  labelText: 'Interruptor de Bomberos COP',
+                  labelText: 'Interruptor de bomberos COP',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -271,7 +270,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "interruptorBomberosLOP",
                 decoration: const InputDecoration(
-                  labelText: 'Interruptor de Bomberos LOP',
+                  labelText: 'Interruptor de bomberos LOP',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -290,7 +289,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "sensorSismico",
                 decoration: const InputDecoration(
-                  labelText: 'Sensor Sísmico',
+                  labelText: 'Sensor sísmico',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -329,7 +328,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "tarjetasInalambricas",
                 decoration: const InputDecoration(
-                  labelText: 'Tarjetas Inalambricas',
+                  labelText: 'Tarjetas inalambricas',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -338,7 +337,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "DisplayTFTCabina",
                 decoration: const InputDecoration(
-                  labelText: 'Display TFT Cabina',
+                  labelText: 'Display TFT cabina',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -348,7 +347,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "DisplayTFTPiso",
                 decoration: const InputDecoration(
-                  labelText: 'Display TFT Piso',
+                  labelText: 'Display TFT piso',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -366,7 +365,7 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "displayLCDCabina",
                 decoration: const InputDecoration(
-                  labelText: 'display LCD Cabina',
+                  labelText: 'Display LCD cabina',
                 ),
                 initialValue: 1,
                 max: 100,
@@ -376,12 +375,12 @@ class DetailsCabin3 extends StatelessWidget {
               FormBuilderTouchSpin(
                 name: "displayLCDPiso",
                 decoration: const InputDecoration(
-                  labelText: 'display LCD Piso',
+                  labelText: 'Display LCD piso',
                 ),
                 initialValue: 1,
                 max: 100,
                 min: 1,
-              ),                          
+              ),
             ],
           ),
         ),

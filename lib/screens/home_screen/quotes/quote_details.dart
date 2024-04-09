@@ -14,7 +14,7 @@ class QuoteDetails extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(children: [
             _buildInfoCard(
-              title: 'Información General del Proyecto',
+              title: 'Información general del proyecto',
               icon: Icons.home,
               children: [
                 ListTile(
@@ -35,7 +35,7 @@ class QuoteDetails extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildInfoCard(
-              title: 'Información General del Proyecto',
+              title: 'Información general del proyecto',
               icon: Icons.info,
               children: [
                 _buildInfoRow('ID', dataQuote['id']),
@@ -45,7 +45,7 @@ class QuoteDetails extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildInfoCard(
-              title: 'Detalles del Elevador',
+              title: 'Detalles del elevador',
               icon: Icons.elevator,
               children: [
                 _buildInfoRow('Marca', dataQuote['brand']),
@@ -74,7 +74,7 @@ class QuoteDetails extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildInfoCard(
-              title: 'Características Adicionales',
+              title: 'Características adicionales',
               icon: Icons.add,
               children: [
                 _buildInfoRow('Controlador del marco',
@@ -104,7 +104,7 @@ class QuoteDetails extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildInfoCard(
-              title: 'Costos y Gastos',
+              title: 'Costos y gastos',
               icon: Icons.attach_money,
               children: [
                 _buildInfoRow('Total', dataQuote['total']),
