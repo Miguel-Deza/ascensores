@@ -80,68 +80,71 @@ class _DuctPlaneTestState extends State<DuctPlaneTest> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Center(
-              child: Screenshot(
-                controller: screenshotController,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Titulo del proyecto",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    TestGraphic(
-                      anchoDucto: widget.dataForm['anchoDucto'],
-                      fondoDucto: widget.dataForm['fondoDucto'],
-                      anchoCabina: widget.dataForm['anchoCabina'],
-                      fondoCabina: widget.dataForm['fondoCabina'],
-                      anchoPuerta: widget.dataForm['anchoPuerta'],
-                    ),
-                    Text("* El gráfico no refleja las medidas exactas")
-                  ],
-                ),
-              ),
-            ), // Centra el TestGraphic() en el espacio disponible
-          ),
-          Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () => printDoc(),
-                  child: const Text(
-                    "PDF",
-                    style: TextStyle(color: Colors.orange),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StudyTraficScreenForm(
-                          dataForm: widget.dataForm,
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Center(
+                child: Screenshot(
+                  controller: screenshotController,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Titulo del proyecto",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    );
-                  },
-                  child: const Text("Estudio de tráfico"),
+                      SizedBox(height: 20),
+                      TestGraphic(
+                        anchoDucto: widget.dataForm['anchoDucto'],
+                        fondoDucto: widget.dataForm['fondoDucto'],
+                        anchoCabina: widget.dataForm['anchoCabina'],
+                        fondoCabina: widget.dataForm['fondoCabina'],
+                        anchoPuerta: widget.dataForm['anchoPuerta'],
+                      ),
+                      Text("* El gráfico no refleja las medidas exactas")
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
-        ],
+              ), // Centra el TestGraphic() en el espacio disponible
+            ),
+            Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton(
+                    onPressed: () => printDoc(),
+                    child: const Text(
+                      "PDF",
+                      style: TextStyle(color: Colors.orange),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StudyTraficScreenForm(
+                            dataForm: widget.dataForm,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text("Estudio de tráfico"),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:ascensores/duct_plane_test.dart';
 import 'package:ascensores/providers/user_auth_provider.dart';
 import 'package:ascensores/screens/create_project_page/duct_design_screen.dart';
 import 'package:ascensores/screens/create_project_page/get_general_data_screen.dart';
+import 'package:ascensores/screens/user_auth/login_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         FormBuilderLocalizations.delegate,
       ],
-      home: DuctDesignScreen(),
+      home: LoginPage(),
       theme: ThemeData(
         colorSchemeSeed: Colors.blueAccent,
         elevatedButtonTheme: ElevatedButtonThemeData(
